@@ -1,0 +1,17 @@
+.img_background{
+    height: 100vh;
+    width: 800px;
+}
+
+.frame{
+    width: "500px";
+    height: "500px";
+    background-color: red;
+}
+
+
+.mark{
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
