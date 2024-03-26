@@ -1,17 +1,89 @@
-.img_background{
+
+.front_container{
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 1;
     height: 100vh;
-    width: 800px;
+    width: 100vw;
+    background:linear-gradient(90deg,transparent ,var(--primary-color) 35vw,var(--primary-dark) 100vw);
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    align-content: center;
+    padding-right: 5%;
+    gap: 3vw;
 }
 
-.frame{
-    width: "500px";
-    height: "500px";
-    background-color: red;
+.ela_logo{
+    height: 4rem;
+    width: 9rem;
+    margin-bottom: 10px;
+    
 }
 
+.title_container{
+    height: 100vh;
+    width: 35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+}
 
-.mark{
+.title_container>h1{
+    font-size: 3rem;
+}
+.title_container>p{
+    font-size: 2rem;
+}
+
+.logIn_container{
+    height: 100vh;
+    width: 30rem;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px 0px var(--light-black);
+}
+
+.logIn_form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 70%;
+}
+.logIn_form>input[type="submit"]{
+    width: 60%;
+    padding: 0.8em 0;
+}
+
+.logIn_guest{
+    background-color: var(--contrast-color);
+    color: var(--primary-light);
+    border: 2px var(--primary-light) solid;
+}
+
+.logIn_container>h2{
+    color: var(--primary-color)
+}
+
+.background_image{
     position: relative;
-    width: 500px;
-    height: 500px;
+    right: 50vw;
+    height: 100vh;
+    width: 100vw;
+}
+
+.minilogo_image{
+    height: 5rem;
+    width: 5rem;
+    margin-bottom: 50px;
 }

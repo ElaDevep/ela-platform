@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
-import { Varela_Round } from "next/font/google";
 import "./globals.css";
+import { VarelaFont,MPlusFont,QuicksandFont } from "./lib/fonts/fonts";
 
-const inter = Varela_Round({
-  weight:"400",
-  preload: false
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}> 
+      <body className={QuicksandFont.className}> 
         {children}
       </body>
     </html>
