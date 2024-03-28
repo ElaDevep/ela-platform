@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react"
 
 
-export interface Form{
+export interface FormT{
     id?:string
     method?:"GET"|"POST"
     onSubmit?:()=>void
@@ -9,13 +9,14 @@ export interface Form{
     className?:string
     autofocus?:boolean
 }
-export interface GeneralInput{
+export interface GeneralInputT{
     tabIndex?:boolean|number
     className?:string
     disable?:boolean
+    id?:string
 }
 
-export interface UserInput extends GeneralInput{
+export interface UserInputT extends GeneralInputT{
     label?:string
     value?:any
     autofocus?:boolean
@@ -25,7 +26,7 @@ export interface UserInput extends GeneralInput{
 
 }
 
-export interface TextInput extends UserInput{
+export interface TextInputT extends UserInputT{
     placeholder?:string
     autocomplete?:string
     minLength?:number
@@ -34,7 +35,7 @@ export interface TextInput extends UserInput{
     readonly?:boolean   
 }
 
-export interface Submit extends GeneralInput {
+export interface SubmitT extends GeneralInputT {
     formtarget?:string
     src?:string
     size?:number

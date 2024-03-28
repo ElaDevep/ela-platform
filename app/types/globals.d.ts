@@ -14,25 +14,14 @@ declare global {
       fill?:boolean
     }
 
-    // class Props{
-    //   constructor(){}
-      
-    //   addProps(prop:object){
-    //       Object.assign(this,prop)
-    //   }
-
-    //   addPropsIfExist(prop:object,ifProp:any){
-    //     if(ifProp){
-    //       this.addProps(prop)
-    //     }
-    //   }
-
-    //   addPropsIfAllTrue(prop:object,conditions:boolean[]){
-    //     conditions.forEach(condition => {
-    //       if(!condition) return
-    //     });
-    //     this.addProps(prop)
-    //   }
-
-    // }
+    interface ButtonT{
+      id?:string
+      text?:string
+      action:()=>any
+      className?:string
+      autofocus?:boolean
+      disable?:boolean
+      tabIndex?:boolean|number
+      children:React.ReactNode
+    }
 }

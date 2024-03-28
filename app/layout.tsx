@@ -1,7 +1,20 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { VarelaFont,MPlusFont,QuicksandFont } from "./lib/fonts/fonts";
+import useScreenSize from "./hooks/useScreenSize";
 
+
+const deviceIdentify = () =>{
+  
+  // if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+  //   //@ts-ignore
+  //   global.device="mobile"
+  // } else {
+  //   //@ts-ignore
+  //   global.device="desk"
+  // }
+}
 
 export const metadata: Metadata = {
   title: "Create Next App",

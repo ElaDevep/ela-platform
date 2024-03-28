@@ -2,7 +2,7 @@
 
 import type { CSSProperties } from "react";
 import MixStyles from "@/app/lib/actions/MixStyles";
-import type { Form } from "./form/Form";
+import type { FormT } from "./form/Form";
 import React, { Children, cloneElement } from "react";
 
 
@@ -29,7 +29,7 @@ const childrenOrganization = (children:React.ReactNode,autofocus:boolean|undefin
     return childrenResult
 }
 
-const Form: React.FC<Form> = ({className,onSubmit,children,autofocus}) => {
+const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
 
     return(
         <form className={className} onSubmit={onSubmit}>

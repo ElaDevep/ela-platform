@@ -1,4 +1,9 @@
 
+.main{
+    width: 100vw;
+    height: 100vh;
+}
+
 .front_container{
     position: absolute;
     top:0;
@@ -10,16 +15,17 @@
     display: flex;
     justify-content: flex-end;
     flex-wrap: nowrap;
+    flex-direction: row;
     align-content: center;
     padding-right: 5%;
     gap: 3vw;
+    transition: top 2s ease-in-out;
 }
 
 .ela_logo{
     height: 4rem;
     width: 9rem;
     margin-bottom: 10px;
-    
 }
 
 .title_container{
@@ -30,14 +36,9 @@
     justify-content: center;
     flex-wrap: wrap;
     align-content: center;
+    font-size: 1.5rem;
 }
 
-.title_container>h1{
-    font-size: 3rem;
-}
-.title_container>p{
-    font-size: 2rem;
-}
 
 .logIn_container{
     height: 100vh;
@@ -61,7 +62,7 @@
     width: 70%;
 }
 .logIn_form>input[type="submit"]{
-    width: 60%;
+    width: calc(60% + 2em);
     padding: 0.8em 0;
 }
 
@@ -86,4 +87,64 @@
     height: 5rem;
     width: 5rem;
     margin-bottom: 50px;
+}
+
+@media screen and (max-width:1000px) {
+    .main{
+        overflow-y: scroll;
+        width: 100vh;
+    }
+
+    .front_container{
+        flex-direction: column;
+        height: 200vh;
+        background:linear-gradient(180deg,transparent ,var(--primary-color) 35vh,var(--primary-dark) 100vh);
+        padding: 0;
+        gap:0
+    }
+
+    .to_logIn{
+        top:-100vh;
+    }
+
+
+    .background_image{
+        position: relative;
+        right: 0;
+        height: 100vw;
+        width: 100vw;
+    }
+
+    .title_container{
+        padding: 2.5em;
+        height: 100vh;
+        width: 100%;
+        font-size: 1.3rem;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .logIn_container{
+        width: 100vw;
+        height: 100vh;
+        box-shadow: unset;
+    }
+
+    .to_logIn_button{
+        padding: 0.5em 2em;
+        margin-top: 2em;
+        background:var(--contrast-color);
+        color: var(--primary-light);
+        font-weight: 500;
+        border-radius: var(--root-border-radius);
+    }
+    
+    .to_logIn_button{
+        padding: 0.5em 2em;
+        margin-top: 2em;
+        background:var(--contrast-color);
+        color: var(--primary-light);
+        font-weight: 500;
+        border-radius: var(--root-border-radius);
+    }
 }

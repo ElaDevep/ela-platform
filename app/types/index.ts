@@ -29,7 +29,6 @@ export class Props{
     }
 
     addPropsIfAllTrueElse(prop:object,conditions:boolean[],elseProp:object){
-      console.log(conditions)
       for(let condition of conditions){
         if(!condition) {
           this.addProps(elseProp)

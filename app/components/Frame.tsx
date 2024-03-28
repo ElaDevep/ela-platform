@@ -2,44 +2,29 @@ import styles from "./Frame.module.css"
 import Image, { StaticImageData } from "next/image";
 import type { CSSProperties } from "react";
 import MixStyles from "@/app/lib/actions/MixStyles";
+import { Props } from "../types";
 
-const ImageFit = (frame:FrameT) =>{
-    let imageFit:CSSProperties = {
-        objectFit:'contain'
-    };
-
-    if(frame.cover){
-        imageFit.objectFit = 'cover';
-    }
-    else if(frame.fill){
-        imageFit.objectFit = 'fill'
-    }
-
-    return(imageFit)
-}
 const Frame: React.FC<FrameT> = ({filter,container,contain,cover,fill,src,alt}) => {
-    const frame:FrameT = {
-        filter: filter,
-        container:container,
-        src:src,
-        alt:alt,
-        contain:contain,
-        cover:cover,
-        fill:fill
-    }
+    
+    let imageProps = new Props()
 
-    const containerStyles:string = MixStyles(styles.container,frame.container)
+    imageProps.addPropsIfExist({styles:{objectFit:'fill'}},fill)
+    imageProps.addPropsIfExist({styles:{objectFit:'cover'}},cover)
+    imageProps.addPropsIfExist({styles:{objectFit:'contain'}},contain)
 
-    const filterStyles:string = MixStyles(styles.filter,frame.filter)
+    const containerStyles:string = MixStyles(styles.container,container)
+
+    const filterStyles:string = MixStyles(styles.filter,filter)
+
     return(
         <div className={containerStyles}>
             <div className={filterStyles}></div>
             <Image
-            src = {frame.src}
-            alt = {frame.alt}
+            src = {src}
+            alt = {alt}
             sizes={"1000px"}
             fill
-            style={ImageFit(frame)}
+            {...imageProps}
             />
         </div>
     )

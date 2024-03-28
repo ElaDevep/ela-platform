@@ -24,6 +24,7 @@
 }
 
 .input_textField{
+    all:unset;
     padding: 2px;
     font-size: inherit;
     font-family: inherit;
@@ -35,16 +36,18 @@
     color: inherit;
     width: 100%;
     padding: 0.5rem;
+    transition: transform 0.5s ease-in-out;
+}
+
+.input_textField:hover{
+    transform: scale(1.05);
 }
 
 .input_textField:focus{
-    all:revert();
-    border-radius: 0;
-    border: none;
-    border-bottom: var(--primary-color) 2px solid;
-    box-shadow: none;
-    width: 100%;
+    border-color: var(--primary-light);
+    transform: scale(1);
 }
+
 
 .input_error{
     color: red;

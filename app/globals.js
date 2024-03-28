@@ -1,0 +1,1 @@
+module.exports = global.device = null

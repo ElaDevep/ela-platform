@@ -1,10 +1,10 @@
 import { useState, type CSSProperties } from "react";
 import MixStyles from "@/app/lib/actions/MixStyles";
-import type { TextInput } from "./Form";
+import type { TextInputT } from "./Form";
 import styles from "./Form.module.css"
 import { Props } from "@/types"
 
-const TextField: React.FC<TextInput> = ({label,name,tabIndex,require,autofocus,autocomplete,}) => {
+const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,autocomplete,}) => {
     const [error,setError] = useState(false);
 
     let props = new Props()

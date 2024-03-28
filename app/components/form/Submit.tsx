@@ -1,9 +1,9 @@
-import { Submit } from "./Form";
+import { SubmitT } from "./Form";
 import styles from "./Form.module.css"
 import { Props } from "@/app/types";
 import MixStyles from "@/app/lib/actions/MixStyles";
 
-const Submit: React.FC<Submit> = ({text,tabIndex,size,src,formtarget,className}) => {
+const Submit: React.FC<SubmitT> = ({text,tabIndex,size,src,formtarget,className}) => {
     let props = new Props()
     
     props.addPropsIfAllTrueElse({
@@ -18,11 +18,6 @@ const Submit: React.FC<Submit> = ({text,tabIndex,size,src,formtarget,className})
 
     props.addPropsIfAllTrue({tabIndex:tabIndex},[
         typeof tabIndex == 'number'
-    ])
-
-    console.log([
-        src != undefined,
-        size != undefined
     ])
 
     props.addPropsIfAllTrueElse({
