@@ -1,7 +1,7 @@
 
 import type { Metadata } from "next";
 import "./globals.css";
-import { VarelaFont,MPlusFont,QuicksandFont } from "./lib/fonts/fonts";
+import {QuicksandFont } from "./lib/fonts/fonts";
 import useScreenSize from "./hooks/useScreenSize";
 
 

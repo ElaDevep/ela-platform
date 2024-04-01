@@ -14,15 +14,14 @@ const childrenOrganization = (children:React.ReactNode,autofocus:boolean|undefin
         let props = {
             //@ts-ignore
             ...child.props,
-            tabIndex: true,
-            key:index
+            tabIndex: true
         }
         if(index==0 && autofocus){
             props.autofocus=true
         }
         return(
             //@ts-ignore
-            <child.type {...props}/>
+            <child.type key={index} {...props}/>
         )
     })
 
