@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    basePath: "/",
+    basePath: "https://eladevep.github.io/ela-platform/",
     output: "export",
     reactStrictMode: true
 };
