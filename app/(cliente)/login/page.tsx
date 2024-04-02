@@ -10,7 +10,6 @@ import { TextField,Submit } from "@/components/form/Inputs"
 import Button from "@/app/components/Button";
 import { useEffect, useState } from "react";
 import MixStyles from "@/app/lib/actions/MixStyles";
-import DeviceType from "@/app/lib/actions/DeviceType";
 
 
 
