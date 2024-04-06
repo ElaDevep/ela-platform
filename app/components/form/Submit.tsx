@@ -16,9 +16,9 @@ const Submit: React.FC<SubmitT> = ({text,tabIndex,size,src,formtarget,className}
 
     props.addPropsIfExist({tabIndex:'0'},tabIndex)
 
-    props.addPropsIfAllTrue({tabIndex:tabIndex},[
-        typeof tabIndex == 'number'
-    ])
+    // props.addPropsIfAllTrue({tabIndex:tabIndex},[
+    //     typeof tabIndex == 'number'
+    // ])
 
     props.addPropsIfAllTrueElse({
         type:'image',

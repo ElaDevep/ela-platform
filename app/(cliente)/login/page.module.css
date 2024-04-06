@@ -2,6 +2,11 @@
 .main{
     width: 100vw;
     height: 100vh;
+    scrollbar-width: 0;
+}
+
+.main *{
+    scrollbar-width: 0;
 }
 
 .front_container{
@@ -89,13 +94,13 @@
     margin-bottom: 50px;
 }
 
-@media screen and (max-width:1000px) {
-    .main{
+
+.verticalRelation .main{
         overflow-y: scroll;
-        width: 100vh;
+        width: 100vw;
     }
 
-    .front_container{
+.verticalRelation .front_container{
         flex-direction: column;
         height: 200vh;
         background:linear-gradient(180deg,transparent ,var(--primary-color) 35vh,var(--primary-dark) 100vh);
@@ -103,19 +108,19 @@
         gap:0
     }
 
-    .to_logIn{
+.verticalRelation .to_logIn{
         top:-100vh;
     }
 
 
-    .background_image{
+.verticalRelation .background_image{
         position: relative;
         right: 0;
         height: 100vw;
         width: 100vw;
     }
 
-    .title_container{
+.verticalRelation .title_container{
         padding: 2.5em;
         height: 100vh;
         width: 100%;
@@ -124,13 +129,13 @@
         text-align: center;
     }
     
-    .logIn_container{
+.verticalRelation .logIn_container{
         width: 100vw;
         height: 100vh;
         box-shadow: unset;
     }
 
-    .to_logIn_button{
+.verticalRelation .to_logIn_button{
         padding: 0.5em 2em;
         margin-top: 2em;
         background:var(--contrast-color);
@@ -139,7 +144,7 @@
         border-radius: var(--root-border-radius);
     }
     
-    .to_logIn_button{
+.verticalRelation .to_logIn_button{
         padding: 0.5em 2em;
         margin-top: 2em;
         background:var(--contrast-color);
@@ -147,4 +152,3 @@
         font-weight: 500;
         border-radius: var(--root-border-radius);
     }
-}

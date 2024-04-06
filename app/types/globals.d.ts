@@ -24,4 +24,27 @@ declare global {
       tabIndex?:boolean|number
       children:React.ReactNode
     }
+
+    interface BreakPointT{
+      width?:number
+      heigh?:number
+      relation?:number[]
+    }
+
+    interface ResponsiverT{
+      className:string
+      breakPoints?:BreakPointT
+      isMobile?:boolean
+      isDesk?:boolean
+      children: React.ReactNode
+    }
+
+    interface ActionUsePropsT{
+      type:string
+      prop:object
+      exist?:!undefined
+      conditions?:boolean[]
+      elseProp?:object
+    }
+
 }

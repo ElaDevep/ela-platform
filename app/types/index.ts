@@ -22,9 +22,9 @@ export class Props{
     }
 
     addPropsIfAllTrue(prop:object,conditions:boolean[]){
-      conditions.forEach(condition => {
+      for(let condition of conditions){
         if(!condition) return
-      });
+      };
       this.addProps(prop)
     }
 
@@ -36,5 +36,14 @@ export class Props{
         }
       }
       this.addProps(prop)
+    }
+
+    addPropsIfSomeTrue(prop:object,conditions:boolean[]){
+      for(let condition of conditions){
+        if(condition) {
+          this.addProps(prop)
+          return
+        }
+      }
     }
   }
