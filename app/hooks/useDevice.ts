@@ -1,8 +1,7 @@
 'use client'
 
-import { useCallback, useEffect, useState } from "react"
 import useScreenSize from "./useScreenSize"
-
+import {  useEffect, useState } from "react"
 // const RelationScreen = (width:number,height:number) =>{
 //     let relation:number[] = [width,height]
     

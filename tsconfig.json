@@ -22,9 +22,10 @@
       "@/*": ["./*"],
       "@/public/*":["./public/*"],
       "@/actions/*":["./app/lib/actions/*"],
-      "@/components/*":["./app/components/*"],
+      "@/ela-components":["./app/components/ela-components"],
+      "@/ela-form":["./app/components/form/ela-form"],
       "@/types":["./app/types/index.ts"],
-      "@/hooks":["./app/hooks/*"]
+      "@/ela-hooks":["./app/hooks/ela-hooks"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Frame.tsx", "app/globals.js"],

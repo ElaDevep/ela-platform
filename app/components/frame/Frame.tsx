@@ -1,8 +1,7 @@
 import styles from "./Frame.module.css"
-import Image, { StaticImageData } from "next/image";
-import type { CSSProperties } from "react";
+import Image from "next/image";
 import MixStyles from "@/app/lib/actions/MixStyles";
-import { Props } from "../types";
+import { Props } from "../../types";
 
 const Frame: React.FC<FrameT> = ({filter,container,contain,cover,fill,src,alt}) => {
     

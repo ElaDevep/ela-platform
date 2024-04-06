@@ -1,6 +1,3 @@
-import type { CSSProperties } from "react"
-
-
 export interface FormT{
     id?:string
     method?:"GET"|"POST"

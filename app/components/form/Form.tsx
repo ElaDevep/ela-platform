@@ -1,11 +1,8 @@
 'use client'
 
-import type { CSSProperties } from "react";
-import MixStyles from "@/app/lib/actions/MixStyles";
-import type { FormT } from "./form/Form";
-import React, { Children, cloneElement } from "react";
-import { Props } from "../types";
-import { channel } from "diagnostics_channel";
+import type { FormT } from "./types"
+import React, { Children } from "react"
+import { Props } from "../../types"
 
 
 const childrenOrganization = (children:React.ReactNode,autofocus:boolean|undefined) =>{

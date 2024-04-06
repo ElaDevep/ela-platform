@@ -1,37 +1,30 @@
 'use client'
 
-import Frame from "@/components/Frame";
+import Frame from "@/app/components/frame/Frame";
 import styles from "./page.module.css"
-import background_image from "@/public/fondo_login.jpg"
+import background_image from "@/public/jpg/fondo_login.jpg"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
 import ela_logo from "@/public/svg/logotipo_ela.svg"
-import Form from "@/components/Form";
-import { TextField,Submit } from "@/components/form/Inputs"
-import Button from "@/app/components/Button";
-import Responsiver from "@/app/components/Responsiver";
-import { useEffect, useState } from "react";
+import { Form,TextField,Submit } from "@/ela-form"
+import {Responsiver,Button} from "@/ela-components";
 import MixStyles from "@/app/lib/actions/MixStyles";
-import useDevice from "@/app/hooks/useDevice";
+import useProps from "@/app/hooks/useProps/useProps";
 
 
 
 
-export default function Home() {
-    const [frontStyle,setFrontStyle] = useState(styles.front_container)
-    const {mobile,relationMinorThan,relation} = useDevice()
+export default function LogIn() {
+    const [frontProps,setFrontProps] = useProps((props)=>{
+        props.addProps({className:styles.front_container})
+        return props
+    })
 
     const ScrollToSignIn = async () => {
-        setFrontStyle(MixStyles(styles.front_container,styles.to_logIn))
+        setFrontProps({
+            type:'Add',
+            prop:{className:MixStyles(styles.front_container,styles.to_logIn)}
+        })
     }
-    const frame: FrameT = {
-        filter: styles.mark,
-        src:background_image,
-        alt:"background_image"
-    }
-    
-    // useEffect(()=>{
-    //     console.log(relationMinorThan([4,3]))|| relationMinorThan([4,3])
-    // })
 
     return (
         <Responsiver className={styles.verticalRelation} 
@@ -45,9 +38,9 @@ export default function Home() {
                 src={background_image}
                 container = {styles.background_image}
                 alt="background_image"
-                cover
+                contain
             />
-            <div className={frontStyle}>
+            <div {...frontProps}>
                 <div className={styles.title_container}>
                     <Frame
                         src={ela_logo}

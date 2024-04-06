@@ -1,7 +1,8 @@
 'use client'
 
-import { Dispatch, DispatchWithoutAction, ReducerAction, ReducerState, useReducer } from "react"
-import { Props } from "../types"
+import { useReducer } from "react"
+import { Props } from "../../types"
+import { ActionUsePropsT } from "./type"
 
 
 const reducer = (state:object,action:ActionUsePropsT) =>{

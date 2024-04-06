@@ -1,6 +1,8 @@
+'use client'
+
 import { useState, type CSSProperties } from "react";
 import MixStyles from "@/app/lib/actions/MixStyles";
-import type { TextInputT } from "./Form";
+import type { TextInputT } from "./types";
 import styles from "./Form.module.css"
 import { Props } from "@/types"
 

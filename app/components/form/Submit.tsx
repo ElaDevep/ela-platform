@@ -1,7 +1,9 @@
-import { SubmitT } from "./Form";
+'use client'
+
+import { SubmitT } from "./types";
 import styles from "./Form.module.css"
 import { Props } from "@/app/types";
-import MixStyles from "@/app/lib/actions/MixStyles";
+import MixStyles from "@/actions/MixStyles";
 
 const Submit: React.FC<SubmitT> = ({text,tabIndex,size,src,formtarget,className}) => {
     let props = new Props()
