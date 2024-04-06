@@ -18,24 +18,27 @@ const reducer = (state:object,action:ActionUsePropsT) =>{
             if(action.conditions != undefined)
             props.addPropsIfAllTrue(action.prop,action.conditions)
             break
-        case 'AppIfExistElse':
+        case 'AddIfExistElse':
             if(action.elseProp != undefined)
             props.addPropsIfExistElse(action.prop,action.exist,action.elseProp)
+            break
         case 'AddIfAllTrueElse':
             if(action.elseProp != undefined && action.conditions != undefined)
             props.addPropsIfExistElse(action.prop,action.conditions,action.elseProp)
+            break
+        case 'AddIfSomeTrue':
+            if(action.conditions != undefined)
+            props.addPropsIfSomeTrue(action.prop,action.conditions)
+            break
             
     }
-    return state
+    return props
 }
 
 //<()=>[ReducerState<any>,Dispatch<ReducerAction<any>>]>initialFoo:(props:Props)=>Props
-const useProps = () => {
-    let props = new Props()
-    
-    const j = useReducer(reducer,{cosa:':v'})
-    
-    return ['a','b']
+const useProps = (initial:(props:Props)=>Props) => {
+    const prop = initial(new Props())
+    return useReducer(reducer,prop)
 }
 
 export default useProps
