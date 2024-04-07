@@ -1,7 +1,7 @@
 'use client'
 
 import Frame from "@/app/components/frame/Frame";
-import styles from "./page.module.css"
+import styles from "./page.module.scss"
 import background_image from "@/public/jpg/fondo_login.jpg"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
 import ela_logo from "@/public/svg/logotipo_ela.svg"

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./globals.scss";
 import {QuicksandFont } from "./lib/fonts/fonts";
 
 export const metadata: Metadata = {

@@ -1,4 +1,4 @@
-import styles from "./Frame.module.css"
+import styles from "./Frame.module.scss"
 import Image from "next/image";
 import MixStyles from "@/app/lib/actions/MixStyles";
 import { Props } from "../../types";
