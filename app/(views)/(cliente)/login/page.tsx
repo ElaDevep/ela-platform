@@ -52,16 +52,15 @@ export default function LogIn() {
                 src={background_image}
                 container = {styles.background_image}
                 alt="background_image"
-                contain
+                cover
             />
-            <div className={styles.front_container}></div>
             <div {...frontProps}>
                 <div className={styles.title_container}>
                     <Frame
                         src={ela_logo}
                         alt="ela_logotipo"
                         container = {styles.ela_logo}
-                        fill
+                        contain
                     />
                     <h1>Bienvenido a ELA APP</h1>
                     <p>El lugar para ver los beneficios que la sostenibilidad trae a tu empresa.</p>
@@ -73,6 +72,7 @@ export default function LogIn() {
                     src={ela_minilogo}
                     alt={"ela_logo"}
                     container={styles.minilogo_image}
+                    contain
                     />
                     <h2>Iniciar Sesión</h2>
                     <Form className={styles.logIn_form} onSubmit={LogInHandler} >

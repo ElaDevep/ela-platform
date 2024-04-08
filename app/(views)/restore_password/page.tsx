@@ -35,7 +35,7 @@ export default function PasswordRestore() {
                     src={ela_minilogo}
                     alt={"ela_logo"}
                     container={styles.minilogo_image}
-                    contain
+                    cover
                     />
                     <h3>Recuperación de contraseña</h3>
                     <p>Ingresa tu correo, verificaremos tu estado en el sistema y de inmediato te enviaremos un código de recuperación.</p>

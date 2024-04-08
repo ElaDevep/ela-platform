@@ -7,21 +7,15 @@ import { useEffect } from "react";
 
 const Frame: React.FC<FrameT> = ({filter,container,contain,cover,fill,src,alt}) => {
     
-    
-    let [imageProps,setImageProps] = useProps((props)=>{
-        props.addPropsIfExist({styles:{objectFit:'fill'}},fill)
-        props.addPropsIfExist({styles:{objectFit:'cover'}},cover)
-        props.addPropsIfExist({styles:{objectFit:'contain'}},contain)
-        return props
-    })
+
+    let imageProps = new Props()
+    imageProps.addPropsIfExist({style:{objectFit:'fill'}},fill)
+    imageProps.addPropsIfExist({style:{objectFit:'cover'}},cover)
+    imageProps.addPropsIfExist({style:{objectFit:'contain'}},contain)
 
     const containerStyles:string = MixStyles(styles.container,container)
 
     const filterStyles:string = MixStyles(styles.filter,filter)
-
-    useEffect(()=>{
-        console.log(imageProps)
-    },[])
 
     return(
         <div className={containerStyles}>
