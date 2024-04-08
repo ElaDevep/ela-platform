@@ -9,7 +9,7 @@ import { ResponsiverT } from "./types"
 const Responsiver: React.FC<ResponsiverT> = ({className,isMobile,isDesk,children,breakPoints}) => {
     const {mobile,desk,relationMinorThan,relation,width,height} = useDevice()
     const [breakCheck,setBreakCheck] = useState<boolean>(false)
-    const [trueProps,setTrueProps] = useProps((propsT)=>{
+    const [props,setProps] = useProps((propsT)=>{
         propsT.addPropsIfSomeTrue({className:className},[
             (isMobile==undefined)?false:mobile,
             (isDesk==undefined)?false:desk,
@@ -24,11 +24,11 @@ const Responsiver: React.FC<ResponsiverT> = ({className,isMobile,isDesk,children
         for(let bp in breakPoints){
             if(bp=='width'){
                 //@ts-ignore
-                check = (width < breakPoints?.width)?true:false
+                check = (width < breakPoints.width)?true:false
             }
             if(bp=='relation'){
                 //@ts-ignore
-                check = relationMinorThan(breakPoints?.relation[0],breakPoints?.relation[1])
+                check = relationMinorThan(breakPoints.relation[0],breakPoints.relation[1])
             }
             if(bp=='heigh'){
                 //@ts-ignore
@@ -45,7 +45,7 @@ const Responsiver: React.FC<ResponsiverT> = ({className,isMobile,isDesk,children
     },[relation])
 
     useEffect(()=>{
-        setTrueProps({
+        setProps({
             type:'AddIfSomeTrue',
             prop:{className:className},
             conditions:[
@@ -57,7 +57,7 @@ const Responsiver: React.FC<ResponsiverT> = ({className,isMobile,isDesk,children
     },[breakCheck])
 
     return(
-        <div {...trueProps}>
+        <div {...props}>
         {children}
         </div>
     )

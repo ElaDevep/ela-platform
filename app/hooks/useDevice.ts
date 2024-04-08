@@ -53,21 +53,20 @@ const useDevice = () =>{
 
     const relationMinorThan = (width:number,height:number) =>{
         let relationRef= width/height
-        return relation<=relationRef
+        return (relation<=relationRef)
     }
     
 
     
     const relationEqualThan = (width:number,height:number) =>{
         let relationRef= width/height
-        return relation==relationRef
+        return (relation==relationRef)
     }
 
     
     const relationHigherThan = (width:number,height:number) =>{
         let relationRef= width/height
-        setRelationCompare(relation>relationRef)
-        return relation
+        return (relation>=relationRef)
     }
 
     return {mobile,desk,relation,relationEqualThan,relationHigherThan,relationMinorThan,width,height}

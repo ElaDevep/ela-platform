@@ -1,0 +1,111 @@
+@import '@/global-styles'
+    
+.main
+    width: 100vw
+    height: 100vh
+    scrollbar-width: 0
+
+
+.front_container
+    position: absolute
+    background: linear-gradient(90deg,transparent ,$primary-color 35vw,$primary-dark 100vw)
+    top:0
+    left: 0
+    z-index: 1
+    height: 100vh
+    width: 100vw
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-wrap: wrap
+    flex-direction: row
+    transition: top 0 ease-in-out
+
+
+.emailSubmit_container
+    height: min-content
+    width: 40vw
+    background-color: white
+    display: flex
+    flex-wrap: wrap
+    flex-direction: column
+    padding: 2rem 4rem
+    align-items: center
+    gap: 1rem
+    border-radius: $root-border-radius*2
+    box-shadow: 0 0 20px 0px $light-black
+    color: $light-black
+    
+    h3
+        color: $primary-color
+
+
+.logIn_form
+    display: flex
+    flex-direction: column
+    flex-wrap: wrap
+    justify-content: center
+    align-items: center
+    gap: 10px
+    width: 100%
+
+    input[type="submit"]
+        width: calc(60% + 2em)
+        padding: 0.8em 0
+
+
+.logIn_guest
+    background-color: $contrast-color
+    color: $primary-light
+    border: 2px $primary-light solid
+
+.background_image
+    position: relative
+    right: 50vw
+    height: 100vh
+    width: 100vw
+
+
+.minilogo_image
+    height: 5rem
+    width: 5rem
+
+
+.verticalRelation 
+    .main
+        overflow-y: scroll
+        width: 100vw
+    
+
+    .front_container
+        transition: top 2s ease-in-out
+        flex-direction: column
+        height: 100vh
+        background: linear-gradient(180deg,transparent ,$primary-color 35vw,$primary-dark 100vw)
+        padding: 0
+        gap:0
+    
+
+    .to_logIn
+        top:-100vh
+    
+    .background_image
+        position: relative
+        right: 0
+        height: 100vw
+        width: 100vw
+    
+    
+    .logIn_container
+        width: 100vw
+        height: 100vh
+        box-shadow: unset
+    
+    .to_logIn_button
+        visibility: visible
+        padding: 0.5em 2em
+        margin-top: 2em
+        background: $contrast-color
+        color: $primary-light
+        font-weight: 500
+        border-radius: $root-border-radius

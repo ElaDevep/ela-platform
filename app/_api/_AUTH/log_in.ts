@@ -5,10 +5,9 @@ import { postingAPI } from "../axios"
 import { cookies } from "next/headers"
 
 const logIn = async (userLogIn:object) =>{
-    console.log(':v')
     const status = (await postingAPI('/auth/login',userLogIn)).status
     
-    console.log(status)
+    //console.log(status)
     if(status=='ok'){
         cookies().set('role','user')
         redirect('/')

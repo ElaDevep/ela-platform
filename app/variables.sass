@@ -25,3 +25,14 @@ $light-black: #2F2F2F
         @media screen and (min-width: list.nth($break-points,$i))
             #{$atribute}: list.nth($values,$i)
 
+@mixin setAllTextColor($color)
+    $texts:h1,h2,h3,h4,h5,h6,p,label
+    @each $element in $texts
+        #{$element}
+            color:$color
+
+
+@mixin setSomeTextColor($color,$texts)
+    @each $element in $texts
+        #{$element}
+            color:$color

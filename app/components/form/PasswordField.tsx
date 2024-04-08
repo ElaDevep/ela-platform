@@ -6,7 +6,7 @@ import type { TextInputT } from "./types";
 import styles from "./Form.module.sass"
 import { Props } from "@/types"
 
-const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,autocomplete,getValue,placeholder}) => {
+const PasswordField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,autocomplete,getValue,placeholder}) => {
     const [error,setError] = useState(false);
     const [value,setValue] = useState<string>();
 
@@ -26,7 +26,7 @@ const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,
             {label &&
             <label htmlFor={name} className={styles.generic_label}>{label} </label>
             }
-            <input type="text" name={name} id={name} className={styles.input_textField} placeholder={placeholder} {...props}
+            <input type="password" name={name} id={name} className={styles.input_textField} placeholder={placeholder} {...props}
             onChange={(e)=>{changeHandler(e.target.value)}}/>
             {error &&
             <p className={styles.input_error}>Error</p>
@@ -36,4 +36,4 @@ const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,
 
 }
 
-export default TextField
+export default PasswordField

@@ -8,7 +8,7 @@ import ela_logo from "@/public/svg/logotipo_ela.svg"
 import { Form,TextField,Submit } from "@/ela-form"
 import {Responsiver,Button} from "@/ela-components";
 import MixStyles from "@/app/lib/actions/MixStyles";
-import useProps from "@/app/hooks/useProps/useProps";
+import { useProps } from "@/ela-hooks";
 import { useState } from "react";
 import logIn from "@/app/_api/_AUTH/log_in";
 import { usePathname } from "next/navigation";
@@ -45,8 +45,7 @@ export default function LogIn() {
         <Responsiver className={styles.verticalRelation} 
         isMobile
         breakPoints={{
-            relation:[2,10],
-            width:1000
+            relation:[12,10]
         }}>
             <main className={styles.main}>
             <Frame
