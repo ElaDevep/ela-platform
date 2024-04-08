@@ -1,7 +1,7 @@
 export interface FormT{
     id?:string
     method?:"GET"|"POST"
-    onSubmit?:()=>void
+    onSubmit:()=>void
     children:React.ReactNode
     className?:string
     autofocus?:boolean
@@ -30,6 +30,7 @@ export interface TextInputT extends UserInputT{
     maxLength?:number
     pattern?:string
     readonly?:boolean   
+    getValue:(value:string)=>void
 }
 
 export interface SubmitT extends GeneralInputT {

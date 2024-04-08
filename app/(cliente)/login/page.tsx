@@ -9,20 +9,35 @@ import { Form,TextField,Submit } from "@/ela-form"
 import {Responsiver,Button} from "@/ela-components";
 import MixStyles from "@/app/lib/actions/MixStyles";
 import useProps from "@/app/hooks/useProps/useProps";
+import { useState } from "react";
+import logIn from "@/app/_api/_AUTH/log_in";
+import { usePathname } from "next/navigation";
 
 
 
 
 export default function LogIn() {
+    const [user,setUser] = useState<string>()
+    const [password,setPassword] = useState<string>()
     const [frontProps,setFrontProps] = useProps((props)=>{
         props.addProps({className:styles.front_container})
         return props
     })
+    const router = usePathname()
 
     const ScrollToSignIn = async () => {
         setFrontProps({
             type:'Add',
             prop:{className:MixStyles(styles.front_container,styles.to_logIn)}
+        })
+    }
+
+    const LogInHandler = async() =>{
+        console.log(user)
+        console.log(password)
+        await logIn({
+            email:user,
+            password:password
         })
     }
 
@@ -61,9 +76,9 @@ export default function LogIn() {
                     container={styles.minilogo_image}
                     />
                     <h2>Iniciar Sesión</h2>
-                    <Form className={styles.logIn_form} >
-                        <TextField name={"email"} label="Correo"/>
-                        <TextField name={"password"} label="Contraseña"/>
+                    <Form className={styles.logIn_form} onSubmit={LogInHandler} >
+                        <TextField name={"email"} label="Correo" getValue={setUser}/>
+                        <TextField name={"password"} label="Contraseña" getValue={setPassword}/>
                         <Submit text="Ingresar"/>
                         <Submit text="Entrar como invitado" className={styles.logIn_guest}/>
                     </Form>

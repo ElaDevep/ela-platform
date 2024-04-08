@@ -32,8 +32,12 @@ const childrenOrganization = (children:React.ReactNode,autofocus:boolean|undefin
 
 const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
 
+    const submitHandler = (e:any) =>{
+        e.preventDefault()
+        onSubmit()
+    }
     return(
-        <form className={className} onSubmit={onSubmit} method="POST">
+        <form className={className} onSubmit={submitHandler} method="POST">
             {childrenOrganization(children,autofocus)}
         </form>
     )
