@@ -53,7 +53,7 @@ const useDevice = () =>{
 
     const relationMinorThan = (width:number,height:number) =>{
         let relationRef= width/height
-        return relation<relationRef
+        return relation<=relationRef
     }
     
 

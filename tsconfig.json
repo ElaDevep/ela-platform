@@ -25,7 +25,8 @@
       "@/ela-components":["./app/components/ela-components"],
       "@/ela-form":["./app/components/form/ela-form"],
       "@/types":["./app/types/index.ts"],
-      "@/ela-hooks":["./app/hooks/ela-hooks"]
+      "@/ela-hooks":["./app/hooks/ela-hooks"],
+      "@/global-styles":["./app/variables.sass"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Frame.tsx", "app/globals.js"],

@@ -1,0 +1,27 @@
+@use 'sass:list'
+//Puntos de corte de pantallas
+$break-points: 0,420px,750px,920px,1210px,1620px,2160px,3240px,4320px
+
+//Fuente
+$root-font-sizes: 120
+$root-font-weight: 500
+
+//Atributos unificados para componentes
+$root-border-radius: 0.5rem
+
+//Paleta
+$contrast-color:white
+$primary-color:#0597f2
+$primary-dark:#0583f2
+$primary-light:#05aff2
+$secondary-color:#f2bc1b
+$light-black: #2F2F2F
+
+@mixin breakPointAtribute($atribute,$values)
+    @if length($values) != length($break-points)
+        @error "Se debe asignar valor a cada punto de corte ["+length($break-points)+"]"
+
+    @for $i from 1 through length($break-points)
+        @media screen and (min-width: list.nth($break-points,$i))
+            #{$atribute}: list.nth($values,$i)
+

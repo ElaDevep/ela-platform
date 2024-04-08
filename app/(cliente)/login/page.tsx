@@ -1,7 +1,7 @@
 'use client'
 
 import Frame from "@/app/components/frame/Frame";
-import styles from "./page.module.scss"
+import styles from "./page.module.sass"
 import background_image from "@/public/jpg/fondo_login.jpg"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
 import ela_logo from "@/public/svg/logotipo_ela.svg"
@@ -30,7 +30,7 @@ export default function LogIn() {
         <Responsiver className={styles.verticalRelation} 
         isMobile
         breakPoints={{
-            relation:[11,10],
+            relation:[2,10],
             width:1000
         }}>
             <main className={styles.main}>
@@ -40,6 +40,7 @@ export default function LogIn() {
                 alt="background_image"
                 contain
             />
+            <div className={styles.front_container}></div>
             <div {...frontProps}>
                 <div className={styles.title_container}>
                     <Frame

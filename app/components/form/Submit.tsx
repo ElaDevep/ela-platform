@@ -1,7 +1,7 @@
 'use client'
 
 import { SubmitT } from "./types";
-import styles from "./Form.module.scss"
+import styles from "./Form.module.sass"
 import { Props } from "@/app/types";
 import MixStyles from "@/actions/MixStyles";
 
