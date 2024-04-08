@@ -19,12 +19,13 @@
     align-items: center
     flex-wrap: wrap
     flex-direction: row
-    transition: top 0 ease-in-out
 
 
 .emailSubmit_container
+    $responsive-widths: (400px:90vw,700px:80vw,900px:50vw,1210px:50vw,1620px:40vw,2160px:40vw,3240px:40vw,4320px:40vw)
+
+    @include specificBreakPointsAtribute(width,$responsive-widths)
     height: min-content
-    width: 40vw
     background-color: white
     display: flex
     flex-wrap: wrap
@@ -35,12 +36,21 @@
     border-radius: $root-border-radius*2
     box-shadow: 0 0 20px 0px $light-black
     color: $light-black
+    animation-name: fadeIn 
+    animation-duration: 2s
+    animation-timing-function: ease-in
     
     h3
         color: $primary-color
 
+@keyframes fadeIn 
+    from
+        opacity: 0
+    to
+        opacity: 100
 
-.logIn_form
+
+.emailSubmit_form
     display: flex
     flex-direction: column
     flex-wrap: wrap
@@ -52,12 +62,6 @@
     input[type="submit"]
         width: calc(60% + 2em)
         padding: 0.8em 0
-
-
-.logIn_guest
-    background-color: $contrast-color
-    color: $primary-light
-    border: 2px $primary-light solid
 
 .background_image
     position: relative
@@ -80,8 +84,7 @@
     .front_container
         transition: top 2s ease-in-out
         flex-direction: column
-        height: 100vh
-        background: linear-gradient(180deg,transparent ,$primary-color 35vw,$primary-dark 100vw)
+        background: linear-gradient(180deg,transparent ,$primary-color 75vw,$primary-dark 100vw)
         padding: 0
         gap:0
     
@@ -96,16 +99,9 @@
         width: 100vw
     
     
-    .logIn_container
+    .emailSubmit_container
         width: 100vw
-        height: 100vh
+        border-radius: 0
         box-shadow: unset
-    
-    .to_logIn_button
-        visibility: visible
-        padding: 0.5em 2em
-        margin-top: 2em
-        background: $contrast-color
-        color: $primary-light
-        font-weight: 500
-        border-radius: $root-border-radius
+        padding-rigth: auto
+        padding-left: auto

@@ -4,13 +4,12 @@ import Frame from "@/app/components/frame/Frame";
 import styles from "./page.module.sass"
 import background_image from "@/public/jpg/fondo_login.jpg"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
-import ela_logo from "@/public/svg/logotipo_ela.svg"
 import { Form,TextField,Submit } from "@/ela-form"
 import {Responsiver} from "@/ela-components";
 import { useState } from "react";
 
 
-export default function PasswordRestore() {
+export default function PasswordRestoreRequest() {
     const [email,setEmail] = useState<string>()
 
     const SubmitHandler = () =>{
@@ -18,9 +17,8 @@ export default function PasswordRestore() {
 
     return (
         <Responsiver className={styles.verticalRelation} 
-        isMobile
         breakPoints={{
-            relation:[5,10]
+            relation:[8,10]
         }}>
             <main className={styles.main}>
             <Frame
@@ -35,11 +33,11 @@ export default function PasswordRestore() {
                     src={ela_minilogo}
                     alt={"ela_logo"}
                     container={styles.minilogo_image}
-                    cover
+                    contain
                     />
                     <h3>Recuperación de contraseña</h3>
                     <p>Ingresa tu correo, verificaremos tu estado en el sistema y de inmediato te enviaremos un código de recuperación.</p>
-                    <Form className={styles.logIn_form} onSubmit={SubmitHandler} >
+                    <Form className={styles.emailSubmit_form} onSubmit={SubmitHandler} >
                         <TextField name="email" getValue={setEmail} placeholder="Correo electronico"/>
                         <Submit/>
                     </Form>
