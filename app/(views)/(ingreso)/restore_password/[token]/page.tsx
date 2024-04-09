@@ -20,15 +20,8 @@ export default function PasswordRestore() {
         <Responsiver className={styles.verticalRelation} 
         isMobile
         breakPoints={{
-            relation:[12,10]
+            relation:[8,10]
         }}>
-            <main className={styles.main}>
-            <Frame
-                src={background_image}
-                container = {styles.background_image}
-                alt="background_image"
-                contain
-            />
             <div className={styles.front_container}>
                 <div className={styles.emailSubmit_container}>
                     <Frame
@@ -52,7 +45,6 @@ export default function PasswordRestore() {
                     </Form>
                 </div>
             </div>
-        </main>
         </Responsiver>
         
     );

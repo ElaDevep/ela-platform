@@ -47,13 +47,6 @@ export default function LogIn() {
         breakPoints={{
             relation:[12,10]
         }}>
-            <main className={styles.main}>
-            <Frame
-                src={background_image}
-                container = {styles.background_image}
-                alt="background_image"
-                cover
-            />
             <div {...frontProps}>
                 <div className={styles.title_container}>
                     <Frame
@@ -83,7 +76,6 @@ export default function LogIn() {
                     </Form>
                 </div>
             </div>
-        </main>
         </Responsiver>
         
     );
