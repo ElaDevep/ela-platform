@@ -1,6 +1,6 @@
 import styles from "./Frame.module.sass"
 import Image from "next/image";
-import MixStyles from "@/app/lib/actions/MixStyles";
+import MixStyles from "@/app/lib/functions/MixStyles";
 import { Props } from "../../types";
 import { useProps } from "@/app/hooks/ela-hooks";
 import { useEffect } from "react";

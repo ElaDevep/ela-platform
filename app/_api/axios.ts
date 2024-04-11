@@ -8,13 +8,12 @@ const postingAPI = async(endpoint:string,params:object) =>{
     let response:any = ''
     await axiosAPI.post(endpoint,params)
     .then((res)=>{
-        //console.log(res)
-        response = res
+        response = res.data
     })
     .catch((error)=>{
-        console.error(error)
+        throw error
     })
-    return response.data
+    return response
 }
 
 const gettingAPI = async(endpoint:string) =>{

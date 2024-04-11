@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, type CSSProperties } from "react";
-import MixStyles from "@/app/lib/actions/MixStyles";
+import MixStyles from "@/app/lib/functions/MixStyles";
 import type { TextInputT } from "./types";
 import styles from "./Form.module.sass"
 import { Props } from "@/types"
@@ -17,8 +17,8 @@ const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,
     let props = new Props()
     
     props.addPropsIfExist({tabIndex:'0'},tabIndex)
-    props.addPropsIfExist({autocomplete:true},autocomplete)
-    props.addPropsIfExist({autofocus:true},autofocus)
+    //props.addPropsIfExist({autoComplete:true},autocomplete)
+    props.addPropsIfExist({autoFocus:true},autofocus)   
     props.addPropsIfExist({require:true},require)
 
     return(
@@ -26,7 +26,7 @@ const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,
             {label &&
             <label htmlFor={name} className={styles.generic_label}>{label} </label>
             }
-            <input type="text" name={name} id={name} className={styles.input_textField} placeholder={placeholder} {...props}
+            <input type="text" name={name} id={name} className={styles.input_textField} placeholder={placeholder}  {...props}
             onChange={(e)=>{changeHandler(e.target.value)}}/>
             {error &&
             <p className={styles.input_error}>Error</p>

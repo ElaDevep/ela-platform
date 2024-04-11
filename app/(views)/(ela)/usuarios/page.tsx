@@ -20,7 +20,7 @@ import Link from "next/link";
 export default function LogIn() {
     const [user,setUser] = useState<string>()
     const [password,setPassword] = useState<string>()
-    const [Regret,setRegret] = useState<Boolean|undefined>()
+    const [Regret,setRegret] = useState<Boolean>(false)
     const [frontProps,setFrontProps] = useProps((props)=>{
         props.addProps({className:styles.front_container})
         return props

@@ -1,7 +1,7 @@
 'use client'
 
 import type { FormT } from "./types"
-import React, { Children } from "react"
+import React, { Children, useState } from "react"
 import { Props } from "../../types"
 
 
@@ -31,11 +31,14 @@ const childrenOrganization = (children:React.ReactNode,autofocus:boolean|undefin
 }
 
 const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
+    const [submitted,setSubmitted] = useState()
+    
 
-    const submitHandler = (e:any) =>{
+    const submitHandler = async (e:any) =>{
         e.preventDefault()
         onSubmit()
     }
+
     return(
         <form className={className} onSubmit={submitHandler} method="POST">
             {childrenOrganization(children,autofocus)}

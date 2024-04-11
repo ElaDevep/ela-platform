@@ -7,12 +7,16 @@ import ela_minilogo from "@/public/svg/logo_ela.svg"
 import { Form,TextField,Submit } from "@/ela-form"
 import {Responsiver} from "@/ela-components";
 import { useState } from "react";
+import restorePassword from "@/app/_api/_AUTH/password_restore";
 
 
 export default function PasswordRestoreRequest() {
     const [email,setEmail] = useState<string>()
 
-    const SubmitHandler = () =>{
+    const SubmitHandler = async() =>{
+        await restorePassword({
+            email:email
+        })
     }
 
     return (

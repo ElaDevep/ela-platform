@@ -1,0 +1,12 @@
+{
+    "views":{
+        "users":{
+            "title":"",
+            "route":""
+        }
+    },
+    "roles":{
+        "admi":[],
+        "users":[]
+    }
+}

@@ -25,12 +25,12 @@ export interface UserInputT extends GeneralInputT{
 
 export interface TextInputT extends UserInputT{
     placeholder?:string
-    autocomplete?:string
+    autocomplete?:boolean
     minLength?:number
     maxLength?:number
     pattern?:string
     readonly?:boolean   
-    getValue:(value:string)=>void
+    getValue?:(value:string)=>void
 }
 
 export interface SubmitT extends GeneralInputT {
