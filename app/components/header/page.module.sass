@@ -1,6 +1,7 @@
 @import '@/global-styles'
 
 .header
+    position: absolute
     display: flex
     justify-content: end
     flex-direction: column
@@ -76,6 +77,8 @@
                 height: 3em
 
     .main_nav
+        position: relative
+        top: -2px
         width: 70%
         margin: 0 15%
         display: grid
@@ -85,6 +88,9 @@
         justify-content: center
         color:$light-black
         border-radius: 0  0 $root-border-radius $root-border-radius
+        border-color: $primary-dark
+        border-width: 2px
+        border-style: solid
 
             
 

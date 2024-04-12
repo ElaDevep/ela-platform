@@ -1,3 +1,4 @@
+import { Header } from "@/app/components/ela-components";
 import styles from "./page.module.sass"
 
 export default function Layout({
@@ -7,10 +8,11 @@ export default function Layout({
     children: React.ReactNode,
     background: React.ReactNode;
 }>) {
-    return (
-    <main className={styles.main}>
-        {background}
-        {children}  
-    </main>
-    );
+    return <>
+        <Header/>
+        <main className={styles.main}>
+            {children}  
+        </main>
+    </>
+    
 }

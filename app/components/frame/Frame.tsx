@@ -10,9 +10,18 @@ const Frame: React.FC<FrameT> = ({className,contain,cover,fill,src,alt}) => {
     
 
     let imageProps = new Props()
-    imageProps.addPropsIfExist({style:{objectFit:'fill'}},fill)
-    imageProps.addPropsIfExist({style:{objectFit:'cover'}},cover)
-    imageProps.addPropsIfExist({style:{objectFit:'contain'}},contain)
+    const imgStyles = {
+        fill:'inherit',
+        position: 'relative',
+        width:'100%',
+        height:'100%'
+    }
+    
+    imageProps.addPropsIfExist({style:{objectFit:'fill',...imgStyles}},fill)
+    imageProps.addPropsIfExist({style:{objectFit:'cover',...imgStyles}},cover)
+    imageProps.addPropsIfExist({style:{objectFit:'contain',...imgStyles}},contain)
+
+    console.log(imgStyles)
 
     return(
         <div className={MixStyles(styles.container,className)}>
@@ -21,12 +30,10 @@ const Frame: React.FC<FrameT> = ({className,contain,cover,fill,src,alt}) => {
             src = {src}
             alt = {alt}
             sizes={"1000px"}
-            fill
             {...imageProps}
             />
         </div>
     )
-
 }
 
 export default Frame
