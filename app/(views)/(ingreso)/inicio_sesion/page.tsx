@@ -47,14 +47,14 @@ export default function LogIn() {
         <Responsiver className={styles.verticalRelation} 
         isMobile
         breakPoints={{
-            relation:[12,10]
+            relation:[9,10]
         }}>
             <div {...frontProps}>
                 <div className={styles.title_container}>
                     <Frame
                         src={ela_logo}
                         alt="ela_logotipo"
-                        container = {styles.ela_logo}
+                        className = {styles.ela_logo}
                         contain
                     />
                     <h1>Bienvenido a ELA APP</h1>
@@ -66,7 +66,7 @@ export default function LogIn() {
                     <Frame
                     src={ela_minilogo}
                     alt={"ela_logo"}
-                    container={styles.minilogo_image}
+                    className={styles.minilogo_image}
                     contain
                     />
                     <h2>Iniciar Sesión</h2>

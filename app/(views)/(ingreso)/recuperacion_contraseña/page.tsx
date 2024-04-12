@@ -6,13 +6,13 @@ import background_image from "@/public/jpg/fondo_login.jpg"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
 import { Form,TextField,Submit } from "@/ela-form"
 import {Responsiver} from "@/ela-components";
-import { useState } from "react";
-import restorePassword from "@/app/_api/_AUTH/password_restore";
+import { useEffect, useState } from "react";
+import restorePassword from "@/app/_api/_AUTH/restore_password";
+import { usePathname } from "next/navigation";
 
 
 export default function PasswordRestoreRequest() {
     const [email,setEmail] = useState<string>()
-
     const SubmitHandler = async() =>{
         await restorePassword({
             email:email
@@ -24,19 +24,12 @@ export default function PasswordRestoreRequest() {
         breakPoints={{
             relation:[8,10]
         }}>
-            <main className={styles.main}>
-            <Frame
-                src={background_image}
-                container = {styles.background_image}
-                alt="background_image"
-                cover
-            />
             <div className={styles.front_container}>
                 <div className={styles.emailSubmit_container}>
                     <Frame
                     src={ela_minilogo}
                     alt={"ela_logo"}
-                    container={styles.minilogo_image}
+                    className={styles.minilogo_image}
                     contain
                     />
                     <h3>Recuperación de contraseña</h3>
@@ -47,7 +40,6 @@ export default function PasswordRestoreRequest() {
                     </Form>
                 </div>
             </div>
-        </main>
         </Responsiver>
         
     );

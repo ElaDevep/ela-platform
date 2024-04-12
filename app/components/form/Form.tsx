@@ -4,8 +4,7 @@ import type { FormT } from "./types"
 import React, { Children, useState } from "react"
 import { Props } from "../../types"
 
-
-const childrenOrganization = (children:React.ReactNode,autofocus:boolean|undefined) =>{
+const childrenOrganization = (children:React.ReactNode,autofocus?:boolean) =>{
     const childrenArray:React.ReactNode[] = Children.toArray(children)
 
     const childrenResult = childrenArray.map((child,index)=>{
@@ -15,7 +14,7 @@ const childrenOrganization = (children:React.ReactNode,autofocus:boolean|undefin
         //@ts-ignore
         props.addProps({...child.props})
         props.addProps({tabIndex: true})
-
+        //@ts-ignore
         props.addPropsIfAllTrue({autoFocus:true},[
             autofocus == true,
             index == 0
@@ -33,7 +32,6 @@ const childrenOrganization = (children:React.ReactNode,autofocus:boolean|undefin
 const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
     const [submitted,setSubmitted] = useState()
     
-
     const submitHandler = async (e:any) =>{
         e.preventDefault()
         onSubmit()

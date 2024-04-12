@@ -1,90 +1,10 @@
 'use client'
 
-import Frame from "@/app/components/frame/Frame";
+import { Header } from "@/ela-components"
 import styles from "./page.module.sass"
-import background_image from "@/public/jpg/fondo_login.jpg"
-import ela_minilogo from "@/public/svg/logo_ela.svg"
-import ela_logo from "@/public/svg/logotipo_ela.svg"
-import { Form,TextField,Submit } from "@/ela-form"
-import {Responsiver,Button} from "@/ela-components";
-import MixStyles from "@/app/lib/functions/MixStyles";
-import { useProps } from "@/ela-hooks";
-import { useEffect, useState } from "react";
-import logIn from "@/app/_api/_AUTH/log_in";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 
-
-
-
-export default function LogIn() {
-    const [user,setUser] = useState<string>()
-    const [password,setPassword] = useState<string>()
-    const [Regret,setRegret] = useState<Boolean>(false)
-    const [frontProps,setFrontProps] = useProps((props)=>{
-        props.addProps({className:styles.front_container})
-        return props
-    })
-
-    const ScrollToSignIn = async () => {
-        setFrontProps({
-            type:'Add',
-            prop:{className:MixStyles(styles.front_container,styles.to_logIn)}
-        })
-    }
-
-    const LogInHandler = async() =>{
-        console.log(user)
-        console.log(password)
-        setRegret(await logIn({
-            email:user,
-            password:password
-        }))
-    }
-
-
-    return (
-        <Responsiver className={styles.verticalRelation} 
-        isMobile
-        breakPoints={{
-            relation:[12,10]
-        }}>
-            <div {...frontProps}>
-                <div className={styles.title_container}>
-                    <Frame
-                        src={ela_logo}
-                        alt="ela_logotipo"
-                        container = {styles.ela_logo}
-                        contain
-                    />
-                    <h1>Bienvenido a ELA APP</h1>
-                    <p>El lugar para ver los beneficios que la sostenibilidad trae a tu empresa.</p>
-                    <Button action={ScrollToSignIn} className={styles.to_logIn_button}>Saber más</Button>
-                    
-                </div>
-                <div className={styles.logIn_container}>
-                    <Frame
-                    src={ela_minilogo}
-                    alt={"ela_logo"}
-                    container={styles.minilogo_image}
-                    contain
-                    />
-                    <h2>Iniciar Sesión</h2>
-                    <Form className={styles.logIn_form} onSubmit={LogInHandler} >
-                        <TextField name={"email"} label="Correo" getValue={setUser} autocomplete/>
-                        <TextField name={"password"} label="Contraseña" getValue={setPassword} autocomplete/>
-                        <Submit text="Ingresar"/>
-                        <Submit text="Entrar como invitado" className={styles.logIn_guest}/>
-                    </Form>
-                    {Regret &&
-                    <Link href={'/restore_password'} className={styles.forgotPassword_link}>
-                        ¿Has olvidado tu contraseña?
-                    </Link>}
-
-                </div>
-            </div>
-        </Responsiver>
-        
-    );
-
+export default function UserManager() {
+    return <>
+        <Header></Header>
+    </>
 }

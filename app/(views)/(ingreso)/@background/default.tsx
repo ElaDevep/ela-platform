@@ -12,7 +12,7 @@ export default function Background() {
         }}>
             <Frame
                 src={background_image}
-                container = {styles.background_image}
+                className = {styles.background_image}
                 alt="background_image"
                 cover
             />

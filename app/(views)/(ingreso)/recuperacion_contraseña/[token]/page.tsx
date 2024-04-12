@@ -7,14 +7,41 @@ import ela_minilogo from "@/public/svg/logo_ela.svg"
 import ela_logo from "@/public/svg/logotipo_ela.svg"
 import { Form,TextField,Submit, PasswordField } from "@/ela-form"
 import {Responsiver} from "@/ela-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import restorePassword from "@/app/_api/_AUTH/restore_password";
+import changePassword from "@/app/_api/_AUTH/change_password";
+import validateToken from "@/app/_api/_AUTH/validate_token";
 
 
-export default function PasswordRestore() {
-    const [email,setEmail] = useState<string>()
+export default function PasswordRestore({ params }: { params: { token: string } }) {
+    const [newPassword,setNewPassword] = useState<string>()
+    const [confPassword,setConfPassword] = useState<string>()
+    const [userId,setUserId] = useState<string>()
 
     const SubmitHandler = () =>{
+        console.log({
+            userId:userId,
+            password:newPassword,
+            confirmPassword:confPassword
+        })
+
+        changePassword({
+            userId:userId,
+            password:newPassword,
+            confirmPassword:confPassword
+        })
     }
+
+    const tokenValidator = async() =>{
+        console.log(":v"+params.token)
+        //@ts-ignore
+        setUserId((await validateToken(params.token)))
+    }
+
+    useEffect(()=>{
+        tokenValidator()
+    },[])
 
     return (
         <Responsiver className={styles.verticalRelation} 
@@ -27,7 +54,7 @@ export default function PasswordRestore() {
                     <Frame
                     src={ela_minilogo}
                     alt={"ela_logo"}
-                    container={styles.minilogo_image}
+                    className={styles.minilogo_image}
                     />
                     <h3>Recuperación de contraseña</h3>
                     <p>A continuación crea tu nueva contraseña, recuerda que tiene que tener al menos:</p>
@@ -39,8 +66,8 @@ export default function PasswordRestore() {
                         <li>12 Caracteres</li>
                     </ul>
                     <Form className={styles.logIn_form} onSubmit={SubmitHandler} >
-                        <PasswordField name="newPass" getValue={setEmail} label="Nueva contraseña"/>
-                        <PasswordField name="confPass" getValue={setEmail} label="Confirme nueva contraseña"/>
+                        <PasswordField name="newPass" getValue={setNewPassword} label="Nueva contraseña"/>
+                        <PasswordField name="confPass" getValue={setConfPassword} label="Confirme nueva contraseña"/>
                         <Submit/>
                     </Form>
                 </div>

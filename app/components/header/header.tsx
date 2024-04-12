@@ -1,31 +1,60 @@
 'use client'
 
-import Frame from "@/app/components/frame/Frame";
-import styles from "./page.module.sass"
-import background_image from "@/public/jpg/fondo_login.jpg"
-import ela_minilogo from "@/public/svg/logo_ela.svg"
-import ela_logo from "@/public/svg/logotipo_ela.svg"
-import { Form,TextField,Submit } from "@/ela-form"
-import {Responsiver,Button} from "@/ela-components";
-import MixStyles from "@/app/lib/functions/MixStyles";
-import { useProps } from "@/ela-hooks";
-import { useEffect, useState } from "react";
-import logIn from "@/app/_api/_AUTH/log_in";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import Link from 'next/link'
+import { Button, Frame } from '../ela-components'
+import styles from './page.module.sass'
+import logo_img from '@/public/svg/logo_ela_white.svg'
+import user_img from '@/public/svg/user_profile.png'
 
-
-
-
-export default function LogIn() {
-
-
+export default function Header() {
     return <>
-        <header>
-            <nav>
+        <header className={styles.header}>
+            <div className={styles.headerTitle_container}>
+                <div className={styles.logo_container}>
+                    <span>ELA APP</span>
+                    <Frame
+                        src={logo_img}
+                        alt={'logo'}
+                        className={styles.logo_image}
+                    />
+                </div>
+                <div className={styles.currentUser_container}>
+                    <span>Gerardo Gonzales</span>
+                    <Link
+                        className={styles.logOut_link}
+                        href={'/'}
+                    >
+                        Cerrar Sesión
+                    </Link>
+                    <Frame
+                        src={user_img}
+                        alt={'user'}
+                        className={styles.userProfile_image}
+                    />
+                </div>
+            </div>
+            <nav className={styles.main_nav}>
+                <Link className={styles.navOption_link}
+                href={'/'}
+                >
+                    Section
+                </Link>
+                <Link className={styles.navOption_link}
+                href={'/'}
+                >
+                    Section
+                </Link>
+                <Link className={styles.navOption_link}
+                href={'/'}
+                >
+                    Section
+                </Link>
+                <Link className={styles.navOption_link}
+                href={'/'}
+                >
+                    Section
+                </Link>
             </nav>
         </header>
     </>
-        
-
 }

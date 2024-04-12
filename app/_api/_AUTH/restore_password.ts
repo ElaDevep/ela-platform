@@ -5,7 +5,7 @@ const restorePassword = async (userEmail:object) =>{
         console.log(userEmail)
         const status = (await postingAPI('/forgot-password',userEmail))
         console.log(status)
-        return true
+        return status
     }
     catch(e){
         console.log(e)

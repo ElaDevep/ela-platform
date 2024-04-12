@@ -4,8 +4,9 @@ import MixStyles from "@/app/lib/functions/MixStyles";
 import { Props } from "../../types";
 import { useProps } from "@/app/hooks/ela-hooks";
 import { useEffect } from "react";
+import FrameT from "./types";
 
-const Frame: React.FC<FrameT> = ({filter,container,contain,cover,fill,src,alt}) => {
+const Frame: React.FC<FrameT> = ({className,contain,cover,fill,src,alt}) => {
     
 
     let imageProps = new Props()
@@ -13,13 +14,9 @@ const Frame: React.FC<FrameT> = ({filter,container,contain,cover,fill,src,alt}) 
     imageProps.addPropsIfExist({style:{objectFit:'cover'}},cover)
     imageProps.addPropsIfExist({style:{objectFit:'contain'}},contain)
 
-    const containerStyles:string = MixStyles(styles.container,container)
-
-    const filterStyles:string = MixStyles(styles.filter,filter)
-
     return(
-        <div className={containerStyles}>
-            <div className={filterStyles}></div>
+        <div className={MixStyles(styles.container,className)}>
+            <div className={styles.filter}></div>
             <Image
             src = {src}
             alt = {alt}
