@@ -2,7 +2,7 @@
 
 import { useReducer } from "react"
 import { Props } from "../../types"
-import { ActionUsePropsT } from "./type"
+import { ActionUsePropsT } from "./types"
 
 
 const reducer = (state:object,action:ActionUsePropsT) =>{

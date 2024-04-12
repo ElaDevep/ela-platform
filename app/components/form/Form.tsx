@@ -1,41 +1,71 @@
 'use client'
 
 import type { FormT } from "./types"
-import React, { Children, useState } from "react"
+import React, { Children, useEffect, useRef, useState } from "react"
 import { Props } from "../../types"
+import TextField from "./TextField"
+import useForm from "./useForm"
 
-const childrenOrganization = (children:React.ReactNode,autofocus?:boolean) =>{
-    const childrenArray:React.ReactNode[] = Children.toArray(children)
-
-    const childrenResult = childrenArray.map((child,index)=>{
-        
-        let props = new Props()
-        
-        //@ts-ignore
-        props.addProps({...child.props})
-        props.addProps({tabIndex: true})
-        //@ts-ignore
-        props.addPropsIfAllTrue({autoFocus:true},[
-            autofocus == true,
-            index == 0
-        ])
-
-        return(
-            //@ts-ignore
-            <child.type key={index} {...props}/>
-        )
-    })
-
-    return childrenResult
-}
 
 const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
-    const [submitted,setSubmitted] = useState()
+    const [formData,setFormData] = useForm({})
+    
+    const childrenOrganization = (children:React.ReactNode,autofocus?:boolean) =>{
+        const childrenArray:React.ReactNode[] = Children.toArray(children)
+
+        const childrenResult = childrenArray.map((child,index)=>{
+            
+            let props = new Props()
+
+            //@ts-ignore
+            props.addProps({...child.props})
+            
+            //@ts-ignore
+            if(child.type.name!="TextField" && child.type.name!="Submit" && child.props.children != undefined){
+                //@ts-ignore
+                
+                return(
+                    //@ts-ignore
+                    <child.type key={index}>
+                        {childrenOrganization(child.props.children)}
+                    </child.type>
+                )
+            }
+            else{
+                //console.log(child)
+                //props.addProps({tabIndex: true})
+                props.addPropsIfAllTrue({autoFocus:true},[
+                    autofocus == true,
+                    index == 0
+                ])
+                props.addProps({wea:':v'})
+                props.addProps({getValue:(name:string,value:string)=>{
+                    setFormData({
+                    type:"setValue",
+                    name:name,
+                    value:value
+                })}})
+
+                return(
+                    //@ts-ignore
+                    <child.type key={index} {...props}/>
+                )
+            }
+        })
+
+        return childrenResult
+    }
+    
+    
     
     const submitHandler = async (e:any) =>{
         e.preventDefault()
         onSubmit()
     }
+
+    useEffect(()=>{
+        console.log(formData)
+    },[formData])
 
     return(
         <form className={className} onSubmit={submitHandler} method="POST">

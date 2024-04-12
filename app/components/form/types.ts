@@ -30,7 +30,7 @@ export interface TextInputT extends UserInputT{
     maxLength?:number
     pattern?:string
     readonly?:boolean   
-    getValue?:(value:string)=>void
+    getValue?:(name:string,value:string)=>void
 }
 
 export interface SubmitT extends GeneralInputT {
@@ -39,6 +39,12 @@ export interface SubmitT extends GeneralInputT {
     size?:number
     name?:string
     text?:string
+}
+
+export interface ActionUseForm {
+    type:string
+    name:string
+    value:any
 }
 
 

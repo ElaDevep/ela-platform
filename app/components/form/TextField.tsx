@@ -7,13 +7,8 @@ import styles from "./Form.module.sass"
 import { Props } from "@/types"
 
 const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,autocomplete,getValue,placeholder}) => {
-    const [error,setError] = useState(false);
-    const [value,setValue] = useState<string>();
-
-    const changeHandler = (value:string) =>{
-        getValue(value)
-    }
-
+    const [error,setError] = useState(false)
+    const [value,setValue] = useState<string>()
     let props = new Props()
     
     props.addPropsIfExist({tabIndex:'0'},tabIndex)
@@ -21,13 +16,20 @@ const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,
     props.addPropsIfExist({autoFocus:true},autofocus)   
     props.addPropsIfExist({require:true},require)
 
+    const changeHandler = (value:string) =>{
+        setValue(value)
+        if(getValue!=undefined){
+            getValue(name,value)
+        }
+    }
+
     return(
         <div className={styles.input_container}>
             {label &&
             <label htmlFor={name} className={styles.generic_label}>{label} </label>
             }
             <input type="text" name={name} id={name} className={styles.input_textField} placeholder={placeholder}  {...props}
-            onChange={(e)=>{changeHandler(e.target.value)}}/>
+            onBlur={(e)=>{changeHandler(e.target.value)}}/>
             {error &&
             <p className={styles.input_error}>Error</p>
             }
