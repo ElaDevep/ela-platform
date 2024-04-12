@@ -33,11 +33,8 @@ export default function LogIn() {
         })
     }
 
-    const LogInHandler = async() =>{
-        setRegret(await logIn({
-            email:user,
-            password:password
-        }))
+    const LogInHandler = async(formData:object) =>{
+        setRegret(await logIn(formData))
     }
 
 
@@ -69,9 +66,7 @@ export default function LogIn() {
                     />
                     <h2>Iniciar Sesión</h2>
                     <Form className={styles.logIn_form} onSubmit={LogInHandler} >
-                        <div>
-                            <TextField name={"email"} label="Correo" autocomplete/>
-                        </div>
+                        <TextField name={"email"} label="Correo" autocomplete/>
                         <TextField name={"password"} label="Contraseña" autocomplete/>
                         <Submit text="Ingresar"/>
                         <Submit text="Entrar como invitado" className={styles.logIn_guest}/>

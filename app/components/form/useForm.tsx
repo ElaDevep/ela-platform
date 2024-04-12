@@ -9,8 +9,10 @@ const reducer = (state:object,action:ActionUseForm) =>{
     switch(action.type){
             case 'setValue':
                 Object.assign(state,{[action.name]:action.value})
+                break
+            case 'setState':
+                Object.assign(state,{submitting:action.state})
     }
-    console.log(state)
     return state
 }
 

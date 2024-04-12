@@ -1,15 +1,16 @@
 'use client'
 
 import type { FormT } from "./types"
-import React, { Children, useEffect, useRef, useState } from "react"
+import React, { Children, useContext, useEffect, useRef, useState } from "react"
 import { Props } from "../../types"
 import TextField from "./TextField"
 import useForm from "./useForm"
+import { createContext } from "react"
 
 
 const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
     const [formData,setFormData] = useForm({})
-    
+
     const childrenOrganization = (children:React.ReactNode,autofocus?:boolean) =>{
         const childrenArray:React.ReactNode[] = Children.toArray(children)
 
@@ -27,7 +28,8 @@ const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
                 return(
                     //@ts-ignore
                     <child.type key={index}>
-                        {childrenOrganization(child.props.children)}
+                        {//@ts-ignore
+                        childrenOrganization(child.props.children)}
                     </child.type>
                 )
             }
@@ -56,11 +58,14 @@ const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
         return childrenResult
     }
     
-    
-    
     const submitHandler = async (e:any) =>{
         e.preventDefault()
-        onSubmit()
+        setFormData({
+            type:'setState',
+            state:'submitting'
+        })
+        console.log(formData)
+        onSubmit(formData)
     }
 
     useEffect(()=>{
