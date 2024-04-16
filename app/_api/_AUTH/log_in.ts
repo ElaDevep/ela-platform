@@ -17,7 +17,7 @@ const logIn = async (userLogIn:object) =>{
 
     if(status=='ok'){
         cookies().set('role','user')
-        redirect('/')
+        redirect('/usuarios')
     }
 }
 

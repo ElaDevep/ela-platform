@@ -17,7 +17,12 @@ const postingAPI = async(endpoint:string,params:object) =>{
 }
 
 const gettingAPI = async(endpoint:string) =>{
-    return (await axiosAPI.get(endpoint)).data
+    try{
+        return (await axiosAPI.get(endpoint)).data
+    }
+    catch(e){
+        return e
+    }
 }
 
 export {postingAPI,gettingAPI}

@@ -72,7 +72,7 @@ export default function LogIn() {
                         <Submit text="Entrar como invitado" className={styles.logIn_guest}/>
                     </Form>
                     {Regret &&
-                    <Link href={'/restore_password'} className={styles.forgotPassword_link}>
+                    <Link href={'/recuperacion_contrasena'} className={styles.forgotPassword_link}>
                         ¿Has olvidado tu contraseña?
                     </Link>}
 

@@ -1,0 +1,62 @@
+@import '@/global-styles'
+
+.table_container
+    position: relative
+    $td-color: #cecece
+    border-radius: $root-border-radius
+    border-width: 1px
+    border-color: $primary-color
+    border-style: solid
+    color: inherit
+    height: 100%
+    overflow-y: scroll
+
+    table
+        width: 100%
+        height: 100%
+
+        
+    td,th
+        border: white 0px solid  
+
+    thead
+        position: relative
+        color: white
+        width: 100%
+        height: 5%
+
+        th
+            padding: 0.5em 1em
+            
+            &:first-child
+                border-top-left-radius: $root-border-radius
+            
+            &:last-child
+                border-top-right-radius: $root-border-radius
+
+    tbody
+        display: contents
+        overflow: scroll
+        height: 94%
+        width: 100%
+
+        tr
+
+            &:last-child
+                td
+
+                    &:first-child
+                        border-bottom-left-radius: $root-border-radius
+
+                    &:last-child
+                        border-bottom-right-radius: $root-border-radius
+                        
+
+        td
+            // display: inline-block
+            overflow: hidden
+            text-overflow: ellipsis
+            padding: 0.2em 1em
+            padding-left: 1em
+            background: $td-color
+

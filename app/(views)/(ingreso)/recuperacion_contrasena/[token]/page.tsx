@@ -19,22 +19,11 @@ export default function PasswordRestore({ params }: { params: { token: string } 
     const [confPassword,setConfPassword] = useState<string>()
     const [userId,setUserId] = useState<string>()
 
-    const SubmitHandler = () =>{
-        console.log({
-            userId:userId,
-            password:newPassword,
-            confirmPassword:confPassword
-        })
-
-        changePassword({
-            userId:userId,
-            password:newPassword,
-            confirmPassword:confPassword
-        })
+    const SubmitHandler = (formData:object) =>{
+        changePassword({userId:userId,...formData})
     }
 
     const tokenValidator = async() =>{
-        console.log(":v"+params.token)
         //@ts-ignore
         setUserId((await validateToken(params.token)))
     }
@@ -57,17 +46,17 @@ export default function PasswordRestore({ params }: { params: { token: string } 
                     className={styles.minilogo_image}
                     />
                     <h3>Recuperación de contraseña</h3>
-                    <p>A continuación crea tu nueva contraseña, recuerda que tiene que tener al menos:</p>
+                    {/* <p>A continuación crea tu nueva contraseña, recuerda que tiene que tener al menos:</p>
                     <ul>
                         <li>1 Letra mayúscula</li>
                         <li>1 Letra minúscula</li>
                         <li>4 Números</li>
                         <li>1 Carácter especial</li>
                         <li>12 Caracteres</li>
-                    </ul>
+                    </ul> */}
                     <Form className={styles.logIn_form} onSubmit={SubmitHandler} >
-                        <PasswordField name="newPass" getValue={setNewPassword} label="Nueva contraseña"/>
-                        <PasswordField name="confPass" getValue={setConfPassword} label="Confirme nueva contraseña"/>
+                        <PasswordField name="password" label="Nueva contraseña"/>
+                        <PasswordField name="confirmPassword" label="Confirme nueva contraseña"/>
                         <Submit/>
                     </Form>
                 </div>

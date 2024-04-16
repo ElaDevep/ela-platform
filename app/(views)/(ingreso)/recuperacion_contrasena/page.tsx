@@ -12,11 +12,10 @@ import { usePathname } from "next/navigation";
 
 
 export default function PasswordRestoreRequest() {
-    const [email,setEmail] = useState<string>()
-    const SubmitHandler = async() =>{
-        await restorePassword({
-            email:email
-        })
+    const [emailSended,setEmailSended] = useState<boolean>()
+    
+    const SubmitHandler = async(formData:object) =>{
+        setEmailSended((await restorePassword(formData)!=undefined)&&true)
     }
 
     return (
@@ -35,9 +34,12 @@ export default function PasswordRestoreRequest() {
                     <h3>Recuperación de contraseña</h3>
                     <p>Ingresa tu correo, verificaremos tu estado en el sistema y de inmediato te enviaremos un código de recuperación.</p>
                     <Form className={styles.emailSubmit_form} onSubmit={SubmitHandler} >
-                        <TextField name="email" getValue={setEmail} placeholder="Correo electronico"/>
+                        <TextField name="email" placeholder="Correo electronico"/>
                         <Submit/>
                     </Form>
+                    {emailSended &&
+                        <h5>Correo enviado</h5>
+                    }
                 </div>
             </div>
         </Responsiver>

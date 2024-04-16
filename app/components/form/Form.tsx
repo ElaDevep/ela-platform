@@ -23,13 +23,12 @@ const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
             
             //@ts-ignore
             if(child.type.name!="TextField" && child.type.name!="Submit" && child.props.children != undefined){
-                //@ts-ignore
-                
                 return(
                     //@ts-ignore
                     <child.type key={index}>
                         {//@ts-ignore
-                        childrenOrganization(child.props.children)}
+                        childrenOrganization(child.props.children)
+                        }
                     </child.type>
                 )
             }
@@ -40,7 +39,6 @@ const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
                     autofocus == true,
                     index == 0
                 ])
-                props.addProps({wea:':v'})
                 props.addProps({getValue:(name:string,value:string)=>{
                     setFormData({
                     type:"setValue",

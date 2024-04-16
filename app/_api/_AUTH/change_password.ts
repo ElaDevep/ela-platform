@@ -1,17 +1,19 @@
 'use server'
 
+import { redirect } from "next/navigation"
 import { postingAPI } from "../axios"
 
 const changePassword = async (body:object) =>{
+    let status
     try{
         console.log(body)
-        const status = (await postingAPI('/reset-password',body))
-        //console.log(status)
-        return true
+        status = (await postingAPI('/reset-password',body))
+        console.log(status)
     }
     catch(e){
-        //console.log(e)
+        console.log(e)
     }
+    redirect('/inicio_sesion')
 }
 
 export default changePassword
