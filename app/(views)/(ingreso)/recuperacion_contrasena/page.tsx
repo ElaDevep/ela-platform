@@ -7,7 +7,7 @@ import ela_minilogo from "@/public/svg/logo_ela.svg"
 import { Form,TextField,Submit } from "@/ela-form"
 import {Responsiver} from "@/ela-components";
 import { useEffect, useState } from "react";
-import restorePassword from "@/app/_api/_AUTH/restore_password";
+import restorePassword from "@/app/(views)/(ingreso)/recuperacion_contrasena/[token]/restore_password";
 import { usePathname } from "next/navigation";
 
 
@@ -21,7 +21,7 @@ export default function PasswordRestoreRequest() {
     return (
         <Responsiver className={styles.verticalRelation} 
         breakPoints={{
-            relation:[8,10]
+            relation:[9,10]
         }}>
             <div className={styles.front_container}>
                 <div className={styles.emailSubmit_container}>

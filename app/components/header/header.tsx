@@ -5,8 +5,17 @@ import { Button, Frame } from '../ela-components'
 import styles from './page.module.sass'
 import logo_img from '@/public/svg/logo_ela_white.svg'
 import user_img from '@/public/svg/user_profile.png'
+import { usePageContext } from '@/app/context/PageContex'
+import { useEffect } from 'react'
 
 export default function Header() {
+    //@ts-ignore
+    const {user} = usePageContext()
+    
+    useEffect(()=>{
+        console.log(user)
+    },[user])
+
     return <>
         <header className={styles.header}>
             <div className={styles.headerTitle_container}>
@@ -19,7 +28,7 @@ export default function Header() {
                     />
                 </div>
                 <div className={styles.currentUser_container}>
-                    <span>Gerardo Gonzales</span>
+                    <span>{user && user.name}</span>
                     <Link
                         className={styles.logOut_link}
                         href={'/'}

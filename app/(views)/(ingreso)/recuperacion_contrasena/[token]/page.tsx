@@ -9,9 +9,9 @@ import { Form,TextField,Submit, PasswordField } from "@/ela-form"
 import {Responsiver} from "@/ela-components";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import restorePassword from "@/app/_api/_AUTH/restore_password";
-import changePassword from "@/app/_api/_AUTH/change_password";
-import validateToken from "@/app/_api/_AUTH/validate_token";
+import restorePassword from "@/app/(views)/(ingreso)/recuperacion_contrasena/[token]/restore_password";
+import changePassword from "@/app/(views)/(ingreso)/recuperacion_contrasena/change_password";
+import validateToken from "@/app/(views)/(ingreso)/recuperacion_contrasena/[token]/validate_token";
 
 
 export default function PasswordRestore({ params }: { params: { token: string } }) {

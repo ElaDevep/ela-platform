@@ -1,7 +1,7 @@
 'use server'
 
 import { redirect } from "next/navigation"
-import { postingAPI } from "../axios"
+import { postingAPI } from "../../../_api/axios"
 
 const changePassword = async (body:object) =>{
     let status

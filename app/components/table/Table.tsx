@@ -5,6 +5,7 @@ import { TableT } from "./types"
 import styles from './component.module.sass'
 import { Props } from "@/app/types"
 import MixStyles from "@/app/lib/functions/MixStyles"
+import Row from "./Row"
 
 
 const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
@@ -13,7 +14,7 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
 
     let tableProps = new Props()
 
-    tableProps.addProps({className:MixStyles(className,styles.table_container)})
+    tableProps.addProps({className:MixStyles(styles.table_container,className)})
 
     const selectOne = useCallback((id:string) =>{
         if(current!=undefined && current != id){
@@ -33,7 +34,7 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
 
             return(
                 //@ts-ignore
-                <th key={index} {...child.props}/>
+                <div className={styles.headers_columns} key={index} {...child.props}/>
             )
         })
 
@@ -54,7 +55,15 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
         })
 
         const rows = data.map((item,itemKey)=>{
+            
+            let props = new Props()
+
+            props.addPropsIfAllTrueElse({className:MixStyles(styles.selected_row,styles.record_row)},[
+                item._id == current
+            ],{className:styles.record_row})
+
             const columns = fields.map((field,fieldKey)=>{
+
                 let value:string = item[field]
                 
                 if(typeof value == 'boolean'){
@@ -66,19 +75,19 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
                     value = itemKey.toString()
                 }
 
-                return <td key={fieldKey} onClick={()=>{}}>
+                return <div className={styles.record_column} key={fieldKey} onClick={()=>{}}>
                     {value}
-                </td>
+                </div>
             })
 
             //@ts-ignore
-            return <tr key={itemKey} id={item._id} onClick={()=>{selectOne(item._id)}}>
+            return <div {...props} key={itemKey} id={item._id} onClick={()=>selectOne(item._id)}>
                 {columns}
-            </tr>
+            </div>
         })
 
         return <>
-        {rows}
+            {rows}
         </>
     }
 
@@ -101,27 +110,15 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
 
     return <>
         <div {...tableProps}>
-            <table >
-                <thead>
-                    <tr>
-                        {headersOrganization()}
-                    </tr>
-                </thead>
-                <tbody>
+                <div className={styles.header_table}>
+                    {headersOrganization()}
+                </div>
+                <div className={styles.records_table}>
                     {
                     data!=undefined&&
                     bodyOrganization(data)
                     }
-                    {
-                    data!=undefined&&
-                    bodyOrganization(data)
-                    }
-                    {
-                    data!=undefined&&
-                    bodyOrganization(data)
-                    }
-                </tbody>
-            </table>
+                </div>
         </div>
     </>
 

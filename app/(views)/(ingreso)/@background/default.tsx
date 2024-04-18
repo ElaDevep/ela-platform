@@ -4,11 +4,11 @@ import background_image from "@/public/jpg/fondo_login.jpg"
 
 
 export default function Background() {
-    return(
-        <Responsiver className={styles.verticalRelation} 
+    return <>
+    <Responsiver className={styles.verticalRelation} 
         isMobile
         breakPoints={{
-            relation:[12,10]
+            relation:[9,10]
         }}>
             <Frame
                 src={background_image}
@@ -19,5 +19,5 @@ export default function Background() {
             <div className={styles.upper_layer}>
             </div>
         </Responsiver>
-    )
+    </>
 }

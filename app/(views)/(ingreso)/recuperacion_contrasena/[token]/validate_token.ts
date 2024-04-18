@@ -1,4 +1,4 @@
-import { postingAPI } from "../axios"
+import { postingAPI } from "../../../../_api/axios"
 
 const validateToken = async (token:string) =>{
     try{

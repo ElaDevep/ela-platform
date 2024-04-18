@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
 
     
     if(currentRole!='user'){
-        return NextResponse.redirect(new URL('/login', request.url))
+        return NextResponse.redirect(new URL('/inicio_sesion', request.url))
     }
 }
 

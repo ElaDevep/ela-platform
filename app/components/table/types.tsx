@@ -13,4 +13,8 @@ export interface ColumnT{
 
 export interface RowT{
     children:React.ReactNode
+    className:string
+    key:number
+    onSelect:()=>any
+    id:string
 }

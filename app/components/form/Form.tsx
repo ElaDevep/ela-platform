@@ -62,13 +62,13 @@ const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
             type:'setState',
             state:'submitting'
         })
-        console.log(formData)
+        //console.log(formData)
         onSubmit(formData)
     }
 
-    useEffect(()=>{
-        console.log(formData)
-    },[formData])
+    // useEffect(()=>{
+    //     console.log(formData)
+    // },[formData])
 
     return(
         <form className={className} onSubmit={submitHandler} method="POST">

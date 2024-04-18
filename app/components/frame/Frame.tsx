@@ -19,7 +19,10 @@ const Frame: React.FC<FrameT> = ({className,contain,cover,fill,src,alt}) => {
     
     imageProps.addPropsIfExist({style:{objectFit:'fill',...imgStyles}},fill)
     imageProps.addPropsIfExist({style:{objectFit:'cover',...imgStyles}},cover)
-    imageProps.addPropsIfExistElse({style:{objectFit:'contain',...imgStyles}},contain,{style:{...imgStyles}})
+    imageProps.addPropsIfExist({style:{objectFit:'contain',...imgStyles}},contain)
+    imageProps.addPropsIfAllTrue({style:{...imgStyles}},[
+        !fill,!cover,!contain
+    ])
 
     return(
         <div className={MixStyles(styles.container,className)}>

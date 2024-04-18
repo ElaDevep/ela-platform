@@ -9,13 +9,13 @@ import { ResponsiverT } from "./types"
 const Responsiver: React.FC<ResponsiverT> = ({className,isMobile,isDesk,children,breakPoints}) => {
     const {mobile,desk,relationMinorThan,relation,width,height} = useDevice()
     const [breakCheck,setBreakCheck] = useState<boolean>(false)
-    const [props,setProps] = useProps((propsT)=>{
-        propsT.addPropsIfSomeTrue({className:className},[
+    const [props,setProps] = useProps((props)=>{
+        props.addPropsIfSomeTrue({className:className},[
             (isMobile==undefined)?false:mobile,
             (isDesk==undefined)?false:desk,
             (breakPoints==undefined)?false:breakCheck  
         ])
-        return propsT
+        return props
     })
 
     const breakCheckSetter = ()=> {

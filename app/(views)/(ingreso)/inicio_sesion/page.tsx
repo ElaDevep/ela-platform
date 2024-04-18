@@ -10,21 +10,22 @@ import {Responsiver,Button} from "@/ela-components";
 import MixStyles from "@/app/lib/functions/MixStyles";
 import { useProps } from "@/ela-hooks";
 import { useEffect, useState } from "react";
-import logIn from "@/app/_api/_AUTH/log_in";
-import { usePathname } from "next/navigation";
+import logIn from "@/app/(views)/(ingreso)/inicio_sesion/log_in";
 import Link from "next/link";
-
+import { usePageContext } from "@/app/context/PageContex";
 
 
 
 export default function LogIn() {
-    const [user,setUser] = useState<string>()
     const [password,setPassword] = useState<string>()
     const [Regret,setRegret] = useState<Boolean|undefined>()
     const [frontProps,setFrontProps] = useProps((props)=>{
         props.addProps({className:styles.front_container})
         return props
     })
+
+    //@ts-ignore
+    const {setUser,user} = usePageContext()
 
     const ScrollToSignIn = async () => {
         setFrontProps({
@@ -34,9 +35,17 @@ export default function LogIn() {
     }
 
     const LogInHandler = async(formData:object) =>{
-        setRegret(await logIn(formData))
+        try{
+            await logIn(formData)
+        }
+        catch(e){
+            setRegret(true)
+        }
     }
 
+    useEffect(()=>{
+        console.log(user)
+    },[user])
 
     return (
         <Responsiver className={styles.verticalRelation} 

@@ -8,11 +8,11 @@ export default function Background() {
         <Responsiver className={styles.verticalRelation} 
         isMobile
         breakPoints={{
-            relation:[12,10]
+            relation:[9,10]
         }}>
             <Frame
                 src={background_image}
-                container = {styles.background_image}
+                className = {styles.background_image}
                 alt="background_image"
                 cover
             />
