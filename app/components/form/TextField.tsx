@@ -6,9 +6,9 @@ import type { TextInputT } from "./types";
 import styles from "./page.module.sass"
 import { Props } from "@/types"
 
-const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,autocomplete,getValue,placeholder}) => {
+const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,autocomplete,getValue,placeholder,startValue}) => {
     const [error,setError] = useState(false)
-    const [value,setValue] = useState<string>('')
+    const [value,setValue] = useState<string>(startValue)
     let props = new Props()
     
     props.addPropsIfExist({tabIndex:'0'},tabIndex)
@@ -33,7 +33,7 @@ const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,
             <label htmlFor={name} className={styles.generic_label}>{label} </label>
             }
             <input type="text" name={name} id={name} className={styles.input_textField} placeholder={placeholder}  {...props}
-            onInput={(e)=>{setValue(e.target.value)}}/>
+            onInput={(e)=>{setValue(e.target.value)}} value={value}/>
             {error &&
             <p className={styles.input_error}>Error</p>
             }

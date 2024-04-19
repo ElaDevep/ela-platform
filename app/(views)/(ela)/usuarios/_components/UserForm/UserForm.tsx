@@ -3,10 +3,10 @@ import { UserFormT } from "./types"
 import style from "./UserForm.module.sass"
 
 
-const UserForm: React.FC<UserFormT> = ({action}) => {
+const UserForm: React.FC<UserFormT> = ({action,values}) => {
 
     return <>
-            <Form onSubmit={action} className={style.userForm_container}>
+            <Form onSubmit={action} className={style.userForm_container} values={values}>
                 <div className={style.fields_container}>
                     <TextField name={'name'} label={'Razón Social'}/>
                     <TextField name={'email'} label={'Correo'}/>
@@ -15,7 +15,12 @@ const UserForm: React.FC<UserFormT> = ({action}) => {
                     <TextField name={'role'} label={'Rol'}/>    
                 </div>
                 <div className={style.submit_container}>
-                    <Submit>Crear</Submit>
+                    <Submit>
+                        {values ?
+                            "Actualizar":
+                            "Crear"
+                        }
+                    </Submit>
                 </div>
             </Form>
     </>

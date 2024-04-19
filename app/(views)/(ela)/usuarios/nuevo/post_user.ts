@@ -6,12 +6,17 @@ import { revalidatePath } from "next/cache"
 import { postingAPI } from "@/app/_api/axios"
 
 const postUser = async (userInfo:object) =>{
+    let status
     try{
         const response = await postingAPI('/auth/register',userInfo)
-        console.log(response)   
+        console.log(response)  
+        status = response.status 
     }
     catch(e){
         return e
+    }
+    if(status=='ok'){
+        redirect('/usuarios')
     }
 }
 

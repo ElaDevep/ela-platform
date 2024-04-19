@@ -8,6 +8,7 @@ import { Button, Frame } from "@/app/components/ela-components";
 import perfilPhoto from "@/public/svg/user_profile.png"
 import ela_logo from "@/public/svg/logo_ela.svg"
 import Cloner from "@/app/components/cloner/Cloner";
+import Link from "next/link";
 
 const UserCard: React.FC<UserCardT> = ({user}) => {
     return <>
@@ -30,9 +31,9 @@ const UserCard: React.FC<UserCardT> = ({user}) => {
                 <p>{user.role}</p>
             </div>
             <div className={styles.actions_container}>
-                <Button action={()=>{}} className={styles.userModify_button}>
+                <Link className={styles.userModify_button} href={'/usuarios/editar/'+user._id}>
                     Modificar
-                </Button>
+                </Link>
                 <Button action={()=>{}} className={styles.userDelete_button}>
                     Eliminar
                 </Button>

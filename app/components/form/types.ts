@@ -5,6 +5,7 @@ export interface FormT{
     children:React.ReactNode
     className?:string
     autofocus?:boolean
+    values?:object
 }
 export interface GeneralInputT{
     tabIndex?:boolean|number
@@ -15,7 +16,7 @@ export interface GeneralInputT{
 
 export interface UserInputT extends GeneralInputT{
     label?:string
-    value?:any
+    startValue?:any
     autofocus?:boolean
     require?:boolean
     errors?:()=>void

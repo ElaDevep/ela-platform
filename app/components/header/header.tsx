@@ -42,7 +42,7 @@ const Header = () => {
                     />
                 </div>
             </div>
-            <nav className={styles.main_nav}>
+            {/* <nav className={styles.main_nav}>
                 <Link className={styles.navOption_link}
                 href={'/'}
                 >
@@ -63,7 +63,7 @@ const Header = () => {
                 >
                     Section
                 </Link>
-            </nav>
+            </nav> */}
         </header>
     </>
 }

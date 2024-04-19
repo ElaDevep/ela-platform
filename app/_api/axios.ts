@@ -26,4 +26,18 @@ const gettingAPI = async(endpoint:string) =>{
     }
 }
 
-export {postingAPI,gettingAPI}
+const puttingAPI = async(endpoint:string,body:object) =>{
+    let response:any = ''
+    await axiosAPI.put(endpoint,body)
+    .then((res)=>{
+        response = res.data
+    })
+    .catch((error)=>{
+        console.log(error)
+        throw error
+    })
+    return response
+}
+
+
+export {postingAPI,gettingAPI,puttingAPI}

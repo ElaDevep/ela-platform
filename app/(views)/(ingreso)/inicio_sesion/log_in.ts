@@ -8,7 +8,6 @@ import { revalidatePath } from "next/cache"
 const logIn = async (userLogIn:object) =>{
     let status
     try{
-        cookies().set('token','none')
         const token = (await postingAPI('/auth/login',userLogIn)).data
         const response = await postingAPI('/auth/validate-token',{token:token})
         cookies().set('token',token)
