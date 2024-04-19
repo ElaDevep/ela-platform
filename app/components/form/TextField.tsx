@@ -3,7 +3,7 @@
 import { useContext, useEffect, useRef, useState, type CSSProperties } from "react";
 import MixStyles from "@/app/lib/functions/MixStyles";
 import type { TextInputT } from "./types";
-import styles from "./Form.module.sass"
+import styles from "./page.module.sass"
 import { Props } from "@/types"
 
 const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,autocomplete,getValue,placeholder}) => {

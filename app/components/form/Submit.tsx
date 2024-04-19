@@ -1,17 +1,17 @@
 'use client'
 
 import { SubmitT } from "./types";
-import styles from "./Form.module.sass"
+import styles from "./page.module.sass"
 import { Props } from "@/app/types";
 import MixStyles from "@/app/lib/functions/MixStyles";
 
-const Submit: React.FC<SubmitT> = ({text,tabIndex,size,src,formtarget,className}) => {
+const Submit: React.FC<SubmitT> = ({children,tabIndex,size,src,formtarget,className}) => {
     let props = new Props()
     
     props.addPropsIfAllTrueElse({
-        value:text
+        value:children
     },[
-        text != undefined
+        children != undefined
     ],{
         value:"Enviar"
     })

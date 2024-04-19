@@ -3,9 +3,7 @@
 import type { FormT } from "./types"
 import React, { Children, useContext, useEffect, useRef, useState } from "react"
 import { Props } from "../../types"
-import TextField from "./TextField"
 import useForm from "./useForm"
-import { createContext } from "react"
 
 
 const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
@@ -25,7 +23,7 @@ const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus}) => {
             if(child.type.name!="TextField" && child.type.name!="Submit" && child.props.children != undefined){
                 return(
                     //@ts-ignore
-                    <child.type key={index}>
+                    <child.type key={index} {...props}>
                         {//@ts-ignore
                         childrenOrganization(child.props.children)
                         }

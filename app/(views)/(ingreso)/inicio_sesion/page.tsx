@@ -77,8 +77,8 @@ export default function LogIn() {
                     <Form className={styles.logIn_form} onSubmit={LogInHandler} >
                         <TextField name={"email"} label="Correo" autocomplete/>
                         <TextField name={"password"} label="Contraseña" autocomplete/>
-                        <Submit text="Ingresar"/>
-                        <Submit text="Entrar como invitado" className={styles.logIn_guest}/>
+                        <Submit>Ingresar</Submit>
+                        <Submit>Entrar como invitado</Submit>
                     </Form>
                     {Regret &&
                     <Link href={'/recuperacion_contrasena'} className={styles.forgotPassword_link}>

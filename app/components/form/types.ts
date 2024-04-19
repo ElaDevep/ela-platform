@@ -38,8 +38,8 @@ export interface SubmitT extends GeneralInputT {
     formtarget?:string
     src?:string
     size?:number
-    name?:string
-    text?:string
+    onSubmit?:()=>any
+    children:React.ReactNode
 }
 
 export interface ActionUseForm {

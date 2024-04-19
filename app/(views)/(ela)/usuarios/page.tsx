@@ -1,13 +1,14 @@
 'use client'
 
-import { Header } from "@/ela-components"
+import { Button, Header } from "@/ela-components"
 import styles from "./page.module.sass"
-import UserCard from "./_components/userCard"
+import UserCard from "./_components/UserCard/UserCard"
 import { useEffect, useState } from "react"
 import { gettingAPI } from "@/app/_api/axios"
 import Table from "@/app/components/table/Table"
 import Column from "@/app/components/table/Column"
 import getUsers from "@/app/_api/get_users"
+import Link from "next/link"
 
 export default function UserManager() {
     const [currentUser,setCurrentUser] = useState()
@@ -19,7 +20,6 @@ export default function UserManager() {
     const allUsers = async() =>{
         console.log(await getUsers())
     }
-
     useEffect(()=>{
         getUser()
     },[])
@@ -38,5 +38,6 @@ export default function UserManager() {
             <Column field={'approved'}>Activo</Column>
         </Table>
         <UserCard user={currentUser}/>
+        <Link href={'/usuarios/nuevo'} className={styles.newUser_link}>Nuevo</Link>
     </>
 }

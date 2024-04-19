@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { PageProvider } from "../context/PageContex";
+import Loading from "./loading";
 
 
 
@@ -18,7 +19,7 @@ export default function RootLayout({
 
     return <>
         <PageProvider>
-            {children}
+                    {children}
         </PageProvider>
     </>
     

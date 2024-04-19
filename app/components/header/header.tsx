@@ -8,7 +8,7 @@ import user_img from '@/public/svg/user_profile.png'
 import { usePageContext } from '@/app/context/PageContex'
 import { useEffect } from 'react'
 
-export default function Header() {
+const Header = () => {
     //@ts-ignore
     const {user} = usePageContext()
     
@@ -67,3 +67,6 @@ export default function Header() {
         </header>
     </>
 }
+
+
+export default Header

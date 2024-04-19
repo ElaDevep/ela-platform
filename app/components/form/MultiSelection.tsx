@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useContext, useEffect, useRef, useState, type CSSProperties } from "react";
 import MixStyles from "@/app/lib/functions/MixStyles";
 import type { TextInputT } from "./types";
 import styles from "./page.module.sass"
 import { Props } from "@/types"
 
-const PasswordField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,autocomplete,getValue,placeholder}) => {
+const TextField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofocus,autocomplete,getValue,placeholder}) => {
     const [error,setError] = useState(false)
     const [value,setValue] = useState<string>('')
     let props = new Props()
@@ -32,8 +32,9 @@ const PasswordField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofo
             {label &&
             <label htmlFor={name} className={styles.generic_label}>{label} </label>
             }
-            <input type="password" name={name} id={name} className={styles.input_textField} placeholder={placeholder}  {...props}
-            onInput={(e)=>{setValue(e.target.value)}}/>
+            <select name={name} id={name} className={styles.input_textField} {...props} onChange={(e)=>{setValue(e.target.value)}}>
+                
+            </select>
             {error &&
             <p className={styles.input_error}>Error</p>
             }
@@ -42,4 +43,4 @@ const PasswordField: React.FC<TextInputT> = ({label,name,tabIndex,require,autofo
 
 }
 
-export default PasswordField
+export default TextField
