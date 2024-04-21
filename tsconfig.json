@@ -29,6 +29,6 @@
       "@/global-styles":["./app/variables.sass"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Frame.tsx", "app/globals.js", "app/(views)/ingreso/login/page.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Frame.tsx", "app/globals.js", "app/(views)/ingreso/login/page.tsx", "app/test2/useInput.js"],
   "exclude": ["node_modules"]
 }

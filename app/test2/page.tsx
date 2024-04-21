@@ -11,28 +11,27 @@ export default function Tester2() {
     const [name,setName] = useState()
     const [lastName,setLastName] = useState()
     const [props,setProps] = useProps((props:Props)=>{return props})
+    let nameI:object
 
     const seeInputs = () => {
-        console.log(name)
-        console.log(lastName)
     }
 
     useEffect(()=>{
-        console.log(name)
-        console.log(lastName)
-    },[name,lastName])
+        console.log(':1')
+    })
 
     return <>
         <div className={styler.general_div}>
             <div className={styler.form_div}>
                 <Form styler={styler}>
-                    <Input name="name" use={(input)=>setName(input)} toAccept={{
-                        pattern:'/[a-z]/'
+                    <Input name="name" use={(input)=>{setName(input)}} toAccept={{
+                        pattern:/^([a-z]\D+)*$/,
+                        required:true
                     }}/>
                     <Input name="last_name" use={(input)=>setLastName(input)}/>
                     <button>B1</button>
                 </Form>
-                <button onClick={seeInputs}>getInputs</button>
+                <button onClick={seeInputs} className={styler.button}>getInputs</button>
             </div>
         </div>
     </>
