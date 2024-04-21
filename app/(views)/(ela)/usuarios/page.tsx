@@ -11,17 +11,20 @@ import getUsers from "@/app/_api/get_users"
 import Link from "next/link"
 
 export default function UserManager() {
-    const [currentUser,setCurrentUser] = useState()
+    const [currentUser,setCurrentUser] = useState<string>()
 
-    const getUser = async(userId:string = '6618043e978c737dbeaf08ff') => {
+    const getUser = async(userId:string) => {
         setCurrentUser((await gettingAPI('http://localhost:4000/auth/user/'+userId)).data)
     }
 
     const allUsers = async() =>{
         console.log(await getUsers())
     }
+    
     useEffect(()=>{
-        getUser()
+        if(currentUser!=undefined){
+            getUser(currentUser)
+        }
     },[])
 
     useEffect(()=>{

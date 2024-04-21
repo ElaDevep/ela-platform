@@ -17,11 +17,13 @@ export const PageProvider: React.FC<PageContextT> = (props,children) => {
 
     const getCurrentUser = async() =>{
         const user = await getLoggedUser()
-        setUser({
-            name:user.name,
-            email:user.email,
-            role:user.role
-        })
+        if(user!=undefined){
+            setUser({
+                name:user.name,
+                email:user.email,
+                role:user.role
+            })
+        }
     }
 
     useEffect(()=>{

@@ -12,33 +12,40 @@ import Link from "next/link";
 
 const UserCard: React.FC<UserCardT> = ({user}) => {
     return <>
-        {user &&
         <div className={styles.userCard_container}>
-            <div className={styles.info_container}>
-                <Frame
-                src={perfilPhoto}
-                alt={'user'}
-                contain
-                className={styles.user_image}
-                ></Frame>
-                <h5>Razón social</h5>
-                <p>{user.name}</p>
-                <h5>Email</h5>
-                <p>{user.email}</p>
-                <h5>Teléfono</h5>
-                <p>{user.mobile}</p>
-                <h5>Rol</h5>
-                <p>{user.role}</p>
-            </div>
-            <div className={styles.actions_container}>
-                <Link className={styles.userModify_button} href={'/usuarios/editar/'+user._id}>
-                    Modificar
-                </Link>
-                <Button action={()=>{}} className={styles.userDelete_button}>
-                    Eliminar
-                </Button>
-            </div>
-        </div>}
+                <div className={styles.info_container}>
+                    <Frame
+                    src={perfilPhoto}
+                    alt={'user'}
+                    contain
+                    className={styles.user_image}
+                    ></Frame>
+            {user ?
+                <>
+                    <h5>Razón social</h5>
+                    <p>{user.name}</p>
+                    <h5>Email</h5>
+                    <p>{user.email}</p>
+                    <h5>Teléfono</h5>
+                    <p>{user.mobile}</p>
+                    <h5>Rol</h5>
+                    <p>{user.role}</p>
+                </>
+                :
+                <span className={styles.noUser_span}>Selecciona un usuario para visualizar su información</span>
+            }
+                </div>
+            {user &&
+                <div className={styles.actions_container}>
+                    <Link className={styles.userModify_button} href={'/usuarios/editar/'+user._id}>
+                        Modificar
+                    </Link>
+                    <Button action={()=>{}} className={styles.userDelete_button}>
+                        Eliminar
+                    </Button>
+                </div>
+            }
+        </div>
     </>
 }
 

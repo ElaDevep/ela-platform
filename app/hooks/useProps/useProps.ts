@@ -1,6 +1,6 @@
 'use client'
 
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import { Props } from "../../types"
 import { ActionUsePropsT } from "./types"
 
@@ -38,6 +38,7 @@ const reducer = (state:object,action:ActionUsePropsT) =>{
 
 //<()=>[ReducerState<any>,Dispatch<ReducerAction<any>>]>initialFoo:(props:Props)=>Props
 const useProps = (initial:(props:Props)=>Props) => {
+
     const prop = initial(new Props())
     return useReducer(reducer,prop)
 }

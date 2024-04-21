@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from "react"
-import UserForm from "../_components/UserForm/UserForm"
+import UserForm from "../../_components/UserForm/UserForm"
 import styles from "./page.module.sass"
 import postUser from "./post_user"
 import Button from "@/app/components/Button"
@@ -22,9 +22,7 @@ export default function UserCreator() {
 
 
     return <>
-    <div className={styles.userForm_container}>
         <h2>Crear usuario</h2>
         <UserForm action={createUser}/>
-    </div>
     </>
 }

@@ -12,6 +12,7 @@ const reducer = (state:object,action:ActionUseForm) =>{
                 break
             case 'setState':
                 Object.assign(state,{state:action.state})
+        
     }
     return state
 }

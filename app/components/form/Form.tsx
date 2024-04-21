@@ -14,7 +14,9 @@ const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus,values}) =
     const childrenOrganization = (children:React.ReactNode,autofocus?:boolean) =>{
         const childrenArray:React.ReactNode[] = Children.toArray(children)
 
+
         const childrenResult = childrenArray.map((child,index)=>{
+            console.log(child)
             
             let props = new Props()
 
@@ -52,8 +54,6 @@ const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus,values}) =
                     value:value
                 })}})
 
-                console.log(props)
-
                 return(
                     //@ts-ignore
                     <child.type key={index} {...props}/>
@@ -75,12 +75,13 @@ const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus,values}) =
     }
 
     // useEffect(()=>{
-    //     console.log(formData)
-    // },[formData])
+    //     console.log(':v')
+    // })
+    childrenOrganization(children)
 
     return(
         <form className={className} onSubmit={submitHandler} method="POST">
-            {childrenOrganization(children,autofocus)}
+            {children}
         </form>
     )
 

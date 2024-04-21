@@ -1,3 +1,5 @@
+import { MutableRefObject } from "react"
+
 export interface FormT{
     id?:string
     method?:"GET"|"POST"
@@ -23,7 +25,7 @@ export interface UserInputT extends GeneralInputT{
     name:string
     getValue?:(name:string,value:string)=>void
     onSubmitContext?:any
-
+    getRef?:(ref:MutableRefObject<any>)=>void
 }
 
 export interface TextInputT extends UserInputT{
@@ -32,7 +34,7 @@ export interface TextInputT extends UserInputT{
     minLength?:number
     maxLength?:number
     pattern?:string
-    readonly?:boolean   
+    readonly?:boolean  
 }
 
 export interface SubmitT extends GeneralInputT {

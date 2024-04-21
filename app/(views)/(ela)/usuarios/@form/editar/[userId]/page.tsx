@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import styles from "./page.module.sass"
 import Button from "@/app/components/Button"
-import UserForm from "../../_components/UserForm/UserForm"
+import UserForm from "../../../_components/UserForm/UserForm"
 import getUser from "./get_user"
 import putUser from "./put_user"
 
@@ -31,11 +31,9 @@ export default function UserCreator({ params }: { params: { userId: string }}) {
 
 
     return <>
-    <div className={styles.userForm_container}>
         <h2>Actualizar usuario</h2>
         {user &&
             <UserForm action={updateUser} values={user}/>
         }
-    </div>
     </>
 }
