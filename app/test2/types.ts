@@ -30,7 +30,7 @@ export interface InputInterface{
     name:string
     use:(input:any)=>void
     toAccept?:object
-    styler?:{readonly [key: string]: string}
+    fatherStyler?:{readonly [key: string]: string}
 }
 
 export interface toAcceptInterface{

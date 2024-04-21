@@ -97,7 +97,7 @@ const useInput = (
         onBlur:()=>{clicked = (false);changeValue()}
     }
 
-    return {input,inputProps,setInput}
+    return {data:input,props:inputProps,setter:setInput}
 }
 
 export default useInput
