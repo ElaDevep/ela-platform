@@ -25,15 +25,16 @@ export default function Tester2() {
             <div className={styler.form_div}>
                 <Form styler={styler}>
                     <div>
-                        <Input name="name" use={(input)=>{setName(input)}} toAccept={{
-                            pattern:/^([a-z]\D+)*$/,
-                            required:true
-                        }}/>
+                        <Input name="name" use={(input)=>{setName(input)}} 
+                            pattern={/^([a-z]\D+)*$/}
+                            required
+                            initValue={':/'}
+                        />
                     </div>
-                    <Input name="last_name" use={(input)=>setLastName(input)}/>
-                    <button>B1</button>
+                    <Input name="last_name" use={(input)=>setLastName(input)} />
+                    <input value={'Enviar'} type='submit'/>
                 </Form>
-                <button onClick={seeInputs} className={styler.button}>getInputs</button>
+                <button onClick={seeInputs} className={styler.button} id='button'>getInputs</button>
             </div>
         </div>
     </>

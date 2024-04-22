@@ -3,6 +3,7 @@ import { MutableRefObject } from "react"
 export interface FormInterface{
     children:React.ReactNode
     styler?:{readonly [key: string]: string}
+    error?:{}
 }
 
 export interface UseInputsForm{
@@ -11,8 +12,12 @@ export interface UseInputsForm{
 
 export interface ActionUseInputInterface{
     type:string
-    value?:string
-    error?:undefined|'pattern'|'void'|'dependency'
+    value:string
+    error:boolean
+    accepted:boolean
+    patterError:boolean
+    requireError:boolean
+    dependError:boolean
 }
 
 
@@ -29,13 +34,25 @@ export interface ActionUseInputInterface{
 export interface InputInterface{
     name:string
     use:(input:any)=>void
-    toAccept?:object
+    pattern?:RegExp
+    required?:boolean
     fatherStyler?:{readonly [key: string]: string}
+    className?:string
+    initValue?:string
 }
 
 export interface toAcceptInterface{
     pattern?:RegExp
     required?:boolean|undefined
+    dependence?:{}
+}
+
+export interface UseInputParamsInterface{
+    initValue?:string|undefined,
+    toAccept?:toAcceptInterface,
+    toAble?:object,
+    toVisible?:object,
+    use?:(input:object)=>any
 }
 
 export interface ActionUseFormInterface{

@@ -5,7 +5,7 @@ import { useEffect, useReducer, useRef, useState } from "react"
 import { ActionUseFormInterface, ActionUseInputInterface, toAcceptInterface} from "./types"
 
 class Form {
-    error:string|undefined
+    error:boolean = false
     inputs:object={}
     state:string = ''
 
@@ -22,6 +22,11 @@ const reducer = (state:object,action:ActionUseFormInterface) =>{
         case 'setInput':
             form.addInput({[action.name]:action.input})
             break
+        case 'setError':
+            form.error = true
+            break
+        case 'quitError':
+            form.error = false
     }
     return form
 }
@@ -47,10 +52,25 @@ const useForm = (
         })
     }
 
+    const onSubmit = () =>{
+        for(let input in form.inputs){
+            if(!form.inputs[input].accept){
+                setForm({
+                    type:'setError'
+                })
+                return
+            }
+        }
+        setForm({
+            type:'quitError'
+        })
+    }
+
     return {
         inputs:form.inputs,
         setInput,
-        getData
+        getData,
+        onSubmit
     }
 }
 

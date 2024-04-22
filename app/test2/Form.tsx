@@ -1,6 +1,6 @@
 'use client'
 
-import { Children, useEffect } from "react"
+import { Children, FormEvent, useEffect } from "react"
 import { FormInterface } from "./types"
 import useForm from "./useForm"
 import { Props } from "../types"
@@ -41,12 +41,17 @@ const Form: React.FC<FormInterface> = ({children,styler}) => {
 
     const renderChildren = FormChildrenModifier(children,styler,form)
 
+    const onSubmit = (e:FormEvent)=>{
+        e.preventDefault()
+        form.onSubmit()
+    }
+
     useEffect(()=>{
         console.log(form.inputs)
     })
 
     return <>
-        <form method="POST" className={styler && styler.base_form}>
+        <form method="POST" className={styler && styler.base_form} onSubmit={(e)=>{onSubmit(e)}}>
             {renderChildren}
         </form>
     </>

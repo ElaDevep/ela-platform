@@ -9,21 +9,20 @@ import MixStyles from "../lib/functions/MixStyles"
 
 
 
-const Input: React.FC<InputInterface> = ({name,use,toAccept,fatherStyler}) => {
-    const input= useInput(toAccept)
+const Input: React.FC<InputInterface> = ({name,use,pattern,required,fatherStyler,className,initValue}) => {
+    const input= useInput({
+        toAccept:{
+            pattern:pattern,
+            required:required
+        },
+        initValue:initValue,
+        use:use
+    })
     const props = new Props() 
 
     props.addProps({...input.props})
 
-    props.addPropsIfAllTrueElse({className:styler.input},[
-        fatherStyler==undefined
-    ],{className:MixStyles('input',styler,fatherStyler)})
-
-    useEffect(()=>{
-        if(Object.keys(input.data).length != 0 && input.data!=undefined && input.data.value!=undefined){
-            use(input.data)
-        }
-    },[input.data])
+    props.addProps({className:MixStyles(MixStyles('input',styler,fatherStyler),className)})
 
     return <>
         {/*@ts-ignore*/}
