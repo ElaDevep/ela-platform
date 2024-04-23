@@ -44,7 +44,7 @@ const Input: React.FC<InputInterface> = ({name,use,pattern,required,fatherStyler
 
     return <>
         {/*@ts-ignore*/}
-        <input type="text" name={name} {...props}/>
+        <input type="text" name={name} {...props} />
         {input.dependRestrict &&
             <p>Error</p>
         }

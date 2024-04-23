@@ -148,15 +148,15 @@ const useInput = (
         
         
         if(validateDependencies(params.toAble.previous)!=input.dependError){
-            if(params.toAble.previous[0]!=undefined){
-                console.log(params.toAble.previous[0].get())
+            if(params.toAble.previous!=undefined){
+                console.log(params.toAble.previous)
+                setInput({
+                    type:'setDependRestrict',
+                    error: validateDependencies(params.toAble.previous)
+                })
             }
         //     if(params.toAble.previous!=undefined){
         //         console.log(params.toAble.previous)
-        //         setInput({
-        //             type:'setDependRestrict',
-        //             error: validateDependencies(params.toAble.previous)
-        //         })
         //     }
         //     // setInput({
         //     //     type:'setValue',
@@ -188,8 +188,8 @@ const useInput = (
 
     useEffect(()=>{
         console.log(input)
-        if(params.use!=undefined && (Object.keys(input).length != 0 && input!=undefined && input.value!=undefined)){
-            params.use({get:getInput,change:forceValue,...input,previous:params.previous,hiders:params.hiders})
+        if(!forced && params.use!=undefined && (Object.keys(input).length != 0 && input!=undefined && input.value!=undefined)){
+            params.use({change:forceValue,...input,previous:params.previous,hiders:params.hiders})
         }
         else{setForced(false)}
     },[input])

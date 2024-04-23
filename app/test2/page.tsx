@@ -29,7 +29,7 @@ export default function Tester2() {
                             initValue={':D'}
                         />
                     </div>
-                    <Input name="last_name" required previous={['name','username']}/>
+                    <Input name="last_name" previous={['name','username']}/>
                     <input value={'Enviar'} type='submit'/>
                 </Form>
                 <button onClick={seeInputs} className={styler.button} id='button'>getInputs</button>
