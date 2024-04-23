@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { PageContextT } from "./types";
-import getLoggedUser from "../_server/get_currentUser";
 
 const PageContex = React.createContext(0);
 
@@ -16,14 +15,14 @@ export const PageProvider: React.FC<PageContextT> = (props,children) => {
     }
 
     const getCurrentUser = async() =>{
-        const user = await getLoggedUser()
-        if(user!=undefined){
-            setUser({
-                name:user.name,
-                email:user.email,
-                role:user.role
-            })
-        }
+        // const user = await getLoggedUser()
+        // if(user!=undefined){
+        //     setUser({
+        //         name:user.name,
+        //         email:user.email,
+        //         role:user.role
+        //     })
+        // }
     }
 
     useEffect(()=>{

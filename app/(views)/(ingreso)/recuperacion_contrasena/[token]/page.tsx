@@ -5,7 +5,7 @@ import styles from "./page.module.sass"
 import background_image from "@/public/jpg/fondo_login.jpg"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
 import ela_logo from "@/public/svg/logotipo_ela.svg"
-import { Form,TextField,Submit, PasswordField } from "@/ela-form"
+import { Form,TextField,Submit, PasswordField } from "@/deprecated/form/ela-form"
 import {Responsiver} from "@/ela-components";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";

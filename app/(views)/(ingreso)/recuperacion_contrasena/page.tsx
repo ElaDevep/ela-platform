@@ -4,7 +4,7 @@ import Frame from "@/app/components/frame/Frame";
 import styles from "./page.module.sass"
 import background_image from "@/public/jpg/fondo_login.jpg"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
-import { Form,TextField,Submit } from "@/ela-form"
+import { Form,TextField,Submit } from "@/deprecated/form/ela-form"
 import {Responsiver} from "@/ela-components";
 import { useEffect, useState } from "react";
 import restorePassword from "@/app/(views)/(ingreso)/recuperacion_contrasena/[token]/restore_password";

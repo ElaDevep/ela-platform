@@ -1,11 +1,11 @@
 'use client'
 
-import {Form, PasswordField, Submit, TextField} from '@/ela-form'
+import {Form, PasswordField, Submit, TextField} from '@/deprecated/form/ela-form'
 import styles from './page.module.sass'
 import { FormEvent, MutableRefObject, useEffect, useRef, useState } from 'react'
 import { authenticate } from '../lib/actions/action'
 import { useForm } from 'react-hook-form'
-import useInput from '../components/form/useInput'
+import useInput from '../../deprecated/form/useInput'
 
 export default function Tester() {
     const [ref,setRef] = useState<MutableRefObject<any>>()

@@ -1,55 +1,65 @@
-import { MutableRefObject } from "react"
-
-export interface FormT{
-    id?:string
-    method?:"GET"|"POST"
-    onSubmit:(formData:object)=>void
+export interface FormInterface{
     children:React.ReactNode
+    styler?:{readonly [key: string]: string}
+    initValues?:object
+    onSubmit:(formData:object)=>any
     className?:string
-    autofocus?:boolean
-    values?:object
-}
-export interface GeneralInputT{
-    tabIndex?:boolean|number
-    className?:string
-    disable?:boolean
-    id?:string
+    errorMessage?:string
 }
 
-export interface UserInputT extends GeneralInputT{
-    label?:string
-    startValue?:any
-    autofocus?:boolean
-    require?:boolean
-    errors?:()=>void
-    name:string
-    getValue?:(name:string,value:string)=>void
-    onSubmitContext?:any
-    getRef?:(ref:MutableRefObject<any>)=>void
-}
-
-export interface TextInputT extends UserInputT{
-    placeholder?:string
-    autocomplete?:boolean
-    minLength?:number
-    maxLength?:number
-    pattern?:string
-    readonly?:boolean  
-}
-
-export interface SubmitT extends GeneralInputT {
-    formtarget?:string
-    src?:string
-    size?:number
-    onSubmit?:()=>any
-    children:React.ReactNode
-}
-
-export interface ActionUseForm {
+export interface ActionUseInputInterface{
     type:string
-    name?:string
-    value?:any
-    state?:'submitting'|undefined
+    value:string
+    error:boolean
+    clicked:boolean
 }
 
+export interface InputInterface{
+    name?:string
+    use?:(input:any)=>void
+    pattern?:RegExp
+    required?:boolean
+    previous?:string[]
+    previousInputs?:boolean[]
+    hiders?:string[]
+    hidersInputs?:boolean[]
+    fatherStyler?:{readonly [key: string]: string}
+    className?:string
+    initValue?:string
+    triggers?:any[] 
+    label?:string
+    requireWarn?:string
+    patternWarn?:string
+}
+
+export interface toAcceptInterface{
+    pattern?:RegExp
+    required?:boolean|undefined
+    dependencies?:{}
+}
+
+export interface UseInputParamsInterface{
+    initValue?:string|undefined,
+    toAccept?:toAcceptInterface,
+    toAble?:object,
+    toVisible?:object,
+    use?:(input:object)=>any
+    previous:string[]
+    hiders:string[],
+}
+
+export interface ActionUseFormInterface{
+    type:string
+    name:string
+    input:{}
+}
+
+export interface SubmitInterface extends InputInterface{
+    children: React.ReactNode
+    disable?:boolean
+}
+
+export interface TextInputInterface extends InputInterface{
+    placeholder?:string
+}
 

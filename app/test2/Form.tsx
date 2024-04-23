@@ -1,7 +1,7 @@
 'use client'
 
 import { Children, FormEvent, useEffect, useState } from "react"
-import { FormInterface } from "./types"
+import { FormInterface } from "../components/form/types"
 import useForm from "./useForm"
 import { Props } from "../types"
 
@@ -32,7 +32,7 @@ const setTriggers = (formInputs:object,inputName:string) =>{
     // })
 }
 
-const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: string]: string}|undefined,form:object) =>{
+const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: string]: string}|undefined,form:object,initValues:object) =>{
     return Children.toArray(children).map((child,key)=>{
         let props = new Props()
         const inputComponets = ['Input']
@@ -65,6 +65,10 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
                             }
                         })})
                     }
+
+                    if(initValues!=undefined && props.name!=undefined){
+                        props.addPropsIfExist({initValue:initValues[props.name]},initValues[props.name])
+                    }
                     
                     return <child.type  key={key} {...props}>
                         {props.children && props.children}
@@ -72,8 +76,8 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
                 }
             }
             else{
-                return <child.type  key={key} {...props}>
-                    {props.children && FormChildrenModifier(props.children,styler,form)}
+                return <child.type {...props}>
+                    {props.children && FormChildrenModifier(props.children,styler,form,initValues)}
                 </child.type>
             }
         }
@@ -81,16 +85,10 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
     })
 }
 
-const Form: React.FC<FormInterface> = ({children,styler}) => {
-    const form = useForm()
+const Form: React.FC<FormInterface> = ({children,styler,initValues,onSubmit}) => {
+    const form = useForm({onSubmit:onSubmit})
 
-    const renderChildren = FormChildrenModifier(children,styler,form)
-
-    const onSubmit = (e:FormEvent)=>{
-        e.preventDefault()
-        form.onSubmit()
-    }
-
+    const renderChildren = FormChildrenModifier(children,styler,form,initValues)
 
     // useEffect(()=>{
     //     for(let i in form.inputs){
@@ -103,7 +101,8 @@ const Form: React.FC<FormInterface> = ({children,styler}) => {
     // })
 
     return <>
-        <form method="POST" className={styler && styler.base_form} onSubmit={(e)=>{onSubmit(e)}}>
+        {form.error && <h1>asldjlsadfj</h1>}
+        <form method="POST" className={styler && styler.base_form} onSubmit={(e)=>{form.onSubmit(e)}}>
             {renderChildren}
         </form>
     </>

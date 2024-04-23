@@ -1,6 +1,5 @@
-import TextField from "./TextField";
-import Submit from "./Submit";
 import Form from "./Form";
-import PasswordField from "./PasswordField";
+import TextField from "./inputs/TextField";
+import Submit from "./inputs/Submit";
 
-export {TextField,Submit,Form,PasswordField}
+export {Form,TextField,Submit}

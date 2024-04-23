@@ -7,7 +7,6 @@ import { useEffect, useState } from "react"
 import { gettingAPI } from "@/app/_api/axios"
 import Table from "@/app/components/table/Table"
 import Column from "@/app/components/table/Column"
-import getUsers from "@/app/_api/get_users"
 import Link from "next/link"
 
 export default function UserManager() {
@@ -18,7 +17,7 @@ export default function UserManager() {
     }
 
     const allUsers = async() =>{
-        console.log(await getUsers())
+        //console.log(await getUsers())
     }
     
     useEffect(()=>{

@@ -9,13 +9,14 @@ import { Props } from '../types'
 
 export default function Tester2() {
 
-    const seeInputs = () => {
+    const onSubmit = (formData:object) =>{
+        console.log(':v')
     }
 
     return <>
         <div className={styler.general_div}>
             <div className={styler.form_div}>
-                <Form styler={styler}>
+                <Form styler={styler} onSubmit={onSubmit}>
                     <div>
                         <Input name="username"
                             initValue={':B'}
@@ -26,13 +27,11 @@ export default function Tester2() {
                         <Input name="name"
                             pattern={/^([a-z]\D+)*$/}
                             required
-                            initValue={':D'}
                         />
                     </div>
                     <Input name="last_name" previous={['name','username']}/>
                     <input value={'Enviar'} type='submit'/>
                 </Form>
-                <button onClick={seeInputs} className={styler.button} id='button'>getInputs</button>
             </div>
         </div>
     </>

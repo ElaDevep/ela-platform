@@ -1,4 +1,4 @@
-import { TextField,Form, Submit } from "@/ela-form"
+import { TextField,Form, Submit } from "@/deprecated/form/ela-form"
 import { UserFormT } from "./types"
 import style from "./UserForm.module.sass"
 

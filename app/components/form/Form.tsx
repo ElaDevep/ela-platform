@@ -1,90 +1,125 @@
 'use client'
 
-import type { FormT } from "./types"
-import React, { Children, useContext, useEffect, useRef, useState } from "react"
-import { Props } from "../../types"
+import { Children, FormEvent, useEffect, useState } from "react"
+import { FormInterface } from "./types"
 import useForm from "./useForm"
+import { Props } from "@/app/types"
 
+const setTriggers = (formInputs:object,inputName:string) =>{
+    let triggers = []
+    for(let input in formInputs){
+        if(formInputs[input].previous!=undefined){
+            // console.log(input.props.dependencies)
+            for(let previou of formInputs[input].previous){
+                //console.log(dependence)
+                if(previou == inputName){
+                    // console.log(formInputs[input].change)
+                    triggers.push(formInputs[input].change)
+                }
+            }
+        }
+    }
+    return({triggers:triggers})
+    // console.log(inputName)
+    // console.log({triggers:triggers})
+    //     if(input.dependencies!=undefined){
+    //         return input.dependencies.map((dependence)=>{
+    //             if(dependence==props.name){
+    //                 return ';v'
+    //             }
+    //         })
+    //     }
+    // })
+}
 
-const Form: React.FC<FormT> = ({className,onSubmit,children,autofocus,values}) => {
-    const [formData,setFormData] = useForm({})
+const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: string]: string}|undefined,form:object,initValues:object) =>{
+    return Children.toArray(children).map((child,key)=>{
+        let props = new Props()
+        const inputComponets = ['TextField','Submit']
+        props.addProps({...child.props})
 
-    if(values!=undefined)console.log(values)
+        if(child.type!=undefined){
+            if(child.type.name!=undefined){
+                if(inputComponets.includes(child.type.name)){
+                    props.addProps({use:(input:any)=>form.setInput(props.name,input)})
 
-    const childrenOrganization = (children:React.ReactNode,autofocus?:boolean) =>{
-        const childrenArray:React.ReactNode[] = Children.toArray(children)
+                    props.addPropsIfAllTrue({fatherStyler:styler},[
+                        styler!=undefined
+                    ])
+                    
+                    if(form.inputs!=undefined && child.type.name != 'Submit'){
+                        //form.input[props.name].trigger!=setTriggers(form.inputs,props.name,children)
+                        //console.log(form.input))
+                        props.addPropsIfAllTrue(setTriggers(form.inputs,props.name,children),[form.inputs[props.name].trigger!=setTriggers(form.inputs,props.name,children)])
+                        //props.addProps({triggers:})
+                        // props.addProps({triggers:form.inputs.values().map((input,key)=>{
+                        //     //return input.
+                        // })})
+                    }
 
+                    
 
-        const childrenResult = childrenArray.map((child,index)=>{
-            console.log(child)
-            
-            let props = new Props()
+                    if(child.type.name == 'Submit'){
+                        props.addProps({disable:form.error})
+                    }
 
-            //@ts-ignore
-            props.addProps({...child.props})
-            
-            //@ts-ignore
-            if(child.type.name!="TextField" && child.type.name!="Submit" && child.props.children != undefined){
-                return(
-                    //@ts-ignore
-                    <child.type key={index} {...props}>
-                        {//@ts-ignore
-                        childrenOrganization(child.props.children)
-                        }
+                    //Previous
+                    if(props.previous!=undefined){
+                        props.addProps({previousInputs:props.previous.map((previou)=>{
+                            if(form.inputs!=undefined){
+                                return form.inputs[previou]
+                            }
+                        })})
+                    }
+
+                    if(initValues!=undefined && props.name!=undefined){
+                        props.addPropsIfExist({initValue:initValues[props.name]},initValues[props.name])
+                    }
+                    
+                    return <child.type  key={key} {...props}>
+                        {props.children && props.children}
                     </child.type>
-                )
+                }
             }
             else{
-                //console.log(child)
-                //props.addProps({tabIndex: true})
-                props.addPropsIfAllTrue({autoFocus:true},[
-                    autofocus == true,
-                    index == 0
-                ])
-                
-                if(child.props.name != undefined && values != undefined){
-                    props.addPropsIfAllTrue({startValue:values[child.props.name]},[
-                        values[child.props.name] != undefined,
-                    ])
-                }
-                props.addProps({getValue:(name:string,value:string)=>{
-                    setFormData({
-                    type:"setValue",
-                    name:name,
-                    value:value
-                })}})
-
-                return(
-                    //@ts-ignore
-                    <child.type key={index} {...props}/>
-                )
+                return <child.type  key={key} {...props}>
+                    {props.children && FormChildrenModifier(props.children,styler,form,initValues)}
+                </child.type>
             }
-        })
+        }
+        else{
+            return <>
+                {child}
+            </>
+        }
+        
+    })
+}
 
-        return childrenResult
-    }
-    
-    const submitHandler = async (e:any) =>{
-        e.preventDefault()
-        setFormData({
-            type:'setState',
-            state:'submitting'
-        })
-        //console.log(formData)
-        onSubmit(formData)
-    }
+const Form: React.FC<FormInterface> = ({children,styler,initValues,onSubmit,className,errorMessage}) => {
+    const form = useForm({onSubmit:onSubmit})
+
+    const renderChildren = FormChildrenModifier(children,styler,form,initValues)
 
     // useEffect(()=>{
-    //     console.log(':v')
+    //     for(let i in form.inputs){
+    //         if(form.inputs[i].dependencies != undefined){
+    //             console.log(form.inputs[i].dependencies.map((dependence)=>{
+    //                 return dependence
+    //             }))
+    //         }
+    //     }
     // })
-    childrenOrganization(children)
 
-    return(
-        <form className={className} onSubmit={submitHandler} method="POST">
-            {children}
+    return <>
+        {form.error && <h1>asldjlsadfj</h1>}
+        <form method="POST" className={className} onSubmit={(e)=>{form.onSubmit(e)}}>
+            {renderChildren}
+            {form.error
+
+            }
         </form>
-    )
-
+    </>
 }
 
 export default Form

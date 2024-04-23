@@ -1,7 +1,7 @@
 'use client'
 
 import Frame from "@/app/components/frame/Frame";
-import styles from "./page.module.sass"
+import styler from "./page.module.sass"
 import background_image from "@/public/jpg/fondo_login.jpg"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
 import ela_logo from "@/public/svg/logotipo_ela.svg"
@@ -10,7 +10,6 @@ import {Responsiver,Button} from "@/ela-components";
 import MixStyles from "@/app/lib/functions/MixStyles";
 import { useProps } from "@/ela-hooks";
 import { useEffect, useState } from "react";
-import logIn from "@/app/(views)/(ingreso)/inicio_sesion/log_in";
 import Link from "next/link";
 import { usePageContext } from "@/app/context/PageContex";
 
@@ -20,7 +19,7 @@ export default function LogIn() {
     const [password,setPassword] = useState<string>()
     const [Regret,setRegret] = useState<Boolean|undefined>()
     const [frontProps,setFrontProps] = useProps((props)=>{
-        props.addProps({className:styles.front_container})
+        props.addProps({className:styler.front_container})
         return props
     })
 
@@ -30,13 +29,13 @@ export default function LogIn() {
     const ScrollToSignIn = async () => {
         setFrontProps({
             type:'Add',
-            prop:{className:MixStyles(styles.front_container,styles.to_logIn)}
+            prop:{className:MixStyles(styler.front_container,styler.to_logIn)}
         })
     }
 
     const LogInHandler = async(formData:object) =>{
         try{
-            await logIn(formData)
+            //await logIn(formData)
         }
         catch(e){
             setRegret(true)
@@ -48,40 +47,41 @@ export default function LogIn() {
     },[user])
 
     return (
-        <Responsiver className={styles.verticalRelation} 
+        <Responsiver className={styler.verticalRelation} 
         isMobile
         breakPoints={{
-            relation:[9,10]
+            relation:[9,10],
+            width:900
         }}>
             <div {...frontProps}>
-                <div className={styles.title_container}>
+                <div className={styler.title_container}>
                     <Frame
                         src={ela_logo}
                         alt="ela_logotipo"
-                        className = {styles.ela_logo}
+                        className = {styler.ela_logo}
                         contain
                     />
                     <h1>Bienvenido a ELA APP</h1>
                     <p>El lugar para ver los beneficios que la sostenibilidad trae a tu empresa.</p>
-                    <Button action={ScrollToSignIn} className={styles.to_logIn_button}>Saber más</Button>
+                    <Button action={ScrollToSignIn} className={styler.to_logIn_button}>Saber más</Button>
                     
                 </div>
-                <div className={styles.logIn_container}>
+                <div className={styler.logIn_container}>
                     <Frame
                     src={ela_minilogo}
                     alt={"ela_logo"}
-                    className={styles.minilogo_image}
+                    className={styler.minilogo_image}
                     contain
                     />
                     <h2>Iniciar Sesión</h2>
-                    <Form className={styles.logIn_form} onSubmit={LogInHandler} >
-                        <TextField name={"email"} label="Correo" autocomplete/>
-                        <TextField name={"password"} label="Contraseña" autocomplete/>
+                    <Form className={styler.logIn_form} onSubmit={LogInHandler} styler={styler} >
+                        <TextField name={"email"} required label="Correo"/>
+                        <TextField name={"password"} required label="Contraseña"/>
                         <Submit>Ingresar</Submit>
-                        <Submit>Entrar como invitado</Submit>
+                        <Link href={'/usuarios'} className={styler.asGuest_link}>Entrar como invitado</Link>
                     </Form>
                     {Regret &&
-                    <Link href={'/recuperacion_contrasena'} className={styles.forgotPassword_link}>
+                    <Link href={'/recuperacion_contrasena'} className={styler.forgotPassword_link}>
                         ¿Has olvidado tu contraseña?
                     </Link>}
 

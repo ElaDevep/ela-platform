@@ -1,15 +1,15 @@
 'use client'
 
 import { LegacyRef, useEffect, useRef, useState } from "react"
-import { InputInterface } from "../components/form/types"
+import { InputInterface, SubmitInterface } from "../types"
 import useInput from "./useInput"
 import styler from './input.module.sass'
-import { Props } from "../types"
-import MixStyles from "../lib/functions/MixStyles"
+import { Props } from "@/app/types"
+import MixStyles from "@/app/lib/functions/MixStyles"
 
 
 
-const Input: React.FC<InputInterface> = ({name,use,pattern,required,fatherStyler,className,initValue,previous,previousInputs,hiders,hidersInputs,triggers}) => {
+const Submit: React.FC<SubmitInterface> = ({disable,children,name,label,use,pattern,required,fatherStyler,className,initValue,previous,previousInputs,hiders,hidersInputs,triggers}) => {
     const input= useInput({
         toAccept:{
             pattern:pattern,
@@ -40,15 +40,16 @@ const Input: React.FC<InputInterface> = ({name,use,pattern,required,fatherStyler
 
     props.addProps({...input.props})
 
-    props.addProps({className:MixStyles(MixStyles('input',styler,fatherStyler),className)})
 
     return <>
         {/*@ts-ignore*/}
-        <input type="text" name={name} {...props} />
+        <button type="submit" name={name} {...props} className={MixStyles(MixStyles('submit',styler,fatherStyler),MixStyles(className,fatherStyler))}>
+            {children}
+        </button>
         {input.dependRestrict &&
             <p>Error</p>
         }
     </>
 }
 
-export default Input
+export default Submit

@@ -1,8 +1,8 @@
 'use client'
 
 import { error } from "console"
-import { useEffect, useReducer, useRef, useState } from "react"
-import { ActionUseFormInterface, ActionUseInputInterface, toAcceptInterface} from "./types"
+import { FormEvent, useEffect, useReducer, useRef, useState } from "react"
+import { ActionUseFormInterface, ActionUseInputInterface, toAcceptInterface} from "../components/form/types"
 
 class Form {
     error:boolean = false
@@ -32,6 +32,7 @@ const reducer = (state:object,action:ActionUseFormInterface) =>{
 }
 
 const useForm = (
+    params:object
 ) => {
     const [form,setForm] = useReducer(reducer,{})
 
@@ -52,7 +53,9 @@ const useForm = (
         })
     }
 
-    const onSubmit = () =>{
+    const onSubmit = (e:FormEvent) =>{
+        e.preventDefault()
+        console.log(form.inputs)
         for(let input in form.inputs){
             if(!form.inputs[input].accept){
                 setForm({
@@ -64,10 +67,11 @@ const useForm = (
         setForm({
             type:'quitError'
         })
+        params.onSubmit()
     }
 
     useEffect(()=>{
-        console.log(form.inputs)
+        //console.log(form.inputs)
     },[form])
 
     return {

@@ -2,7 +2,7 @@
 
 import { error } from "console"
 import { useEffect, useReducer, useRef, useState } from "react"
-import { ActionUseInputInterface, UseInputParamsInterface, toAcceptInterface} from "../components/form/types"
+import { ActionUseInputInterface, UseInputParamsInterface, toAcceptInterface} from "./types"
 
 class Input {
     value = ''
@@ -142,6 +142,7 @@ const useInput = (
 
     const setDependencies = () =>{
         let value = inputRef.current.value
+        
         if(validateDependencies(params.toAble.previous)!=input.dependError){
             if(params.toAble.previous!=undefined){
                 setInput({
@@ -190,7 +191,7 @@ const useInput = (
         ref:inputRef,
         onClick:()=>{setClick(true);setFirstClick(true)},
         onSelect:()=>{setClick(true);setFirstClick(true)},
-        onChange:(e:InputEvent)=>{if(!clicked){changeValue()}},
+        onChange:(e:InputEvent)=>{if(!clicked){firstClick = (true);changeValue()}},
         onBlur:()=>{setClick(false);changeValue()},
         //disable:input.dependRestrict
     }
