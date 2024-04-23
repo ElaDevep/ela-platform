@@ -14,10 +14,7 @@ export interface ActionUseInputInterface{
     type:string
     value:string
     error:boolean
-    accepted:boolean
-    patterError:boolean
-    requireError:boolean
-    dependError:boolean
+    clicked:boolean
 }
 
 
@@ -33,18 +30,21 @@ export interface ActionUseInputInterface{
 
 export interface InputInterface{
     name:string
-    use:(input:any)=>void
+    use?:(input:any)=>void
     pattern?:RegExp
     required?:boolean
+    dependencies?:string[]
     fatherStyler?:{readonly [key: string]: string}
     className?:string
     initValue?:string
+    triggers?:any[]  
+    inputs:boolean[]
 }
 
 export interface toAcceptInterface{
     pattern?:RegExp
     required?:boolean|undefined
-    dependence?:{}
+    dependencies?:{}
 }
 
 export interface UseInputParamsInterface{

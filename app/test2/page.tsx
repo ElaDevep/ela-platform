@@ -8,30 +8,28 @@ import { useProps } from '../hooks/ela-hooks'
 import { Props } from '../types'
 
 export default function Tester2() {
-    const [name,setName] = useState()
-    const [lastName,setLastName] = useState()
-    const [props,setProps] = useProps((props:Props)=>{return props})
-    let nameI:object
 
     const seeInputs = () => {
     }
-
-    useEffect(()=>{
-        console.log(':1')
-    })
 
     return <>
         <div className={styler.general_div}>
             <div className={styler.form_div}>
                 <Form styler={styler}>
                     <div>
-                        <Input name="name" use={(input)=>{setName(input)}} 
+                        <Input name="username"
+                            initValue={':B'}
+                        />
+                        <Input name="tel"
+                            required
+                        />
+                        <Input name="name"
                             pattern={/^([a-z]\D+)*$/}
                             required
-                            initValue={':/'}
+                            initValue={':D'}
                         />
                     </div>
-                    <Input name="last_name" use={(input)=>setLastName(input)} />
+                    <Input name="last_name" dependencies={['name','username']}/>
                     <input value={'Enviar'} type='submit'/>
                 </Form>
                 <button onClick={seeInputs} className={styler.button} id='button'>getInputs</button>

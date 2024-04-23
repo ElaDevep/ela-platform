@@ -66,8 +66,13 @@ const useForm = (
         })
     }
 
+    useEffect(()=>{
+        console.log(form.inputs)
+    },[form])
+
     return {
         inputs:form.inputs,
+        error:form.error,
         setInput,
         getData,
         onSubmit

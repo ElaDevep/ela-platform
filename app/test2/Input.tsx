@@ -1,6 +1,6 @@
 'use client'
 
-import { LegacyRef, useEffect, useRef } from "react"
+import { LegacyRef, useEffect, useRef, useState } from "react"
 import { InputInterface } from "./types"
 import useInput from "./useInput"
 import styler from './input.module.sass'
@@ -9,15 +9,29 @@ import MixStyles from "../lib/functions/MixStyles"
 
 
 
-const Input: React.FC<InputInterface> = ({name,use,pattern,required,fatherStyler,className,initValue}) => {
+const Input: React.FC<InputInterface> = ({name,use,pattern,required,fatherStyler,className,initValue,dependencies,triggers,inputs}) => {
     const input= useInput({
         toAccept:{
             pattern:pattern,
-            required:required
+            required:required,
+            dependencies:inputs
+        },
+        toAble:{
+            
         },
         initValue:initValue,
-        use:use
+        use:use,
+        dependencies:dependencies
     })
+
+    useEffect(()=>{
+        if(triggers!=undefined){
+            triggers.map((trigger)=>{
+                trigger()
+            })
+        }
+    },[input])
+
     const props = new Props() 
 
     props.addProps({...input.props})
@@ -27,7 +41,7 @@ const Input: React.FC<InputInterface> = ({name,use,pattern,required,fatherStyler
     return <>
         {/*@ts-ignore*/}
         <input type="text" name={name} {...props}/>
-        {input.data.error &&
+        {input.dependRestrict &&
             <p>Error</p>
         }
     </>

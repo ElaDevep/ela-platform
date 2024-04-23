@@ -6,16 +6,16 @@ import { ActionUseInputInterface, UseInputParamsInterface, toAcceptInterface} fr
 
 class Input {
     value = ''
-    accept = true
+    accept = false
     patterError = false
     requireError = false
-    dependError = false
+    dependRestrict = false
+    dependHidde = false
     
     constructor(){}
 
     setValue = (value:string) =>{
         this.value = value
-        this.anyError()
     }
 
     setRequireError = (value:boolean) =>{
@@ -24,16 +24,18 @@ class Input {
     setPatterError = (value:boolean) =>{
         this.patterError=value
     }
-    setDependError = (value:boolean) =>{
-        this.dependError=value
+    setDependRestrict = (value:boolean) =>{
+        this.dependRestrict=value
     }
 
-    quitErrors = () =>{
+    withoutErrors = () =>{
         this.accept = true
+        this.patterError = false
+        this.requireError = false
     }
 
     anyError = () =>{
-        this.accept = !(this.dependError || this.patterError || this.requireError)
+        this.accept = !(this.patterError || this.requireError)
     }
 
     getObj = () => {
@@ -42,7 +44,7 @@ class Input {
             accept:this.accept,
             patterError:this.patterError,
             requireError:this.requireError,
-            dependError:this.dependError
+            dependRestrict:this.dependRestrict
         }
     }
 }
@@ -56,6 +58,7 @@ const reducer = (state:object,action:ActionUseInputInterface) =>{
             break
         case 'setValue':
             input.setValue(action.value)
+            if(action.clicked)input.anyError()
             break
         case 'setRequireError':
             input.setRequireError(action.error)
@@ -63,11 +66,11 @@ const reducer = (state:object,action:ActionUseInputInterface) =>{
         case 'setPatterError':
             input.setPatterError(action.error)
             break
-        case 'dependError':
-            input.setDependError(action.error)
+        case 'setDependRestrict':
+            input.setDependRestrict(action.error)
             break
-        case 'quitError':
-            input.quitErrors()
+        case 'setWithoutError':
+            input.withoutErrors()
     }
 
     return input.getObj()
@@ -77,59 +80,121 @@ const useInput = (
     params:UseInputParamsInterface
 ) => {
     const inputRef = useRef()
-    let clicked:boolean = false
-    const [input,setInput] = useReducer(reducer,{value:(params.initValue!=undefined)?params.initValue:''})
+    let [clicked,setClick] = useState<boolean>()
+    let [forced,setForced] = useState<boolean>(false)
+    let [firstClick,setFirstClick] = useState<boolean>(false)
+    const [input,setInput] = useReducer(reducer,{
+        value:(params.initValue!=undefined)?params.initValue:''
+    })
 
-    const changeValue = () =>{
-        let value = inputRef.current.value
-        if(value == input.value) return
-        if(params!=undefined){
+    const validateDependencies = (dependencies:any[]) => {
+        
+        const dependenciesValues = dependencies.map((dependence)=>{
+                if(dependence==undefined) return
+                return dependence.accept
+        })
+
+        //console.log((dependenciesValues.includes(false) || dependenciesValues.includes(undefined)))
+
+        return (dependenciesValues.includes(false) || dependenciesValues.includes(undefined))
+    }
+
+    const setValue = (value:string) =>{
+        if(params!=undefined ){
             if(params.toAccept!= undefined){
-                if(params.toAccept.pattern!=undefined){
-                    const pattern = (params.toAccept.pattern)
-                    setInput({
-                        type:'setPatterError',
-                        error:!pattern.test(value)
-                    })
-                }
-                if(params.toAccept.required!=undefined){
-                    setInput({
-                        type:'setRequireError',
-                        error:(value=='' || value == undefined || /^\s*$/.test(value))
-                    })
-                }
-                if(params.toAccept.dependence!=undefined){
-                    // if(value=='' || value == undefined || /^\s*$/.test(value)){
-                    //     setInput({
-                    //         type:'setRequireError'
-                    //     })
-                    // }
+                if(firstClick){
+                    if(params.toAccept.pattern!=undefined){
+                        const pattern = (params.toAccept.pattern)
+                        setInput({
+                            type:'setPatterError',
+                            error:!pattern.test(value)
+                        })
+                    }
+                    if(params.toAccept.required!=undefined){
+                        setInput({
+                            type:'setRequireError',
+                            error:(value=='' || value == undefined || /^\s*$/.test(value))
+                        })
+                    }
                 }
             }
+        }
+        if(params.toAccept.pattern==undefined && params.toAccept.required==undefined){
             setInput({
-                type:'setValue',
-                value:value
-            })
+                type:'setWithoutError',
+        })
+        }
+        setInput({
+            type:'setValue',
+            value:value,
+            clicked:firstClick
+        }) 
+    }
+
+
+    const setDependencies = () =>{
+        let value = inputRef.current.value
+        // console.log(params.toAccept.dependencies)
+        // console.log(validateDependencies(params.toAccept.dependencies)==input.dependRestrict)
+        if(validateDependencies(params.toAccept.dependencies)!=input.dependError){
+            if(params.toAccept.dependencies!=undefined){
+                //console.log(params.toAccept.dependencies)
+                setInput({
+                    type:'setDependRestrict',
+                    error: validateDependencies(params.toAccept.dependencies)
+                })
+            }
+            // setInput({
+            //     type:'setValue',
+            //     value:value,
+            //     clicked:true
+            // }) 
         }
     }
 
+    const changeValue = () =>{
+        let value = inputRef.current.value
+        setValue(value)
+    }
+
+    const forceValue = () => {
+        setDependencies()
+        setForced(true)
+    }
+
     useEffect(()=>{
-        console.log(params)
+        setValue(input.value)
         if(inputRef.current!=undefined)inputRef.current.value = input.value
     },[])
 
+
+    const getInput = ()=>{
+        return input
+    }
+
     useEffect(()=>{
-        if(params.use!=undefined && (Object.keys(input).length != 0 && input!=undefined && input.value!=undefined)) params.use(input)
+        console.log(input)
+        if(!forced && params.use!=undefined && (Object.keys(input).length != 0 && input!=undefined && input.value!=undefined)) params.use({change:()=>(forceValue()),...input,dependencies:params.dependencies})
+        else{setForced(false)}
     },[input])
+
+    // useEffect(()=>{
+    //     if(!forced){
+    //         params.use({change:()=>(forceValue()),...input,dependencies:params.dependencies})
+    //     }
+    // },[forced])
 
     let inputProps = {
         ref:inputRef,
+        onClick:()=>{setClick(true);setFirstClick(true)},
+        onSelect:()=>{setClick(true);setFirstClick(true)},
         onChange:(e:InputEvent)=>{if(!clicked){changeValue()}},
-        onClick:()=>{clicked = (true)},
-        onBlur:()=>{clicked = (false);changeValue()},
+        onBlur:()=>{setClick(false);changeValue()},
+        disable:input.dependRestrict
+
     }
 
-    return {data:input,props:inputProps,setter:setInput}
+    return {...input,props:inputProps,setter:setInput}
 }
 
 export default useInput
