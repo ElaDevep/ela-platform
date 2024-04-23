@@ -33,12 +33,14 @@ export interface InputInterface{
     use?:(input:any)=>void
     pattern?:RegExp
     required?:boolean
-    dependencies?:string[]
+    previous?:string[]
+    previousInputs?:boolean[]
+    hiders?:string[]
+    hidersInputs?:boolean[]
     fatherStyler?:{readonly [key: string]: string}
     className?:string
     initValue?:string
-    triggers?:any[]  
-    inputs:boolean[]
+    triggers?:any[] 
 }
 
 export interface toAcceptInterface{
@@ -53,6 +55,8 @@ export interface UseInputParamsInterface{
     toAble?:object,
     toVisible?:object,
     use?:(input:object)=>any
+    previous:string[]
+    hiders:string[]
 }
 
 export interface ActionUseFormInterface{

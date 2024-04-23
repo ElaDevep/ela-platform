@@ -9,20 +9,24 @@ import MixStyles from "../lib/functions/MixStyles"
 
 
 
-const Input: React.FC<InputInterface> = ({name,use,pattern,required,fatherStyler,className,initValue,dependencies,triggers,inputs}) => {
+const Input: React.FC<InputInterface> = ({name,use,pattern,required,fatherStyler,className,initValue,previous,previousInputs,hiders,hidersInputs,triggers}) => {
     const input= useInput({
         toAccept:{
             pattern:pattern,
             required:required,
-            dependencies:inputs
         },
         toAble:{
-            
+            previous:previousInputs
+        },
+        toVisible:{
+            hiders:hidersInputs
         },
         initValue:initValue,
         use:use,
-        dependencies:dependencies
+        previous:previous,
+        hiders:hiders
     })
+
 
     useEffect(()=>{
         if(triggers!=undefined){

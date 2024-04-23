@@ -8,11 +8,11 @@ import { Props } from "../types"
 const setTriggers = (formInputs:object,inputName:string) =>{
     let triggers = []
     for(let input in formInputs){
-        if(formInputs[input].dependencies!=undefined){
+        if(formInputs[input].previous!=undefined){
             // console.log(input.props.dependencies)
-            for(let dependence of formInputs[input].dependencies){
+            for(let previou of formInputs[input].previous){
                 //console.log(dependence)
-                if(dependence == inputName){
+                if(previou == inputName){
                     // console.log(formInputs[input].change)
                     triggers.push(formInputs[input].change)
                 }
@@ -57,11 +57,12 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
                         // })})
                     }
 
-                    if(props.dependencies!=undefined){
-                        //console.log(props.dependencies)
-                        props.addProps({inputs:props.dependencies.map((dependence)=>{
-                            if(form.inputs!=undefined)
-                                return form.inputs[dependence]
+                    //Previous
+                    if(props.previous!=undefined){
+                        props.addProps({previousInputs:props.previous.map((previou)=>{
+                            if(form.inputs!=undefined){
+                                return form.inputs[previou]
+                            }
                         })})
                     }
                     

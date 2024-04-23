@@ -28,8 +28,15 @@ class Input {
         this.dependRestrict=value
     }
 
-    withoutErrors = () =>{
+    withoutErrors = (value:string) =>{
         this.accept = true
+        this.patterError = false
+        this.requireError = false
+        this.value = value
+    }
+
+    setInitial = () =>{
+        this.accept = false
         this.patterError = false
         this.requireError = false
     }
@@ -59,6 +66,7 @@ const reducer = (state:object,action:ActionUseInputInterface) =>{
         case 'setValue':
             input.setValue(action.value)
             if(action.clicked)input.anyError()
+            else input.setInitial()
             break
         case 'setRequireError':
             input.setRequireError(action.error)
@@ -70,7 +78,7 @@ const reducer = (state:object,action:ActionUseInputInterface) =>{
             input.setDependRestrict(action.error)
             break
         case 'setWithoutError':
-            input.withoutErrors()
+            input.withoutErrors(action.value)
     }
 
     return input.getObj()
@@ -122,33 +130,39 @@ const useInput = (
         if(params.toAccept.pattern==undefined && params.toAccept.required==undefined){
             setInput({
                 type:'setWithoutError',
+                value:value
         })
         }
-        setInput({
-            type:'setValue',
-            value:value,
-            clicked:firstClick
-        }) 
+        else{
+            setInput({
+                type:'setValue',
+                value:value,
+                clicked:firstClick
+            }) 
+        }
     }
 
 
     const setDependencies = () =>{
         let value = inputRef.current.value
-        // console.log(params.toAccept.dependencies)
-        // console.log(validateDependencies(params.toAccept.dependencies)==input.dependRestrict)
-        if(validateDependencies(params.toAccept.dependencies)!=input.dependError){
-            if(params.toAccept.dependencies!=undefined){
-                //console.log(params.toAccept.dependencies)
-                setInput({
-                    type:'setDependRestrict',
-                    error: validateDependencies(params.toAccept.dependencies)
-                })
+        
+        
+        if(validateDependencies(params.toAble.previous)!=input.dependError){
+            if(params.toAble.previous[0]!=undefined){
+                console.log(params.toAble.previous[0].get())
             }
-            // setInput({
-            //     type:'setValue',
-            //     value:value,
-            //     clicked:true
-            // }) 
+        //     if(params.toAble.previous!=undefined){
+        //         console.log(params.toAble.previous)
+        //         setInput({
+        //             type:'setDependRestrict',
+        //             error: validateDependencies(params.toAble.previous)
+        //         })
+        //     }
+        //     // setInput({
+        //     //     type:'setValue',
+        //     //     value:value,
+        //     //     clicked:true
+        //     // }) 
         }
     }
 
@@ -174,7 +188,9 @@ const useInput = (
 
     useEffect(()=>{
         console.log(input)
-        if(!forced && params.use!=undefined && (Object.keys(input).length != 0 && input!=undefined && input.value!=undefined)) params.use({change:()=>(forceValue()),...input,dependencies:params.dependencies})
+        if(params.use!=undefined && (Object.keys(input).length != 0 && input!=undefined && input.value!=undefined)){
+            params.use({get:getInput,change:forceValue,...input,previous:params.previous,hiders:params.hiders})
+        }
         else{setForced(false)}
     },[input])
 
@@ -190,8 +206,7 @@ const useInput = (
         onSelect:()=>{setClick(true);setFirstClick(true)},
         onChange:(e:InputEvent)=>{if(!clicked){changeValue()}},
         onBlur:()=>{setClick(false);changeValue()},
-        disable:input.dependRestrict
-
+        //disable:input.dependRestrict
     }
 
     return {...input,props:inputProps,setter:setInput}
