@@ -1,17 +1,26 @@
 @import '@/global-styles'
 
-.userForm_container
+.userForm_form
     display: flex
     width: 45em
     flex-direction: column
+    color: $light-black
+
+    .submit
+        width: 10em
+
+
 
 
     .fields_container
-        display: grid
         height: 12em
+        
+        display: grid
         gap: 10%
         grid-template-columns: repeat(3 , 12em)
         grid-template-rows: repeat(2 , 5em)
+
+        margin-top: 2em
     
     .submit_container
         display: flex

@@ -6,6 +6,7 @@ import LocalFileReader from "../lib/functions/LocalFileReader";
 import roleAccess from "@/app/lib/jsons/roleAccess.json"
 import { title } from "process";
 import { useRouter } from "next/navigation";
+import { tree } from "next/dist/build/templates/app-page";
 
 const PageContex = React.createContext(0);
 
@@ -54,7 +55,6 @@ export const PageProvider: React.FC<PageContextT> = (props,children) => {
                 return roleAccess.views[access]
             }))
         }
-        
     },[user])
     
     

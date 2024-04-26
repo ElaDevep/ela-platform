@@ -7,12 +7,14 @@ import { Props } from "@/app/types"
 import MixStyles from "@/app/lib/functions/MixStyles"
 import Row from "./Row"
 import Animator from "../animator/Animator"
+import { usePathname } from "next/navigation"
 
 
 const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
     const [data,setData] = useState()
     const [current,setCurrent] = useState<string>()
     const [error,setError] = useState<boolean>(false)
+    const pathname = usePathname()
 
     let tableProps = new Props()
 
@@ -35,7 +37,6 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
             if(child.type.name!='Column'){
                 throw Error()
             }
-
             return(
                 //@ts-ignore
                 <div className={styler.headers_columns} key={index} {...child.props}/>
@@ -109,19 +110,20 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
     const getData = async() =>{
         if(endpoint!=undefined){
             const response = (await endpoint())
-            if(response.status == 'success'){
-                setData((await endpoint()).data)
-
-            }
-            else{
-                setError(true)
+            if(response!=undefined){
+                if(response.status == 'success'){
+                    setData((await endpoint()).data)
+                }
+                else{
+                    setError(true)
+                }
             }
         }
     }
 
     useEffect(()=>{
         getData()
-    },[])
+    },[,pathname])
 
     useEffect(()=>{
         if(current!=undefined && data!=undefined){

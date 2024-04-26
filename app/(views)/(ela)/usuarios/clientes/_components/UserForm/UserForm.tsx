@@ -1,28 +1,24 @@
-import { TextField,Form, Submit } from "@/deprecated/form/ela-form"
+import {Form, Submit, TextField} from '@/ela-form'
 import { UserFormT } from "./types"
-import style from "./UserForm.module.sass"
+import styler from "./UserForm.module.sass"
 
 
 const UserForm: React.FC<UserFormT> = ({action,values}) => {
 
     return <>
-            <Form onSubmit={action} className={style.userForm_container} values={values}>
-                <div className={style.fields_container}>
-                    <TextField name={'name'} label={'Razón Social'}/>
-                    <TextField name={'email'} label={'Correo'}/>
-                    <TextField name={'mobile'} label={'Teléfono de contacto'}/>
-                    <TextField name={'password'} label={'Contraseña'}/>
-                    <TextField name={'role'} label={'Rol'}/>    
-                </div>
-                <div className={style.submit_container}>
-                    <Submit>
-                        {values ?
-                            "Actualizar":
-                            "Crear"
-                        }
-                    </Submit>
-                </div>
-            </Form>
+        <Form onSubmit={action} initValues={values} className={styler.userForm_form} styler={styler}>
+            <div className={styler.fields_container}>
+                <TextField name='name' label='Nombre'/>
+                <TextField name='lastname' label='Apellido'/>
+                <TextField name='email' label='Correo'/>
+                <TextField name='mobile' label='Celular'/>
+                <TextField name='role' label='Rol'/>
+                <TextField name='idEnterprice' label='Empresa'/>
+            </div>
+            <div className={styler.submit_container}>
+                <Submit>{values? 'Actualizar': 'Crear'}</Submit>
+            </div>
+        </Form>
     </>
 }
 

@@ -5,7 +5,7 @@ import { axiosAPI } from '../axiosAPI'
 import { error } from 'console'
 import { cookies } from 'next/headers'
 
-export default async function get_user(userId:object) {
+export default async function get_user(userId:string) {
     let response:APIResponse
     //console.log(userId)
     await axiosAPI.get('/auth/user/'+userId)

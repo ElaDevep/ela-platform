@@ -24,7 +24,9 @@ export async function middleware(request: NextRequest) {
     console.log(request.nextUrl.pathname)
     if(request.nextUrl.pathname=='/inicio_sesion'){
         if(token!=undefined){
-            return NextResponse.redirect(new URL('/usuarios/clientes', request.url))
+            if(token.value!=''){
+                return NextResponse.redirect(new URL('/usuarios/clientes', request.url))
+            }
         }
     } 
     else{

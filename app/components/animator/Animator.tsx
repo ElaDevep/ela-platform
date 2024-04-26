@@ -26,7 +26,7 @@ const Animator: React.FC<AnimatorInterface> = ({className,baseRoute,framing,star
         for(let i=0;i<(4-nFrame.toString().length);i++){
             zeros+='0'
         }
-        console.log(baseRoute+zeros+nFrame+'.png')
+        //console.log(baseRoute+zeros+nFrame+'.png')
         setFrame(baseRoute+zeros+nFrame+'.png')
         if(play) setTimeout(()=>changeFrame(),timeout)
     }
