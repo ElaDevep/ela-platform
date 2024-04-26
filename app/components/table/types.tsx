@@ -18,3 +18,8 @@ export interface RowT{
     onSelect:()=>any
     id:string
 }
+
+export interface ManagerT{
+    current:object
+    actions:object
+}

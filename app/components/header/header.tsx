@@ -10,10 +10,9 @@ import { useEffect } from 'react'
 import log_in from '@/app/api/AUTH/log_in'
 import log_out from '@/app/api/AUTH/log_out'
 import MainMenu from './MainMenu'
+import { HeaderInterface } from './types'
 
-const Header = (
-
-) => {
+const Header: React.FC<HeaderInterface> = () => {
     //@ts-ignore
     const {user,logOut,access} = usePageContext()
     

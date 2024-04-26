@@ -1,10 +1,11 @@
 'use client'
 
 import { Children, useEffect, useState } from "react"
-import { RowT } from "./types"
+import { ManagerT, RowT } from "./types"
+import Button from "../Button"
 
 
-const Row: React.FC<RowT> = ({children}) => {
+const Manager: React.FC<ManagerT> = ({actions,}) => {
     const [selected,setSelected] = useState<boolean>()
 
     useEffect(()=>{
@@ -12,8 +13,10 @@ const Row: React.FC<RowT> = ({children}) => {
     })
 
     return <>
-        
-        {children}
+        <div>
+            <Button action={()=>{}}/>
+            <Button action={()=>{}}/>
+        </div>
     </>
 
 }
