@@ -1,0 +1,36 @@
+@import '@/global-styles'
+    
+.main_nav
+    position: relative
+    top: -2px
+    width: 70%
+    margin: 0 15%
+    display: grid
+    grid-auto-columns: max-content
+    grid-template-columns: repeat(4, 1fr)
+    align-items: center
+    justify-content: center
+    color:$light-black
+    border-radius: 0  0 $root-border-radius $root-border-radius
+    border-color: $primary-dark
+    border-width: 2px
+    border-style: solid
+
+        
+
+    .navOption_link
+        padding: 0.5em 0
+        text-align: center
+        display: inline
+        background-color: $contrast-color
+        transition: background-color 0.5s ease-in, color 0.2    s ease-in
+            
+        &:first-child
+            border-bottom-left-radius: $root-border-radius
+
+        &:last-child
+            border-bottom-right-radius: $root-border-radius
+
+        &:hover
+            background-color: $primary-light
+            color: white

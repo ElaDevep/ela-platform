@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import type { CSSProperties } from "react";
-import MixStyles from "@/app/lib/actions/MixStyles";
+import MixStyles from "@/app/lib/functions/MixStyles";
 import { Props } from "../types";
 
 const Button: React.FC<ButtonT> = ({action,className,autofocus,disable,tabIndex,children}) => {

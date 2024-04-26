@@ -1,0 +1,19 @@
+@import '@/global-styles'
+
+.users_table
+    $colums:3em repeat(4, 12em) 9em
+    @include tableColumns($colums)
+    color:$light-black
+
+    thead
+        background: $primary-color
+
+.newUser_link
+    position: absolute
+    bottom: 5%
+    right: 35%
+    background: white
+    color: $light-black
+    border-radius: $root-border-radius
+    padding: 0.5em
+    box-shadow: $secondary-color 0 0 0 10px

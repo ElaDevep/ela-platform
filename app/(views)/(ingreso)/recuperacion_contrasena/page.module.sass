@@ -1,0 +1,123 @@
+@import '@/global-styles'
+
+.front_container
+    position: absolute
+    top:0
+    left: 0
+    z-index: 1
+    height: 100vh
+    width: 100vw
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-wrap: wrap
+    flex-direction: row
+
+
+.emailSubmit_container
+    $responsive-widths: (400px:90vw,700px:80vw,900px:50vw,1210px:50vw,1620px:40vw,2160px:40vw,3240px:40vw,4320px:40vw)
+    position: relative
+
+    transition: height 0.5s ease-in-out
+    @include specificBreakPointsAtribute(width,$responsive-widths)
+    height: 22em
+    display: flex
+    flex-wrap: nowrap
+    flex-direction: column
+    padding: 2rem 4rem
+    align-items: center
+    gap: 1rem
+
+    border-radius: $root-border-radius*2
+
+    background-color: white
+    box-shadow: 0 0 20px 0px $light-black
+
+    color: $light-black
+
+    @include fadeIn()
+    
+    h3
+        color: $primary-color
+
+    .formSubmit_container
+        position: absolute
+
+        height: 70%
+        width: 70%
+
+        margin-top: 6em
+
+        display: flex
+        flex-wrap: nowrap
+        flex-direction: column
+        align-items: center
+        gap: 1rem
+
+        animation-name: fadeIn 
+        animation-duration: 2s
+        animation-timing-function: ease-in-out
+
+        &:nth-child(3n)
+            transition: opacity 2s ease-in
+            opacity: 0
+            // animation-name: fadeOut
+            // animation-duration: 2s
+            // animation-timing-function: ease-in-out
+
+        
+    .sendMessage_container
+        position: absolute
+
+        height: 100%
+        width: 100%
+
+        margin-top: 7em
+
+        display: flex
+        flex-wrap: nowrap
+        flex-direction: column
+        align-items: center
+        gap: 1rem
+    
+        @include fadeIn()
+
+.emailSubmit_form
+    display: flex
+    flex-direction: column
+    flex-wrap: wrap
+    justify-content: center
+    align-items: center
+    gap: 10px
+    width: 100%
+
+
+.minilogo_image
+    height: 5rem
+    width: 5rem
+
+.check_svg
+    height: 6rem
+    width: 6rem
+    fill: #9b4b4b
+
+
+.verticalRelation 
+    .main
+        overflow-y: scroll
+        width: 100vw
+    
+
+    .front_container
+        transition: top 2s ease-in-out
+        flex-direction: column
+        background: linear-gradient(180deg,transparent ,$primary-color 75vw,$primary-dark 100vw)
+        padding: 0
+        gap:0
+    
+    .emailSubmit_container
+        width: 100vw
+        border-radius: 0
+        box-shadow: unset
+        padding-rigth: auto
+        padding-left: auto

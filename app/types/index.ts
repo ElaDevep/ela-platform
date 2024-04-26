@@ -7,7 +7,7 @@ export class Props{
     }
 
     addPropsIfExist(prop:object,ifProp:any){
-      if(ifProp){
+      if(ifProp && ifProp!=''){
         this.addProps(prop)
       }
     }

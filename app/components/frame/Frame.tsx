@@ -1,23 +1,32 @@
 import styles from "./Frame.module.sass"
 import Image from "next/image";
-import MixStyles from "@/app/lib/actions/MixStyles";
+import MixStyles from "@/app/lib/functions/MixStyles";
 import { Props } from "../../types";
+import { useProps } from "@/app/hooks/ela-hooks";
+import { useEffect } from "react";
+import FrameT from "./types";
 
-const Frame: React.FC<FrameT> = ({filter,container,contain,cover,fill,src,alt}) => {
+const Frame: React.FC<FrameT> = ({className,contain,cover,fill,src,alt}) => {
     
+
     let imageProps = new Props()
-
-    imageProps.addPropsIfExist({styles:{objectFit:'fill'}},fill)
-    imageProps.addPropsIfExist({styles:{objectFit:'cover'}},cover)
-    imageProps.addPropsIfExist({styles:{objectFit:'contain'}},contain)
-
-    const containerStyles:string = MixStyles(styles.container,container)
-
-    const filterStyles:string = MixStyles(styles.filter,filter)
+    const imgStyles = {
+        fill:'inherit',
+        // position: 'relative',
+        // width:'100%',
+        // height:'100%'
+    }
+    
+    imageProps.addPropsIfExist({style:{objectFit:'fill',...imgStyles}},fill)
+    imageProps.addPropsIfExist({style:{objectFit:'cover',...imgStyles}},cover)
+    imageProps.addPropsIfExist({style:{objectFit:'contain',...imgStyles}},contain)
+    imageProps.addPropsIfAllTrue({style:{...imgStyles}},[
+        !fill,!cover,!contain
+    ])
 
     return(
-        <div className={containerStyles}>
-            <div className={filterStyles}></div>
+        <div className={MixStyles(styles.container,className)}>
+            <div className={styles.filter}></div>
             <Image
             src = {src}
             alt = {alt}
@@ -27,7 +36,6 @@ const Frame: React.FC<FrameT> = ({filter,container,contain,cover,fill,src,alt}) 
             />
         </div>
     )
-
 }
 
 export default Frame

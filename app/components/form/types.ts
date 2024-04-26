@@ -1,44 +1,71 @@
-export interface FormT{
-    id?:string
-    method?:"GET"|"POST"
-    onSubmit:()=>void
+export interface FormInterface{
     children:React.ReactNode
+    styler?:{readonly [key: string]: string}
+    initValues?:object
+    onSubmit:(formData:object)=>any
     className?:string
-    autofocus?:boolean
-}
-export interface GeneralInputT{
-    tabIndex?:boolean|number
-    className?:string
-    disable?:boolean
-    id?:string
+    errorMessage?:string
 }
 
-export interface UserInputT extends GeneralInputT{
-    label?:string
-    value?:any
-    autofocus?:boolean
-    require?:boolean
-    errors?:()=>void
-    name:string
-
+export interface ActionUseInputInterface{
+    type:string
+    value:string
+    error:boolean
+    clicked:boolean
 }
 
-export interface TextInputT extends UserInputT{
-    placeholder?:string
-    autocomplete?:string
-    minLength?:number
-    maxLength?:number
-    pattern?:string
-    readonly?:boolean   
-    getValue:(value:string)=>void
-}
-
-export interface SubmitT extends GeneralInputT {
-    formtarget?:string
-    src?:string
-    size?:number
+export interface InputInterface{
     name?:string
-    text?:string
+    use?:(input:any)=>void
+    pattern?:RegExp
+    required?:boolean
+    previous?:string[]
+    previousInputs?:boolean[]
+    hiders?:string[]
+    hidersInputs?:boolean[]
+    fatherStyler?:{readonly [key: string]: string}
+    className?:string
+    initValue?:string
+    triggers?:any[] 
+    label?:string
+    requireWarn?:string
+    patternWarn?:React.ReactNode
 }
 
+export interface toAcceptInterface{
+    pattern?:RegExp
+    required?:boolean|undefined
+    dependencies?:{}
+}
+
+export interface UseInputParamsInterface{
+    initValue?:string|undefined,
+    toAccept?:toAcceptInterface,
+    toAble?:object,
+    toVisible?:object,
+    use?:(input:object)=>any
+    previous:string[]
+    hiders:string[],
+}
+
+export interface ActionUseFormInterface{
+    type:string
+    name:string
+    input:{}
+    message:string
+}
+
+export interface SubmitInterface extends InputInterface{
+    children: React.ReactNode
+    disable?:boolean
+}
+
+export interface TextInputInterface extends InputInterface{
+    placeholder?:string
+}
+
+export interface FormErrorInterface{
+    visible?:boolean
+    children?:React.ReactNode
+}
 

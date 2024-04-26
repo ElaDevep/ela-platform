@@ -1,61 +1,123 @@
 @import '@/global-styles'
 
-.input_container
+.apiError
+    color: red
+    text-align: center
+
+.input
+    height: 2em
+
+    display: inline-block
+
+.textfield, .passwordfield
+    position: relative
+
+    width: 100%
+    height: min-content
+
     display: flex
-    flex-wrap: wrap
     flex-direction: column
     justify-content: center
     align-items: flex-start
-    color: $light-black
-    font-size: 1rem
-    gap: 0px
-    width: 100%
 
-    label
-        font-size: 1.1rem
+    color: inherit
+
+    .label
+        width: inherit
+
+        span
+            color: $primary-light
+
+    .input
+
+        all: unset
+
+        width: inherit
+        height: 2em
+
+        background: white
+        
+        border-bottom: black 1px solid
+        
+        &:autofill
+            appearance: unset
+            color: $light-black !important
+            background-color: white !important
+
+    .error
+        color: red
+
+    
+
+
+.textfield_error 
+    .label
+        span
+            color: red
+    
+    .input
+        border-color: red
+    
+
+.passwordfield
+    &:hover
+        .image_button
+            opacity: 50%
+
+            &:hover
+                opacity: 100%
+
+        .image_button:active + .visiblePassword_text
+            opacity: 100%
+
+        .image_button + .visiblePassword_text
+            opacity: 0
+    
+
+        
+
+    .visiblePassword_text
+        position: absolute
+        top: 1.8em
+
         width: 100%
 
 
-.input_label
-    color: $light-black
-    text-align: left
-    font-size: inherit
+        background: white
+        opacity: 0
+
+        //@include fadeIn()
+        transition: opacity 1s ease-in-out
+
+    .image_button
+        position: absolute
+        right: 0
+        top: 1em
+        z-index: 1
+
+        margin: 0.5em
+
+        width: 1.5em
+        height: 1.5em
+
+        opacity: 0
+
+        transition: opacity 1s ease-in-out
 
 
-.input_textField
-    all:unset
-    padding: 2px
-    font-size: inherit
-    font-family: inherit
-    background-color: white
-    border-color: #acacac
-    border-width: 2px
-    border-style: solid
+
+
+
+.submit
+    position: relative
+
+    padding: 0.5em
+
+    background: $primary-color
+
     border-radius: $root-border-radius
-    color: inherit
-    width: 100%
-    padding: 0.5rem
-    transition: transform 0.5s ease-in-out
-    
+
+    transition: transform 1s ease-in-out
+
     &:hover
-        transform: scale(1.02)
-
-
-    &:focus
-        border-color: $primary-light
-        transform: scale(1)
-
-
-
-.input_error
-    color: red
-    font-size: 0.6rem
-
-
-.input_submit
-    background-color: $primary-light
-    border-radius: $root-border-radius
-    width: auto
-    font-size: 1.1rem
-    font-weight: 500
-
+        transform: scale(1.05)
