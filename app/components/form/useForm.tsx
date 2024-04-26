@@ -6,12 +6,12 @@ import { ActionUseFormInterface, ActionUseInputInterface, toAcceptInterface} fro
 
 class Form {
     error:boolean = false
+    apiError:string = ''
     inputs:object={}
     state:string = ''
 
     addInput = (input:object) => {
         Object.assign(this.inputs,input)
-        console.log(input)
         this.validateError()
     }
 
@@ -34,8 +34,13 @@ const reducer = (state:object,action:ActionUseFormInterface) =>{
         case 'setError':
             form.error = true
             break
+        case 'setApiError':
+            form.apiError = action.message
+            break
         case 'quitError':
             form.error = false
+        case 'quitApiError':
+            form.apiError = ''
     }
     return form
 }
@@ -50,7 +55,7 @@ const useForm = (
         for(let input in form.inputs){
             Object.assign(data,{[input]:form.inputs[input].value})
         }
-
+        //console.log(data)
         return data
     }
 
@@ -62,21 +67,43 @@ const useForm = (
         })
     }
 
-    const onSubmit = (e:FormEvent) =>{
+    const onSubmit = async(e:FormEvent) =>{
         e.preventDefault()
-        console.log(form.inputs)
+        const formData = getData()
         for(let input in form.inputs){
             if(!form.inputs[input].accept){
                 setForm({
                     type:'setError'
                 })
+                if(form.inputs!=undefined){
+                    //console.log(Object.values(form.inputs))
+                    Object.values(form.inputs).map((input)=>{
+                        if(input!=undefined){
+                            console.log(input)
+                            input.change()
+                        }
+                    })
+                }
                 return
             }
         }
         setForm({
             type:'quitError'
         })
-        params.onSubmit()
+
+        const response = await params.onSubmit(formData)
+        if(response != undefined){
+            if(response.status=='error'){
+                setForm({
+                    type:'setApiError',
+                    message: response.data
+                })
+            }else{
+                setForm({
+                    type:'quitApiError'
+                })
+            }
+        }
     }
 
     useEffect(()=>{
@@ -86,6 +113,7 @@ const useForm = (
     return {
         inputs:form.inputs,
         error:form.error,
+        apiError:form.apiError,
         setInput,
         getData,
         onSubmit

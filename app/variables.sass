@@ -43,3 +43,42 @@ $light-black: #2F2F2F
     @each $element in $texts
         #{$element}
             color:$color
+
+@mixin tableColumns($columns)
+    $nColumns:length($columns)
+    $columnTemplate: ()
+    @each $column in $columns
+        $columnTemplate: $columnTemplate #{$column}
+        $nColumns: $nColumns + 1
+    
+    $nColumns: $nColumns + 1
+    grid-template-columns: $columnTemplate
+    grid-column: 1/#{$nColumns}
+    
+
+@mixin fadeIn()
+    animation-name: fadeIn 
+    animation-duration: 2s
+    animation-timing-function: ease-in-out
+
+    
+@mixin fadeOut()
+    animation-name: fadeOut 
+    animation-duration: 2s
+    animation-timing-function: ease-in-out
+
+    
+@keyframes fadeIn 
+    from
+        opacity: 0
+    to
+        opacity: 100
+
+
+
+@keyframes fadeOut 
+    from
+        opacity: 100
+    to
+        opacity: 0
+    

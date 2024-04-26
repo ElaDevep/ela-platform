@@ -2,16 +2,16 @@
 
 import Frame from "@/app/components/frame/Frame";
 import styler from "./page.module.sass"
-import background_image from "@/public/jpg/fondo_login.jpg"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
 import ela_logo from "@/public/svg/logotipo_ela.svg"
-import { Form,TextField,Submit } from "@/ela-form"
+import { Form,TextField,Submit, PasswordField } from "@/ela-form"
 import {Responsiver,Button} from "@/ela-components";
 import MixStyles from "@/app/lib/functions/MixStyles";
 import { useProps } from "@/ela-hooks";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePageContext } from "@/app/context/PageContex";
+import log_in from "@/ela-api/AUTH/log_in";
 
 
 
@@ -34,12 +34,13 @@ export default function LogIn() {
     }
 
     const LogInHandler = async(formData:object) =>{
-        try{
-            //await logIn(formData)
+        const response:APIResponse = (await log_in(formData))
+        if(response!=undefined){
+            if(response.status=='error'){
+                setRegret(true)
+            }
         }
-        catch(e){
-            setRegret(true)
-        }
+        return response
     }
 
     useEffect(()=>{
@@ -76,9 +77,9 @@ export default function LogIn() {
                     <h2>Iniciar Sesión</h2>
                     <Form className={styler.logIn_form} onSubmit={LogInHandler} styler={styler} >
                         <TextField name={"email"} required label="Correo"/>
-                        <TextField name={"password"} required label="Contraseña"/>
+                        <PasswordField name={"password"} required label="Contraseña"/>
                         <Submit>Ingresar</Submit>
-                        <Link href={'/usuarios'} className={styler.asGuest_link}>Entrar como invitado</Link>
+                        {/* <Link href={'/usuarios'} className={styler.asGuest_link}>Entrar como invitado</Link> */}
                     </Form>
                     {Regret &&
                     <Link href={'/recuperacion_contrasena'} className={styler.forgotPassword_link}>

@@ -1,0 +1,114 @@
+@use 'sass:color'
+@import '@/global-styles'
+
+.table_container
+    display: grid
+    height: 100%
+    overflow: hidden
+    grid-template-rows: 2em auto
+
+    border: $primary-color 1px solid
+    border-radius: $root-border-radius
+    
+    grid-column: inherit
+
+    padding: 2px
+    
+
+    div
+        display: inline-block
+    
+    .header_table
+        display: grid
+        grid-template-columns: inherit
+        grid-column: inherit
+        grid-row: 1
+
+        height: 2em  
+        width: 100%
+
+        .headers_columns
+            background: $primary-color
+            border: white 1px solid
+            text-align: center
+            padding: 0.3em 0em
+            color: white
+
+            &:first-child
+                border-top-left-radius:  $root-border-radius
+            
+            &:last-child
+                border-top-right-radius:  $root-border-radius
+
+    .records_table
+        position: relative
+
+        display: grid
+        grid-template-columns: inherit
+        grid-column: inherit
+        grid-auto-rows: 2em
+
+        width: 100%
+        height: 100%
+        overflow-x: hidden
+        overflow-y: scroll
+
+        /* width */
+        &::-webkit-scrollbar 
+            position: absolute
+            left: 50px
+
+            width: 4px
+
+            background: #b4b4b4
+            border-radius: 100%
+        
+
+        /* Track */
+        &::-webkit-scrollbar-track 
+            box-shadow: inset 0 0 5px grey
+            border-radius: 10px
+        
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb 
+            background: #6e6e6e
+            border-radius: 10px
+        
+
+        .record_row
+            display: grid
+            grid-template-columns: inherit
+            height: auto
+            grid-column: inherit
+            
+            .record_column
+                width: auto
+                white-space: nowrap
+                background: #dadada
+                border: white 1px solid
+                overflow: hidden
+                text-overflow: ellipsis
+                text-align: left
+                padding: 0.2em 0.5em
+                cursor: default
+                user-select: none
+
+        .selected_row
+            .record_column
+                background: color.change($primary-light,$lightness:80%)
+                //color: white
+    
+    .fetching_container
+        display: flex
+        justify-content: center
+        align-items: center
+
+        grid-column: 1/end
+        grid-row: 1/end
+
+        .charging_animation
+            height: 5em
+            
+        
+

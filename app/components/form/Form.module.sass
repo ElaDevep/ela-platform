@@ -1,0 +1,123 @@
+@import '@/global-styles'
+
+.apiError
+    color: red
+    text-align: center
+
+.input
+    height: 2em
+
+    display: inline-block
+
+.textfield, .passwordfield
+    position: relative
+
+    width: 100%
+    height: min-content
+
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+
+    color: inherit
+
+    .label
+        width: inherit
+
+        span
+            color: $primary-light
+
+    .input
+
+        all: unset
+
+        width: inherit
+        height: 2em
+
+        background: white
+        
+        border-bottom: black 1px solid
+        
+        &:autofill
+            appearance: unset
+            color: $light-black !important
+            background-color: white !important
+
+    .error
+        color: red
+
+    
+
+
+.textfield_error 
+    .label
+        span
+            color: red
+    
+    .input
+        border-color: red
+    
+
+.passwordfield
+    &:hover
+        .image_button
+            opacity: 50%
+
+            &:hover
+                opacity: 100%
+
+        .image_button:active + .visiblePassword_text
+            opacity: 100%
+
+        .image_button + .visiblePassword_text
+            opacity: 0
+    
+
+        
+
+    .visiblePassword_text
+        position: absolute
+        top: 1.8em
+
+        width: 100%
+
+
+        background: white
+        opacity: 0
+
+        //@include fadeIn()
+        transition: opacity 1s ease-in-out
+
+    .image_button
+        position: absolute
+        right: 0
+        top: 1em
+        z-index: 1
+
+        margin: 0.5em
+
+        width: 1.5em
+        height: 1.5em
+
+        opacity: 0
+
+        transition: opacity 1s ease-in-out
+
+
+
+
+
+.submit
+    position: relative
+
+    padding: 0.5em
+
+    background: $primary-color
+
+    border-radius: $root-border-radius
+
+    transition: transform 1s ease-in-out
+
+    &:hover
+        transform: scale(1.05)

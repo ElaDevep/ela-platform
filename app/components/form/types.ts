@@ -29,7 +29,7 @@ export interface InputInterface{
     triggers?:any[] 
     label?:string
     requireWarn?:string
-    patternWarn?:string
+    patternWarn?:React.ReactNode
 }
 
 export interface toAcceptInterface{
@@ -52,6 +52,7 @@ export interface ActionUseFormInterface{
     type:string
     name:string
     input:{}
+    message:string
 }
 
 export interface SubmitInterface extends InputInterface{
@@ -61,5 +62,10 @@ export interface SubmitInterface extends InputInterface{
 
 export interface TextInputInterface extends InputInterface{
     placeholder?:string
+}
+
+export interface FormErrorInterface{
+    visible?:boolean
+    children?:React.ReactNode
 }
 

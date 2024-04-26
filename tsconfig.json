@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./*"],
       "@/public/*":["./public/*"],
-      "@/actions/*":["./app/lib/actions/*"],
+      "@/ela-api/*":["./app/api/*"],
       "@/ela-components":["./app/components/ela-components"],
       "@/ela-form":["./app/components/form/ela-form"],
       "@/types":["./app/types/index.ts"],

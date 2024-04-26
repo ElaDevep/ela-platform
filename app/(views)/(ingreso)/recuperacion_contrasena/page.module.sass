@@ -16,32 +16,71 @@
 
 .emailSubmit_container
     $responsive-widths: (400px:90vw,700px:80vw,900px:50vw,1210px:50vw,1620px:40vw,2160px:40vw,3240px:40vw,4320px:40vw)
+    position: relative
 
+    transition: height 0.5s ease-in-out
     @include specificBreakPointsAtribute(width,$responsive-widths)
-    height: min-content
-    background-color: white
+    height: 22em
     display: flex
-    flex-wrap: wrap
+    flex-wrap: nowrap
     flex-direction: column
     padding: 2rem 4rem
     align-items: center
     gap: 1rem
+
     border-radius: $root-border-radius*2
+
+    background-color: white
     box-shadow: 0 0 20px 0px $light-black
+
     color: $light-black
-    animation-name: fadeIn 
-    animation-duration: 2s
-    animation-timing-function: ease-in
+
+    @include fadeIn()
     
     h3
         color: $primary-color
 
-@keyframes fadeIn 
-    from
-        opacity: 0
-    to
-        opacity: 100
+    .formSubmit_container
+        position: absolute
 
+        height: 70%
+        width: 70%
+
+        margin-top: 6em
+
+        display: flex
+        flex-wrap: nowrap
+        flex-direction: column
+        align-items: center
+        gap: 1rem
+
+        animation-name: fadeIn 
+        animation-duration: 2s
+        animation-timing-function: ease-in-out
+
+        &:nth-child(3n)
+            transition: opacity 2s ease-in
+            opacity: 0
+            // animation-name: fadeOut
+            // animation-duration: 2s
+            // animation-timing-function: ease-in-out
+
+        
+    .sendMessage_container
+        position: absolute
+
+        height: 100%
+        width: 100%
+
+        margin-top: 7em
+
+        display: flex
+        flex-wrap: nowrap
+        flex-direction: column
+        align-items: center
+        gap: 1rem
+    
+        @include fadeIn()
 
 .emailSubmit_form
     display: flex
@@ -52,13 +91,15 @@
     gap: 10px
     width: 100%
 
-    input[type="submit"]
-        width: calc(60% + 2em)
-        padding: 0.8em 0
 
 .minilogo_image
     height: 5rem
     width: 5rem
+
+.check_svg
+    height: 6rem
+    width: 6rem
+    fill: #9b4b4b
 
 
 .verticalRelation 

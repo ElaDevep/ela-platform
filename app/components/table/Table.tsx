@@ -2,26 +2,30 @@
 
 import { Children, useCallback, useEffect, useState } from "react"
 import { TableT } from "./types"
-import styles from './component.module.sass'
+import styler from './Table.module.sass'
 import { Props } from "@/app/types"
 import MixStyles from "@/app/lib/functions/MixStyles"
 import Row from "./Row"
+import Animator from "../animator/Animator"
 
 
 const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
     const [data,setData] = useState()
     const [current,setCurrent] = useState<string>()
+    const [error,setError] = useState<boolean>(false)
 
     let tableProps = new Props()
 
-    tableProps.addProps({className:MixStyles(styles.table_container,className)})
+    tableProps.addProps({className:MixStyles(styler.table_container,className)})
 
-    const selectOne = useCallback((id:string) =>{
-        if(current!=undefined && current != id){
-            console.log(id)
-            setCurrent(id)
+    const selectOne = (index:string) =>{
+        if((current==undefined || current != index) && data!=undefined){
+            console.log(index)
+            setCurrent(index)
         }
-    },[current])
+    }
+
+    
     
     const headersOrganization = () =>{
         const childrenArray:React.ReactNode[] = Children.toArray(children)
@@ -34,7 +38,7 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
 
             return(
                 //@ts-ignore
-                <div className={styles.headers_columns} key={index} {...child.props}/>
+                <div className={styler.headers_columns} key={index} {...child.props}/>
             )
         })
 
@@ -58,16 +62,17 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
             
             let props = new Props()
 
-            props.addPropsIfAllTrueElse({className:MixStyles(styles.selected_row,styles.record_row)},[
-                item._id == current
-            ],{className:styles.record_row})
+            props.addPropsIfAllTrueElse({className:MixStyles(styler.selected_row,styler.record_row)},[
+                itemKey.toString() == current
+            ],{className:styler.record_row})
 
             const columns = fields.map((field,fieldKey)=>{
 
                 let value:string = item[field]
                 
                 if(typeof value == 'boolean'){
-                    value = (value)?'S':'N'
+                    console.log(value)
+                    value = (value)?'✓':''
                 }
 
                 
@@ -75,13 +80,22 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
                     value = itemKey.toString()
                 }
 
-                return <div className={styles.record_column} key={fieldKey} onClick={()=>{}}>
+                return <span 
+                    className={styler.record_column} 
+                    key={fieldKey} 
+                    onClick={()=>{}}
+                >
                     {value}
-                </div>
+                </span>
             })
 
             //@ts-ignore
-            return <div {...props} key={itemKey} id={item._id} onClick={()=>selectOne(item._id)}>
+            return <div 
+                {...props} 
+                key={itemKey} 
+                id={item._id} 
+                onClick={()=>selectOne(itemKey)}
+            >
                 {columns}
             </div>
         })
@@ -93,32 +107,62 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
 
 
     const getData = async() =>{
-        // console.log((await endpoint()).data)
-        setData((await endpoint()).data)
+        if(endpoint!=undefined){
+            const response = (await endpoint())
+            if(response.status == 'success'){
+                setData((await endpoint()).data)
+
+            }
+            else{
+                setError(true)
+            }
+        }
     }
 
     useEffect(()=>{
         getData()
-        setCurrent('')
     },[])
 
     useEffect(()=>{
-        if(current!=undefined){
-            getCurrent(current)
+        if(current!=undefined && data!=undefined){
+            console.log(data[current])
+            getCurrent(data[current])
         }
     },[current])
 
     return <>
         <div {...tableProps}>
-                <div className={styles.header_table}>
-                    {headersOrganization()}
-                </div>
-                <div className={styles.records_table}>
-                    {
-                    data!=undefined&&
-                    bodyOrganization(data)
-                    }
-                </div>
+                {!data && !error &&
+                    <div className={styler.fetching_container}>
+                        <Animator 
+                            className={styler.charging_animation}
+                            baseRoute="/animations/change_table/"
+                            framing={3}
+                            start={0}
+                            end={2}
+                            infinite
+                            auto
+                        />
+                    </div>
+                }
+                {data && !error &&
+                <>
+                    <div className={styler.header_table}>
+                        {headersOrganization()}
+                    </div>
+                    <div className={styler.records_table}>
+                        {
+                        data!=undefined&&
+                        bodyOrganization(data)
+                        }
+                    </div>
+                </>
+                }
+                {error && 
+                    <div className={styler.serverError_container}>
+                        <h2>Problema de servidor</h2>
+                    </div>
+                }
         </div>
     </>
 

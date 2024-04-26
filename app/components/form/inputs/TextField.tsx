@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 import { TextInputInterface } from "../types"
 import useInput from "./useInput"
-import styler from './input.module.sass'
+import styler from '../Form.module.sass'
 import { Props } from "@/app/types"
 import MixStyles from "@/app/lib/functions/MixStyles"
 
@@ -49,8 +49,8 @@ const TextField: React.FC<TextInputInterface> = ({name,label,placeholder,use,pat
             }
             <input type="text" name={name} placeholder={placeholder} {...props} className={(MixStyles('input',styler,fatherStyler))}/>
             <p className={(MixStyles('error',styler,fatherStyler))}>
-            {(input.requireError && requireWarn)&&
-                requireWarn
+            {(input.requireError)&&
+                "Este campo es requerido"
             }
             {(!input.requireError && patternWarn && input.patterError)&&
                 patternWarn

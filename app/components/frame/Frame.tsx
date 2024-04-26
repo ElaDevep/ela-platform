@@ -12,9 +12,9 @@ const Frame: React.FC<FrameT> = ({className,contain,cover,fill,src,alt}) => {
     let imageProps = new Props()
     const imgStyles = {
         fill:'inherit',
-        position: 'relative',
-        width:'100%',
-        height:'100%'
+        // position: 'relative',
+        // width:'100%',
+        // height:'100%'
     }
     
     imageProps.addPropsIfExist({style:{objectFit:'fill',...imgStyles}},fill)
@@ -31,6 +31,7 @@ const Frame: React.FC<FrameT> = ({className,contain,cover,fill,src,alt}) => {
             src = {src}
             alt = {alt}
             sizes={"1000px"}
+            fill
             {...imageProps}
             />
         </div>

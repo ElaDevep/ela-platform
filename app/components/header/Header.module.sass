@@ -1,0 +1,142 @@
+@import '@/global-styles'
+
+.header
+    position: absolute
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+
+    .headerTitle_container
+        width: 100vw
+        height: min-content
+        padding: 20px
+        background: $primary-dark
+
+        .logo_image
+            height: 1em
+            width: 1em
+            display: inline-block
+            
+
+            .filter
+                background: red
+
+        .logo_container
+            display: flex
+            flex-direction: row
+            flex-wrap: nowrap
+            justify-content: center
+            align-items: center
+            font-size: 4rem
+            
+            span
+                width: max-content
+                font-weight: 600
+        
+        .currentUser_container
+            position: absolute
+            top:0
+            right: 0
+
+            display: flex  
+            flex-direction: column
+
+            padding: 1em 1em
+            padding-right: 5em
+
+            background-color: $primary-light
+
+            border-bottom-left-radius: $root-border-radius
+            
+            transition: background-color 1s ease-in-out, color 1s ease-in-out
+            
+            &:hover
+                background-color: white
+                color: $primary-color
+
+            
+            &:active
+                background-color: $secondary-color
+                color: $primary-color
+
+
+            span
+                font-size: 1.2em
+
+            *
+                text-align: center
+                display: block
+            
+            .logOut_link
+                background-color: unset
+
+                color: inherit
+
+                font-weight: 300
+
+                &:hover
+                    text-decoration: underline
+
+            .userProfile_image
+                position: absolute
+                top: 0
+                right: 0
+
+                width: 3em
+                height: 3em
+
+                margin: 1em 1em
+
+                box-shadow: $primary-light 0 0 0 2px
+
+                border-radius: 100%
+
+    .main_nav
+        position: relative
+        top: -1px
+        z-index: 1
+
+        width: max-content
+
+        margin: 0 15%
+
+
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-wrap: nowrap
+
+        color:$light-black
+            
+        border-radius: 0  0 $root-border-radius $root-border-radius
+        border-color: $primary-dark
+        border-width: 1px
+        border-style: solid
+
+        a
+            z-index: 0
+
+            width: 13em
+            
+            padding: 0.5em 0
+
+            text-align: center
+
+            display: inline
+
+            background-color: $contrast-color
+
+            transition: background-color 0.5s ease-in, color 0.2s ease-in
+                
+            &:first-child
+                border-bottom-left-radius: $root-border-radius/2
+
+            &:last-child
+                border-bottom-right-radius: $root-border-radius/2
+
+            &:hover
+                background-color: $primary-light
+                color: white
+
+            

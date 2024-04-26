@@ -3,7 +3,7 @@
 import { LegacyRef, useEffect, useRef, useState } from "react"
 import { InputInterface, SubmitInterface } from "../types"
 import useInput from "./useInput"
-import styler from './input.module.sass'
+import styler from '../Form.module.sass'
 import { Props } from "@/app/types"
 import MixStyles from "@/app/lib/functions/MixStyles"
 

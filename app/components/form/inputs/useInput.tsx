@@ -79,6 +79,8 @@ const reducer = (state:object,action:ActionUseInputInterface) =>{
             break
         case 'setWithoutError':
             input.withoutErrors(action.value)
+        case 'validateForced':
+            input.anyError()
     }
 
     return input.getObj()
@@ -96,7 +98,6 @@ const useInput = (
     })
 
     const validateDependencies = (dependencies:any[]) => {
-        
         const dependenciesValues = dependencies.map((dependence)=>{
                 if(dependence==undefined) return
                 return dependence.accept
@@ -104,23 +105,30 @@ const useInput = (
         return (dependenciesValues.includes(false) || dependenciesValues.includes(undefined))
     }
 
+    const validateErrors = (value:string) =>{
+        if(params.toAccept.pattern!=undefined){
+            const pattern = (params.toAccept.pattern)
+            setInput({
+                type:'setPatterError',
+                error:!pattern.test(value)
+            })
+        }
+        if(params.toAccept.required!=undefined){
+            setInput({
+                type:'setRequireError',
+                error:(value=='' || value == undefined || /^\s*$/.test(value))
+            })
+        }
+        setInput({
+            type:'validatedForced'
+        })
+    }
+
     const setValue = (value:string) =>{
         if(params!=undefined ){
             if(params.toAccept!= undefined){
                 if(firstClick){
-                    if(params.toAccept.pattern!=undefined){
-                        const pattern = (params.toAccept.pattern)
-                        setInput({
-                            type:'setPatterError',
-                            error:!pattern.test(value)
-                        })
-                    }
-                    if(params.toAccept.required!=undefined){
-                        setInput({
-                            type:'setRequireError',
-                            error:(value=='' || value == undefined || /^\s*$/.test(value))
-                        })
-                    }
+                    validateErrors(value)
                 }
             }
         }
@@ -141,14 +149,14 @@ const useInput = (
 
 
     const setDependencies = () =>{
-        let value = inputRef.current.value
-        
-        if(validateDependencies(params.toAble.previous)!=input.dependError){
-            if(params.toAble.previous!=undefined){
-                setInput({
-                    type:'setDependRestrict',
-                    error: validateDependencies(params.toAble.previous)
-                })
+        if(params.toAble.previous!=undefined){
+            if(validateDependencies(params.toAble.previous)!=input.dependError){
+                if(params.toAble.previous!=undefined){
+                    setInput({
+                        type:'setDependRestrict',
+                        error: validateDependencies(params.toAble.previous)
+                    })
+                }
             }
         }
     }
@@ -160,6 +168,11 @@ const useInput = (
 
     const forceValue = () => {
         setDependencies()
+        if(params!=undefined ){
+            if(params.toAccept!= undefined){
+                validateErrors(input.value)
+            }
+        }
         setForced(true)
     }
 
@@ -173,8 +186,13 @@ const useInput = (
         return input
     }
 
+    
+    // useEffect(()=>{
+    //     console.log(input)
+    // })
+
     useEffect(()=>{
-        console.log(input)
+        //console.log(input)
         if(!forced && params.use!=undefined && (Object.keys(input).length != 0 && input!=undefined && input.value!=undefined)){
             params.use({change:forceValue,...input,previous:params.previous,hiders:params.hiders})
         }

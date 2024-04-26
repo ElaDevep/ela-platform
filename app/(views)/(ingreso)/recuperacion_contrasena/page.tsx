@@ -1,45 +1,61 @@
 'use client'
 
 import Frame from "@/app/components/frame/Frame";
-import styles from "./page.module.sass"
+import styler from "./page.module.sass"
 import background_image from "@/public/jpg/fondo_login.jpg"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
-import { Form,TextField,Submit } from "@/deprecated/form/ela-form"
+import check from '@/public/svg/check.svg'
+import { Form,TextField,Submit } from "@/ela-form"
 import {Responsiver} from "@/ela-components";
-import { useEffect, useState } from "react";
-import restorePassword from "@/app/(views)/(ingreso)/recuperacion_contrasena/[token]/restore_password";
-import { usePathname } from "next/navigation";
-
+import {  useState } from "react";
+import send_restore_email from "@/app/api/AUTH/send_restore_email";
 
 export default function PasswordRestoreRequest() {
-    const [emailSended,setEmailSended] = useState<boolean>()
+    const [emailSended,setEmailSended] = useState<boolean>(false)
     
     const SubmitHandler = async(formData:object) =>{
-        setEmailSended((await restorePassword(formData)!=undefined)&&true)
+        const response = await send_restore_email(formData)
+        if(response.status=='ok'){
+            setEmailSended(true)
+        }
+        return response
     }
 
     return (
-        <Responsiver className={styles.verticalRelation} 
+        <Responsiver className={styler.verticalRelation} 
         breakPoints={{
             relation:[9,10]
         }}>
-            <div className={styles.front_container}>
-                <div className={styles.emailSubmit_container}>
+            <div className={styler.front_container}>
+                <div className={styler.emailSubmit_container}>
                     <Frame
                     src={ela_minilogo}
                     alt={"ela_logo"}
-                    className={styles.minilogo_image}
+                    className={styler.minilogo_image}
                     contain
                     />
-                    <h3>Recuperación de contraseña</h3>
-                    <p>Ingresa tu correo, verificaremos tu estado en el sistema y de inmediato te enviaremos un código de recuperación.</p>
-                    <Form className={styles.emailSubmit_form} onSubmit={SubmitHandler} >
-                        <TextField name="email" placeholder="Correo electronico"/>
-                        <Submit/>
-                    </Form>
+                    
                     {emailSended &&
-                        <h5>Correo enviado</h5>
+                        <div className={styler.sendMessage_container}>
+                            <Frame
+                            src={"/svg/check.svg"}
+                            alt={"ela_logo"}
+                            className={styler.check_svg}
+                            contain
+                            />
+                            
+                            <h4>Correo enviado correctamente</h4>
+                            <p>Puede cerrar esta pestaña</p>
+                        </div>
                     }
+                    <div className={styler.formSubmit_container}>
+                        <h3>Recuperación de contraseña</h3>
+                        <p>Ingresa tu correo, verificaremos tu estado en el sistema y de inmediato te enviaremos un código de recuperación.</p>
+                        <Form className={styler.emailSubmit_form} onSubmit={SubmitHandler} >
+                            <TextField name="email" placeholder="Correo electronico" required/>
+                            <Submit>Enviar</Submit>
+                        </Form>
+                    </div>
                 </div>
             </div>
         </Responsiver>

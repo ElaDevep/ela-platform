@@ -2,68 +2,52 @@
 
 import Link from 'next/link'
 import { Button, Frame } from '../ela-components'
-import styles from './page.module.sass'
+import styler from './Header.module.sass'
 import logo_img from '@/public/svg/logo_ela_white.svg'
 import user_img from '@/public/svg/user_profile.png'
 import { usePageContext } from '@/app/context/PageContex'
 import { useEffect } from 'react'
+import log_in from '@/app/api/AUTH/log_in'
+import log_out from '@/app/api/AUTH/log_out'
+import MainMenu from './MainMenu'
 
-const Header = () => {
+const Header = (
+
+) => {
     //@ts-ignore
-    const {user} = usePageContext()
+    const {user,logOut,access} = usePageContext()
     
     useEffect(()=>{
         console.log(user)
     },[user])
 
     return <>
-        <header className={styles.header}>
-            <div className={styles.headerTitle_container}>
-                <div className={styles.logo_container}>
+        <header className={styler.header}>
+            <div className={styler.headerTitle_container}>
+                <div className={styler.logo_container}>
                     <span>ELA APP</span>
                     <Frame
                         src={logo_img}
                         alt={'logo'}
-                        className={styles.logo_image}
+                        className={styler.logo_image}
                     />
                 </div>
-                <div className={styles.currentUser_container}>
+                <div className={styler.currentUser_container}>
                     <span>{user && user.name}</span>
-                    <Link
-                        className={styles.logOut_link}
-                        href={'/'}
+                    <button
+                        className={styler.logOut_link}
+                        onClick={()=>{logOut()}}
                     >
                         Cerrar Sesión
-                    </Link>
-                    <Frame
-                        src={user_img}
+                    </button>
+                    <img
+                        src={'https://yt3.ggpht.com/a/AGF-l78sFEzgzSLc5uN2JaELPmIdkDqT7csE4ihsbg=s900-c-k-c0xffffffff-no-rj-mo'}
                         alt={'user'}
-                        className={styles.userProfile_image}
+                        className={styler.userProfile_image}
                     />
                 </div>
             </div>
-            {/* <nav className={styles.main_nav}>
-                <Link className={styles.navOption_link}
-                href={'/'}
-                >
-                    Section
-                </Link>
-                <Link className={styles.navOption_link}
-                href={'/'}
-                >
-                    Section
-                </Link>
-                <Link className={styles.navOption_link}
-                href={'/'}
-                >
-                    Section
-                </Link>
-                <Link className={styles.navOption_link}
-                href={'/'}
-                >
-                    Section
-                </Link>
-            </nav> */}
+            <MainMenu routes={access} className={styler.main_nav}></MainMenu>
         </header>
     </>
 }

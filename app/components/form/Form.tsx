@@ -4,6 +4,9 @@ import { Children, FormEvent, useEffect, useState } from "react"
 import { FormInterface } from "./types"
 import useForm from "./useForm"
 import { Props } from "@/app/types"
+import localStyler from './Form.module.sass'
+import MixStyles from "@/app/lib/functions/MixStyles"
+import { useProps } from "@/app/hooks/ela-hooks"
 
 const setTriggers = (formInputs:object,inputName:string) =>{
     let triggers = []
@@ -35,13 +38,20 @@ const setTriggers = (formInputs:object,inputName:string) =>{
 const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: string]: string}|undefined,form:object,initValues:object) =>{
     return Children.toArray(children).map((child,key)=>{
         let props = new Props()
-        const inputComponets = ['TextField','Submit']
+        const inputComponets = ['TextField','Submit','PasswordField']
         props.addProps({...child.props})
 
         if(child.type!=undefined){
             if(child.type.name!=undefined){
+                // if(child.type.name=='FormError'){
+                //     if(form.apiError){
+                //         return <child.type  key={key} {...props}>
+                //             {props.children && props.children}
+                //         </child.type>
+                //     }
+                // }
                 if(inputComponets.includes(child.type.name)){
-                    props.addProps({use:(input:any)=>form.setInput(props.name,input)})
+                    props.addPropsIfAllTrue({use:(input:any)=>form.setInput(props.name,input)},[child.type.name != 'Submit'])
 
                     props.addPropsIfAllTrue({fatherStyler:styler},[
                         styler!=undefined
@@ -82,6 +92,7 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
                 }
             }
             else{
+
                 return <child.type  key={key} {...props}>
                     {props.children && FormChildrenModifier(props.children,styler,form,initValues)}
                 </child.type>
@@ -98,6 +109,14 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
 
 const Form: React.FC<FormInterface> = ({children,styler,initValues,onSubmit,className,errorMessage}) => {
     const form = useForm({onSubmit:onSubmit})
+    const formProps = useProps((props:Props)=>{
+        props.addPropsIfExistElse({
+            className:MixStyles(className,localStyler.generalError_form)},
+            form.apiError,
+            {className:className})
+        return props
+    })
+
 
     const renderChildren = FormChildrenModifier(children,styler,form,initValues)
 
@@ -112,12 +131,14 @@ const Form: React.FC<FormInterface> = ({children,styler,initValues,onSubmit,clas
     // })
 
     return <>
-        {form.error && <h1>asldjlsadfj</h1>}
-        <form method="POST" className={className} onSubmit={(e)=>{form.onSubmit(e)}}>
+        <form 
+            method="POST" 
+            className={MixStyles(className,localStyler.generalError_form)} 
+            onSubmit={(e)=>{form.onSubmit(e)}}        
+        >
             {renderChildren}
-            {form.error
-
-            }
+            {form.apiError!='' && form.apiError!=undefined && 
+            <p className={localStyler.apiError}>{form.apiError}</p>}
         </form>
     </>
 }

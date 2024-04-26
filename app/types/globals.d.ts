@@ -13,5 +13,10 @@ declare global {
       tabIndex?:boolean|number
       children:React.ReactNode
     }
+
+    interface APIResponse{
+      status:string
+      data:string
+    }
 }
 
