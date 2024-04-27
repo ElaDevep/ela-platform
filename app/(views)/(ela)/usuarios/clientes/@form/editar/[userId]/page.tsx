@@ -16,8 +16,10 @@ export default function UserCreator({ params }: { params: { userId: string }}) {
     const updateUser = async(formData:object) =>{
         const response = await putUser(params.userId,formData)
         console.log(response)
-        if(response.status == 'ok'){
-            router.push('/usuarios/clientes')
+        if(response!=undefined){
+            if(response.status == 'ok'){
+                router.push('/usuarios/clientes')
+            }
         }
         //router.back()
         return response
