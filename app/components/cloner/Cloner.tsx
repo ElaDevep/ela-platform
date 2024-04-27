@@ -9,7 +9,7 @@ const Cloner: React.FC<ClonerT> = ({children,iterator,setItem}) => {
 
     return <>
         <h1></h1>
-        {
+        {/* {
         iterator.map((item,key)=>{
             setItem(item)
             return {
@@ -18,7 +18,7 @@ const Cloner: React.FC<ClonerT> = ({children,iterator,setItem}) => {
                 })
             }
         })
-        }
+        } */}
     </>
 
 }
