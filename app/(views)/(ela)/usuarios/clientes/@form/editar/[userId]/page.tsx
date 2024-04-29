@@ -10,7 +10,7 @@ import get_user from "@/app/api/USERS/get_user"
 import { UserInterface } from "@/app/api/USERS/types"
 
 export function generateStaticParams(){
-
+    return []
 }
 
 
