@@ -5,40 +5,45 @@ import styler from "./page.module.sass"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
 import { Form,Submit, PasswordField } from "@/ela-form"
 import {Responsiver} from "@/ela-components";
-import { useEffect, useLayoutEffect, useState } from "react";
+//import { useEffect, useLayoutEffect, useState } from "react";
 import { Router } from "next/router";
 import validate_restore_token from "@/app/api/AUTH/validate_restore_token";
 import restore_password from "@/app/api/USERS/restore_password";
 import Link from "next/link";
 
+export function generateStaticParams(){
+    return []
+}
+
+
 
 export default function PasswordRestore({ params }: { params: { token: string } }) {
-    const [userId,setUserId] = useState<string>()
-    const [passwordChanged,setPasswordChanged] = useState<boolean>(false)
+    // const [userId,setUserId] = useState<string>()
+    // const [passwordChanged,setPasswordChanged] = useState<boolean>(false)
 
-    const ChangePassword = async (formData:object) =>{
-        const response = await restore_password({userId:userId,...formData})
-        if(response.status=='ok'){
-            setPasswordChanged(true)
-        }
-        return response
-    }
+    // const ChangePassword = async (formData:object) =>{
+    //     const response = await restore_password({userId:userId,...formData})
+    //     if(response.status=='ok'){
+    //         setPasswordChanged(true)
+    //     }
+    //     return response
+    // }
 
-    const tokenValidator = async() =>{
-        //@ts-ignore
-        const response:APIResponse = await validate_restore_token(params.token)
-        console.log(response)
-        if(response != undefined) setUserId(response.userId)
-        else setUserId('none')
-    }
+    // const tokenValidator = async() =>{
+    //     //@ts-ignore
+    //     const response:APIResponse = await validate_restore_token(params.token)
+    //     console.log(response)
+    //     if(response != undefined) setUserId(response.userId)
+    //     else setUserId('none')
+    // }
 
-    useLayoutEffect(()=>{
-        tokenValidator()
-    },[])
+    // useLayoutEffect(()=>{
+    //     tokenValidator()
+    // },[])
 
-    useEffect(()=>{
-        console.log(userId)
-    },[userId])
+    // useEffect(()=>{
+    //     console.log(userId)
+    // },[userId])
 
 
     return (
@@ -49,7 +54,7 @@ export default function PasswordRestore({ params }: { params: { token: string } 
         }}>
             <div className={styler.front_container}>
                 <div className={styler.emailSubmit_container}>
-                    <Frame
+                    {/* <Frame
                     src={ela_minilogo}
                     alt={"ela_logo"}
                     className={styler.minilogo_image}
@@ -97,7 +102,7 @@ export default function PasswordRestore({ params }: { params: { token: string } 
                             <h4>Contraseña restaurada exitosamente</h4>
                             <Link href={'/inicio_sesion'}>Iniciar sesión</Link>
                         </div>
-                    }
+                    } */}
                 </div>
             </div>
         </Responsiver>
