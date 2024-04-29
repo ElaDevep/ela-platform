@@ -7,11 +7,15 @@ import { redirect } from 'next/navigation'
 export default async function log_in(
     userInfo:object
 ) {
-    let response:APIResponse
+    let response:APIResponse<string> ={
+        status:undefined,
+        data:undefined
+    }
     await axiosAPI.post('/auth/login',userInfo)
     .then((res)=>{
         response = res.data
-        cookies().set('userToken',response.data)
+        if(response.data)
+            cookies().set('userToken',response.data)
     }).catch((error)=>{
         if(error.response!=undefined)
             response = error.response.data

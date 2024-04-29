@@ -7,6 +7,8 @@ const useScreenSize = () => {
   const [height, setHeight] = useState<number>();
 
   useEffect(() => {
+    setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
     if(window!=undefined){
       window.addEventListener("resize", handleResize);
 

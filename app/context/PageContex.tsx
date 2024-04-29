@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { PageContextT } from "./types";
+import { PageContextT, RoleAccessInterface } from "./types";
 import get_current_user from "../api/AUTH/get_current_user";
 import log_out from "../api/AUTH/log_out";
-import LocalFileReader from "../lib/functions/LocalFileReader";
 import roleAccess from "@/app/lib/jsons/roleAccess.json"
-import { title } from "process";
 import { useRouter } from "next/navigation";
-import { tree } from "next/dist/build/templates/app-page";
+import { UserInterface } from "../api/USERS/types";
 
 const PageContex = React.createContext(0);
 
 
 export const PageProvider: React.FC<PageContextT> = (props,children) => {
     //Crea contexto para lectura global al JSON
-    const [user,setUser] = useState<object>()
+    const [user,setUser] = useState<UserInterface>()
     const [access,setAccess] = useState<object>()
     const router = useRouter()
 
 
     const getCurrentUser = async() =>{
-        const response = await get_current_user()
-        //console.log(response)
-        if(response!=undefined && user == undefined){
+        const response:APIResponse<UserInterface>|undefined = await get_current_user()
+        if(response?.data && !user){
             setUser({
                 name:response.data.name,
                 email:response.data.email,
@@ -51,7 +48,10 @@ export const PageProvider: React.FC<PageContextT> = (props,children) => {
 
     useEffect(()=>{
         if(user!=undefined){
-            setAccess((roleAccess.roles[user.role]).map((access:string)=>{
+            const roleAccessImport:RoleAccessInterface = roleAccess
+            if(user.role)
+            setAccess((roleAccessImport.roles[user.role]).map((access:string)=>{
+                //@ts-ignore
                 return roleAccess.views[access]
             }))
         }

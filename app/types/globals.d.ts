@@ -14,9 +14,9 @@ declare global {
       children:React.ReactNode
     }
 
-    interface APIResponse{
-      status:string
-      data:string
+    interface APIResponse<DataType>{
+      status:string|undefined
+      data:DataType|void
     }
 }
 

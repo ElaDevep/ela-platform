@@ -23,3 +23,8 @@ export interface ManagerT{
     current:object
     actions:object
 }
+
+export interface DataEntityT{
+    _id:string
+    [key:string]:any
+}

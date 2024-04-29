@@ -5,7 +5,10 @@ import { axiosAPI } from '../axiosAPI'
 import { cookies } from 'next/headers'
 
 export default async function validate_token() {
-    let response:APIResponse
+    let response:APIResponse<{userId:string}>={
+        status:undefined,
+        data:undefined
+    }
     const token = cookies().get('userToken')
     // const d = 
     if(token != undefined){

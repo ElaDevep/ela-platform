@@ -5,7 +5,10 @@ import { cookies } from "next/headers"
 import { axiosAPI } from "@/app/api/axiosAPI"
 
 const putUser = async (userId:string,userInfo:object) =>{
-    let response
+    let response:APIResponse<string>={
+        status:undefined,
+        data:undefined
+    }
     try{
         await axiosAPI.put('/auth/update/'+userId,userInfo).
         then((res)=>{

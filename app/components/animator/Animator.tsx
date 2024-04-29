@@ -45,7 +45,7 @@ const Animator: React.FC<AnimatorInterface> = ({className,baseRoute,framing,star
     // },[frame])
 
     useEffect(()=>{
-        console.log(play)
+        //console.log(play)
         if(play)
             changeFrame()
     },[play])

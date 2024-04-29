@@ -1,11 +1,6 @@
+import { UserInterface } from "@/app/api/USERS/types";
+
 export interface UserCardT{
-    user:User|undefined
+    user:UserInterface|undefined
 }
 
-interface User{
-    email:string
-    _id:string
-    name:string
-    mobile:string
-    role:string
-}

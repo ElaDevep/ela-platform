@@ -6,7 +6,10 @@ import { error } from 'console'
 import { cookies } from 'next/headers'
 
 export default async function validate_restore_token(token:string) {
-    let response:APIResponse
+    let response:APIResponse<{userId:string}> = {
+        status:undefined,
+        data:undefined
+    }
     if(token != undefined){
         //console.log(token)
         await axiosAPI.post('/validate-token',{token:token})

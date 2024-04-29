@@ -2,12 +2,12 @@
 
 import { error } from "console"
 import { FormEvent, useEffect, useReducer, useRef, useState } from "react"
-import { ActionUseFormInterface, ActionUseInputInterface, toAcceptInterface} from "./types"
+import { ActionUseFormInterface, ActionUseInputInterface, UseFormParamsInterface, toAcceptInterface} from "./types"
 
 class Form {
     error:boolean = false
     apiError:string = ''
-    inputs:object={}
+    inputs:{[key: string]: any}={}
     state:string = ''
 
     addInput = (input:object) => {
@@ -29,13 +29,15 @@ const reducer = (state:object,action:ActionUseFormInterface) =>{
 
     switch(action.type){
         case 'setInput':
-            form.addInput({[action.name]:action.input})
+            if(action.name)
+                form.addInput({[action.name]:action.input})
             break
         case 'setError':
             form.error = true
             break
         case 'setApiError':
-            form.apiError = action.message
+            if(action.message)
+                form.apiError = action.message
             break
         case 'quitError':
             form.error = false
@@ -46,14 +48,15 @@ const reducer = (state:object,action:ActionUseFormInterface) =>{
 }
 
 const useForm = (
-    params:object
+    params:UseFormParamsInterface
 ) => {
-    const [form,setForm] = useReducer(reducer,{})
+    const [form,setForm] = useReducer(reducer,new Form())
 
     const getData = () => {
         let data = {}
         for(let input in form.inputs){
-            Object.assign(data,{[input]:form.inputs[input].value})
+            if(input)
+                Object.assign(data,{[input]:form.inputs[input].value})
         }
         //console.log(data)
         return data
@@ -90,7 +93,6 @@ const useForm = (
         setForm({
             type:'quitError'
         })
-
         const response = await params.onSubmit(formData)
         if(response != undefined){
             if(response.status=='error'){

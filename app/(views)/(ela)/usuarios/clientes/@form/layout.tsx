@@ -14,7 +14,7 @@ export default function RootLayout({
 
 
     return <>
-        <div className={styles.modal}>
+        <div className={styles.modal}>  
             <div className={styles.userForm_container}>
                 <Link href={'/usuarios/clientes'} className={styles.exit_link}>x</Link>
                 {children}

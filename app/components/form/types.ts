@@ -1,17 +1,19 @@
+import { FormEvent } from "react"
+
 export interface FormInterface{
     children:React.ReactNode
     styler?:{readonly [key: string]: string}
-    initValues?:object
+    initValues?:{[key:string]:any}
     onSubmit:(formData:object)=>any
     className?:string
     errorMessage?:string
 }
 
 export interface ActionUseInputInterface{
-    type:string
-    value:string
-    error:boolean
-    clicked:boolean
+    type?:string
+    value?:string
+    error?:boolean
+    clicked?:boolean
 }
 
 export interface InputInterface{
@@ -49,10 +51,10 @@ export interface UseInputParamsInterface{
 }
 
 export interface ActionUseFormInterface{
-    type:string
-    name:string
-    input:{}
-    message:string
+    type?:string
+    name?:string
+    input?:{}
+    message?:string
 }
 
 export interface SubmitInterface extends InputInterface{
@@ -69,3 +71,25 @@ export interface FormErrorInterface{
     children?:React.ReactNode
 }
 
+
+export interface UseFormParamsInterface{
+    onSubmit:(form:{})=>any
+}
+
+export interface ChildOfForm{
+    props:{any:any}
+    type:()=>any
+}
+
+export interface useFormReturnInterface{
+    inputs:{[key: string]: any}
+    error:boolean
+    apiError:string
+    setInput:(name:string,input:any)=>any
+    getData:()=>any
+    onSubmit:(e:FormEvent)=>any
+}
+
+export interface FormChildPropsInterface{
+    name:string
+}

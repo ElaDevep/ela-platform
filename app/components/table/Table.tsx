@@ -1,7 +1,7 @@
 'use client'
 
 import { Children, useCallback, useEffect, useState } from "react"
-import { TableT } from "./types"
+import { DataEntityT, TableT } from "./types"
 import styler from './Table.module.sass'
 import { Props } from "@/app/types"
 import MixStyles from "@/app/lib/functions/MixStyles"
@@ -55,11 +55,11 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
             if(child.type.name!='Column'){
                 throw Error()
             }
-
+            //@ts-ignore
             return child.props.field
         })
 
-        const rows = data.map((item,itemKey)=>{
+        const rows = data.map((item:DataEntityT,itemKey)=>{
             
             let props = new Props()
 
@@ -90,12 +90,11 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
                 </span>
             })
 
-            //@ts-ignore
             return <div 
                 {...props} 
                 key={itemKey} 
                 id={item._id} 
-                onClick={()=>selectOne(itemKey)}
+                onClick={()=>selectOne(itemKey.toString())}
             >
                 {columns}
             </div>

@@ -14,11 +14,11 @@ const Manager: React.FC<ManagerT> = ({actions,}) => {
 
     return <>
         <div>
-            <Button action={()=>{}}/>
-            <Button action={()=>{}}/>
+            <Button action={()=>{}}>lasflsf</Button>
+            <Button action={()=>{}}>lsjdlkasjf</Button>
         </div>
     </>
 
 }
 
-export default Row
+export default Manager

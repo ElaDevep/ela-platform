@@ -26,7 +26,7 @@ export default function PasswordRestore({ params }: { params: { token: string } 
 
     const tokenValidator = async() =>{
         //@ts-ignore
-        const response = await validate_restore_token(params.token)
+        const response:APIResponse = await validate_restore_token(params.token)
         console.log(response)
         if(response != undefined) setUserId(response.userId)
         else setUserId('none')

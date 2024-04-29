@@ -17,7 +17,6 @@ const UserCard: React.FC<UserCardT> = ({user}) => {
                     <img
                     {...user && user.imgProfile ? {src:user.imgProfile} : {src:'/svg/user_profile.png'}}
                     alt={'user'}
-                    contain
                     className={styles.user_image}
                     />
                 

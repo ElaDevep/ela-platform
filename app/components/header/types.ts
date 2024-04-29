@@ -1,5 +1,8 @@
 export interface MainMenuInterface{
-    routes:string[],
+    routes:Array<{
+        route:string,
+        title:string
+    }>
     className:string
 }
 export interface HeaderInterface{

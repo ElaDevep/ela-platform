@@ -6,7 +6,10 @@ import { error } from 'console'
 import { cookies } from 'next/headers'
 
 export default async function restore_password(restoreInfo:object) {
-    let response:APIResponse
+    let response:APIResponse<string>={
+        status:undefined,
+        data:undefined
+    }
     await axiosAPI.post('/reset-password',restoreInfo)
     .then((res)=>{
         response = {

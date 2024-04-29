@@ -6,16 +6,21 @@ import { error } from 'console'
 import { cookies } from 'next/headers'
 import validate_token from './validate_token'
 import get_user from '../USERS/get_user'
+import { UserInterface } from '../USERS/types'
 
 export default async function get_current_user(
 ) {
-    let response
+    let response:APIResponse<UserInterface> = {
+        status:undefined,
+        data:undefined
+    }
     try{
         await validate_token()
         .then(async(res)=>{
             console.log(res)
             if(res!=undefined){
                 if(res.status=='ok'){
+                    if(res.data)
                     await get_user(res.data.userId)
                     .then((res)=>{
                         response=res
@@ -32,7 +37,8 @@ export default async function get_current_user(
         .catch((e)=>{
             console.log(e)
         })
-        return response
+        if(response)
+            return response
     }
     catch(e){
         console.log(e)

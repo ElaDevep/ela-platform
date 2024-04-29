@@ -1,14 +1,14 @@
 'use client'
 
-import { Children, FormEvent, useEffect, useState } from "react"
-import { FormInterface } from "./types"
+import { Children, FormEvent, ReactElement, useEffect, useState } from "react"
+import { ChildOfForm, FormChildPropsInterface, FormInterface, useFormReturnInterface } from "./types"
 import useForm from "./useForm"
 import { Props } from "@/app/types"
 import localStyler from './Form.module.sass'
 import MixStyles from "@/app/lib/functions/MixStyles"
 import { useProps } from "@/app/hooks/ela-hooks"
 
-const setTriggers = (formInputs:object,inputName:string) =>{
+const setTriggers = (formInputs:{[key:string]:any},inputName:string) =>{
     let triggers = []
     for(let input in formInputs){
         if(formInputs[input].previous!=undefined){
@@ -23,26 +23,29 @@ const setTriggers = (formInputs:object,inputName:string) =>{
         }
     }
     return({triggers:triggers})
-    // console.log(inputName)
-    // console.log({triggers:triggers})
-    //     if(input.dependencies!=undefined){
-    //         return input.dependencies.map((dependence)=>{
-    //             if(dependence==props.name){
-    //                 return ';v'
-    //             }
-    //         })
-    //     }
-    // })
 }
 
-const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: string]: string}|undefined,form:object,initValues:object) =>{
+const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: string]: string}|undefined,form:useFormReturnInterface,initValues:{readonly [key: string]: any}|undefined) =>{
     return Children.toArray(children).map((child,key)=>{
         let props = new Props()
-        const inputComponets = ['TextField','Submit','PasswordField']
-        props.addProps({...child.props})
+        const inputComponents = ['TextField','Submit','PasswordField']
 
-        if(child.type!=undefined){
-            if(child.type.name!=undefined){
+
+        const childObj={
+            //@ts-ignore
+            props:child.props,
+            //@ts-ignore
+            type:child.type,
+            //@ts-ignore
+            typeName:child.type.name
+        }
+
+        props.addProps({...childObj.props})
+
+        if(childObj.type!=undefined){
+            console.log(':v')
+            console.log(childObj)
+            if(childObj.typeName!=undefined){
                 // if(child.type.name=='FormError'){
                 //     if(form.apiError){
                 //         return <child.type  key={key} {...props}>
@@ -50,17 +53,18 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
                 //         </child.type>
                 //     }
                 // }
-                if(inputComponets.includes(child.type.name)){
-                    props.addPropsIfAllTrue({use:(input:any)=>form.setInput(props.name,input)},[child.type.name != 'Submit'])
+                if(inputComponents.includes(childObj.typeName)){
+                    props.addPropsIfAllTrue({use:(input:any)=>form.setInput(props.getProp('name'),input)},[childObj.typeName != 'Submit'])
 
                     props.addPropsIfAllTrue({fatherStyler:styler},[
                         styler!=undefined
                     ])
                     
-                    if(form.inputs!=undefined && child.type.name != 'Submit'){
+                    if(form.inputs!=undefined && childObj.typeName != 'Submit'){
                         //form.input[props.name].trigger!=setTriggers(form.inputs,props.name,children)
                         //console.log(form.input))
-                        props.addPropsIfAllTrue(setTriggers(form.inputs,props.name,children),[form.inputs[props.name].trigger!=setTriggers(form.inputs,props.name,children)])
+                        props.addProps(setTriggers(form.inputs,props.getProp('name')))
+                        // ,                            [form.inputs[props.name].trigger!=setTriggers(form.inputs,props.name,children)])
                         //props.addProps({triggers:})
                         // props.addProps({triggers:form.inputs.values().map((input,key)=>{
                         //     //return input.
@@ -69,33 +73,32 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
 
                     
 
-                    if(child.type.name == 'Submit'){
+                    if(childObj.typeName == 'Submit'){
                         props.addProps({disable:form.error})
                     }
 
                     //Previous
-                    if(props.previous!=undefined){
-                        props.addProps({previousInputs:props.previous.map((previou)=>{
+                    if(props.getProp('previous')!=undefined){
+                        props.addProps({previousInputs:props.getProp('previous').map((previou:string)=>{
                             if(form.inputs!=undefined){
                                 return form.inputs[previou]
                             }
                         })})
                     }
 
-                    if(initValues!=undefined && props.name!=undefined){
-                        props.addPropsIfExist({initValue:initValues[props.name]},initValues[props.name])
+                    if(initValues!=undefined && props.getProp('name')!=undefined){
+                        props.addPropsIfExist({initValue:initValues[props.getProp('name')]},initValues[props.getProp('name')])
                     }
                     
-                    return <child.type  key={key} {...props}>
-                        {props.children && props.children}
-                    </child.type>
+                    //OJO
+                    return <childObj.type  key={key} {...props}/>
                 }
             }
             else{
 
-                return <child.type  key={key} {...props}>
-                    {props.children && FormChildrenModifier(props.children,styler,form,initValues)}
-                </child.type>
+                return <childObj.type  key={key} {...props}>
+                    {props.getProp('children') && FormChildrenModifier(props.getProp('children'),styler,form,initValues)}
+                </childObj.type>
             }
         }
         else{

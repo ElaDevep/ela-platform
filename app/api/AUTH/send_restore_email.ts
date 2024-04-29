@@ -1,15 +1,15 @@
 'use server'
 
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { axiosAPI } from '../axiosAPI'
-import { error } from 'console'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { RestorePasswordInterface } from './types'
 
 export default async function send_restore_email(
     email:object
 ) {
-    let response:APIResponse
+    let response:APIResponse<RestorePasswordInterface> = {
+        status:undefined,
+        data:undefined
+    }
     await axiosAPI.post('/forgot-password',email)
     .then((res)=>{
         response = {

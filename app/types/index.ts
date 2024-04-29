@@ -1,6 +1,13 @@
 
 export class Props{
-    constructor(){}
+
+    constructor(){
+    }
+
+    getProp(prop:any){
+      //@ts-ignore
+      return this[prop]
+    }
     
     addProps(prop:object){
         Object.assign(this,prop)

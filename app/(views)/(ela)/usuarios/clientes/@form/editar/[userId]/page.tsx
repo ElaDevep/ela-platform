@@ -7,6 +7,7 @@ import UserForm from "../../../_components/UserForm/UserForm"
 import putUser from "../../../../../../../api/USERS/put_user"
 import { useRouter } from "next/navigation"
 import get_user from "@/app/api/USERS/get_user"
+import { UserInterface } from "@/app/api/USERS/types"
 
 
 export default function UserCreator({ params }: { params: { userId: string }}) {
@@ -26,9 +27,10 @@ export default function UserCreator({ params }: { params: { userId: string }}) {
     }
 
     const getUserInfo = async () =>{
-        const response = await get_user(params.userId)
+        const response:APIResponse<UserInterface> = await get_user(params.userId)
         if(response.status=='ok'){
-            setUser(response.data)
+            if(response.data)
+                setUser(response.data)
         }
     } 
 

@@ -2,7 +2,7 @@
 
 import { error } from "console"
 import { useEffect, useReducer, useRef, useState } from "react"
-import { ActionUseInputInterface, UseInputParamsInterface, toAcceptInterface} from "./types"
+import { ActionUseInputInterface, UseInputParamsInterface, toAcceptInterface} from "../types"
 
 class Input {
     value = ''
@@ -12,7 +12,9 @@ class Input {
     dependRestrict = false
     dependHide = false
     
-    constructor(){}
+    constructor(initValue:string|undefined){
+        this.value=(initValue!=undefined)?initValue:''
+    }
 
     setValue = (value:string) =>{
         this.value = value
@@ -58,27 +60,32 @@ class Input {
 
 
 const reducer = (state:object,action:ActionUseInputInterface) =>{
-    const input = Object.assign(new Input(),state)
+    const input = Object.assign(new Input(undefined),state)
 
     switch(action.type){
         case 'setName':
             break
         case 'setValue':
-            input.setValue(action.value)
+            if(action.value)
+                input.setValue(action.value)
             if(action.clicked)input.anyError()
             else input.setInitial()
             break
         case 'setRequireError':
-            input.setRequireError(action.error)
+            if(action.error)
+                input.setRequireError(action.error)
             break
         case 'setPatterError':
-            input.setPatterError(action.error)
+            if(action.error)
+                input.setPatterError(action.error)
             break
         case 'setDependRestrict':
-            input.setDependRestrict(action.error)
+            if(action.error)
+                input.setDependRestrict(action.error)
             break
         case 'setWithoutError':
-            input.withoutErrors(action.value)
+            if(action.value)
+                input.withoutErrors(action.value)
         case 'validateForced':
             input.anyError()
     }
@@ -93,9 +100,7 @@ const useInput = (
     let [clicked,setClick] = useState<boolean>()
     let [forced,setForced] = useState<boolean>(false)
     let [firstClick,setFirstClick] = useState<boolean>(false)
-    const [input,setInput] = useReducer(reducer,{
-        value:(params.initValue!=undefined)?params.initValue:''
-    })
+    const [input,setInput] = useReducer(reducer,new Input(params.initValue))
 
     const validateDependencies = (dependencies:any[]) => {
         const dependenciesValues = dependencies.map((dependence)=>{
@@ -106,22 +111,24 @@ const useInput = (
     }
 
     const validateErrors = (value:string) =>{
-        if(params.toAccept.pattern!=undefined){
-            const pattern = (params.toAccept.pattern)
+        if(params.toAccept){
+            if(params.toAccept.pattern!=undefined){
+                const pattern = (params.toAccept.pattern)
+                setInput({
+                    type:'setPatterError',
+                    error:!pattern.test(value)
+                })
+            }
+            if(params.toAccept.required!=undefined){
+                setInput({
+                    type:'setRequireError',
+                    error:(value=='' || value == undefined || /^\s*$/.test(value))
+                })
+            }
             setInput({
-                type:'setPatterError',
-                error:!pattern.test(value)
+                type:'validatedForced'
             })
         }
-        if(params.toAccept.required!=undefined){
-            setInput({
-                type:'setRequireError',
-                error:(value=='' || value == undefined || /^\s*$/.test(value))
-            })
-        }
-        setInput({
-            type:'validatedForced'
-        })
     }
 
     const setValue = (value:string) =>{
@@ -132,23 +139,25 @@ const useInput = (
                 }
             }
         }
-        if(params.toAccept.pattern==undefined && params.toAccept.required==undefined){
-            setInput({
-                type:'setWithoutError',
-                value:value
-        })
-        }
-        else{
+        if(params.toAccept)
+            if(params.toAccept.pattern==undefined && params.toAccept.required==undefined){
+                setInput({
+                    type:'setWithoutError',
+                    value:value
+                })
+            }
+        else
             setInput({
                 type:'setValue',
                 value:value,
                 clicked:firstClick
             }) 
-        }
+        
     }
 
 
     const setDependencies = () =>{
+        if(params.toAble)
         if(params.toAble.previous!=undefined){
             if(validateDependencies(params.toAble.previous)!=input.dependError){
                 if(params.toAble.previous!=undefined){
@@ -162,6 +171,7 @@ const useInput = (
     }
 
     const changeValue = () =>{
+        //@ts-ignore
         let value = inputRef.current.value
         setValue(value)
     }
@@ -178,7 +188,9 @@ const useInput = (
 
     useEffect(()=>{
         setValue(input.value)
-        if(inputRef.current!=undefined)inputRef.current.value = input.value
+        if(inputRef.current!=undefined)
+            //@ts-ignore
+            inputRef.current.value = input.value
     },[])
 
 

@@ -39,15 +39,18 @@ const useDevice = () =>{
             setDesk(true)
         }
         
-        setRelation(width/height)
+        if(width && height)
+            setRelation(width/height)
     },[])
 
     useEffect(()=>{
-        setRelation(width/height)
+        if(width && height)
+            setRelation(width/height)
     },[width,])
     
     useEffect(()=>{
-        setRelation(width/height)
+        if(width && height)
+            setRelation(width/height)
     },[height,])
 
 

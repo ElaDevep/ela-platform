@@ -38,8 +38,8 @@ export default function PasswordRestoreRequest() {
                     {emailSended &&
                         <div className={styler.sendMessage_container}>
                             <Frame
-                            src={"/svg/check.svg"}
-                            alt={"ela_logo"}
+                            src={check}
+                            alt={"check"}
                             className={styler.check_svg}
                             contain
                             />
