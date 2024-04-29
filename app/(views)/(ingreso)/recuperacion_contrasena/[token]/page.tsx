@@ -1,4 +1,3 @@
-'use client'
 
 import Frame from "@/app/components/frame/Frame";
 import styler from "./page.module.sass"
