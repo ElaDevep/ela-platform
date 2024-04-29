@@ -1,4 +1,4 @@
-'use client'
+
 
 //import { useEffect, useState } from "react"
 import styles from "./page.module.sass"
@@ -10,7 +10,7 @@ import get_user from "@/app/api/USERS/get_user"
 import { UserInterface } from "@/app/api/USERS/types"
 
 export function generateStaticParams(){
-    
+
 }
 
 
