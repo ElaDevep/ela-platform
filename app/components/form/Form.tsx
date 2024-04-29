@@ -26,7 +26,9 @@ const setTriggers = (formInputs:{[key:string]:any},inputName:string) =>{
 }
 
 const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: string]: string}|undefined,form:useFormReturnInterface,initValues:{readonly [key: string]: any}|undefined) =>{
-    return Children.toArray(children).map((child,key)=>{
+    return children
+    
+    Children.toArray(children).map((child,key)=>{
         let props = new Props()
         const inputComponents = ['TextField','Submit','PasswordField']
 
@@ -144,7 +146,7 @@ const Form: React.FC<FormInterface> = ({children,styler,initValues,onSubmit,clas
             onSubmit={(e)=>{form.onSubmit(e)}}        
         >
             {children}
-            {FormChildrenModifier(children,styler,form,initValues)}
+            {renderChildren}
             {form.apiError!='' && form.apiError!=undefined && 
             <p className={localStyler.apiError}>{form.apiError}</p>}
         </form>
