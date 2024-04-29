@@ -144,7 +144,7 @@ const Form: React.FC<FormInterface> = ({children,styler,initValues,onSubmit,clas
             onSubmit={(e)=>{form.onSubmit(e)}}        
         >
             {children}
-            {renderChildren}
+            {FormChildrenModifier(children,styler,form,initValues)}
             {form.apiError!='' && form.apiError!=undefined && 
             <p className={localStyler.apiError}>{form.apiError}</p>}
         </form>
