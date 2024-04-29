@@ -125,7 +125,6 @@ const Form: React.FC<FormInterface> = ({children,styler,initValues,onSubmit,clas
         setRenderChildren(FormChildrenModifier(children,styler,form,initValues))
     },[])
     
-
     // useEffect(()=>{
     //     for(let i in form.inputs){
     //         if(form.inputs[i].dependencies != undefined){
@@ -142,6 +141,7 @@ const Form: React.FC<FormInterface> = ({children,styler,initValues,onSubmit,clas
             className={MixStyles(className,localStyler.generalError_form)} 
             onSubmit={(e)=>{form.onSubmit(e)}}        
         >
+            {children}
             {renderChildren}
             {form.apiError!='' && form.apiError!=undefined && 
             <p className={localStyler.apiError}>{form.apiError}</p>}
