@@ -75,10 +75,6 @@ export default function LogIn() {
                     contain
                     />
                     <h2>Iniciar Sesión</h2>
-                    <form>
-                        <input type="text" />
-                        <PasswordField name={"password"} required label="Contraseña"/>
-                    </form>
                     <Form className={styler.logIn_form} onSubmit={LogInHandler} styler={styler} >
                         <TextField name={"email"} required label="Correo"/>
                         <PasswordField name={"password"} required label="Contraseña"/>
