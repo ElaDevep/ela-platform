@@ -41,13 +41,13 @@ export interface toAcceptInterface{
 }
 
 export interface UseInputParamsInterface{
-    initValue?:string|undefined,
-    toAccept?:toAcceptInterface,
-    toAble?:object,
-    toVisible?:object,
+    initValue?:string|undefined
+    toAccept?:toAcceptInterface
+    toAble?:object
+    toVisible?:object
     use?:(input:object)=>any
-    previous:string[]
-    hiders:string[],
+    previous:string[]|undefined
+    hiders:string[]|undefined
 }
 
 export interface ActionUseFormInterface{
