@@ -26,9 +26,16 @@ const setTriggers = (formInputs:{[key:string]:any},inputName:string) =>{
 }
 
 const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: string]: string}|undefined,form:useFormReturnInterface,initValues:{readonly [key: string]: any}|undefined) =>{
-    return children
     
-    Children.toArray(children).map((child,key)=>{
+    
+    
+    
+    
+    
+    
+    
+    
+    return Children.toArray(children).map((child,key)=>{
         let props = new Props()
         const inputComponents = ['TextField','Submit','PasswordField']
 
@@ -44,7 +51,9 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
 
         props.addProps({...childObj.props})
 
-        if(childObj.type!=undefined){
+        return child
+
+        if(false){
             console.log(':v')
             console.log(childObj)
             if(childObj.typeName!=undefined){
