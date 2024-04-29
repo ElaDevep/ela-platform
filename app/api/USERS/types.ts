@@ -6,5 +6,5 @@ export interface UserInterface{
     imgProfile?:string
     email?:string
     role?:string
-    mobile:number
+    mobile?:number
 }
