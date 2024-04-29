@@ -119,7 +119,7 @@ const Form: React.FC<FormInterface> = ({children,styler,initValues,onSubmit,clas
             {className:className})
         return props
     })
-    const [renderChildren,setRenderChildren] = useState<React.ReactNode>()
+    const [renderChildren,setRenderChildren] = useState<React.ReactNode>(FormChildrenModifier(children,styler,form,initValues))
 
     useEffect(()=>{
         setRenderChildren(FormChildrenModifier(children,styler,form,initValues))
