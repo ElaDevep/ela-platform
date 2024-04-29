@@ -159,7 +159,7 @@ const useInput = (
     const setDependencies = () =>{
         if(params.toAble)
         if(params.toAble.previous!=undefined){
-            if(validateDependencies(params.toAble.previous)!=input.dependError){
+            if(validateDependencies(params.toAble.previous)!=input.dependRestrict){
                 if(params.toAble.previous!=undefined){
                     setInput({
                         type:'setDependRestrict',
