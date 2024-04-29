@@ -43,7 +43,9 @@ export interface toAcceptInterface{
 export interface UseInputParamsInterface{
     initValue?:string|undefined
     toAccept?:toAcceptInterface
-    toAble?:object
+    toAble?:{
+        previous:Array<InputInterface>
+    }
     toVisible?:object
     use?:(input:object)=>any
     previous:string[]|undefined
