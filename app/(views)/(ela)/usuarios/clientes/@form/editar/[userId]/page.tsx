@@ -46,7 +46,3 @@ export default function UserCreator({ params }: { params: { userId: string }}) {
         }
     </>
 }
-
-export async function getStaticProps(){
-
-}
