@@ -12,16 +12,21 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePageContext } from "@/app/context/PageContex";
 import log_in from "@/ela-api/AUTH/log_in";
+import { useForm } from "react-hook-form";
+import { DevTool } from "@hookform/devtools"
 
 
 
 export default function LogIn() {
-    const [password,setPassword] = useState<string>()
     const [Regret,setRegret] = useState<Boolean|undefined>()
     const [frontProps,setFrontProps] = useProps((props)=>{
         props.addProps({className:styler.front_container})
         return props
     })
+
+    const form = useForm()
+
+    const {register,control} = form
 
     //@ts-ignore
     const {setUser,user} = usePageContext()
@@ -75,13 +80,16 @@ export default function LogIn() {
                     contain
                     />
                     <h2>Iniciar Sesión</h2>
-                    <Form className={styler.logIn_form} onSubmit={LogInHandler} styler={styler} >
+                    <form>
+                        <input type="text" {...register('name')}/>
+                    </form>
+                    {/* <Form className={styler.logIn_form} onSubmit={LogInHandler} styler={styler} >
                         <div></div>
                         <TextField name={"email"} required label="Correo"/>
                         <PasswordField name={"password"} required label="Contraseña"/>
                         <Submit>Ingresar</Submit>
-                        {/* <Link href={'/usuarios'} className={styler.asGuest_link}>Entrar como invitado</Link>*/}
-                    </Form>
+                        {/* <Link href={'/usuarios'} className={styler.asGuest_link}>Entrar como invitado</Link>}
+                    </Form> */}
                     {Regret &&
                     <Link href={'/recuperacion_contrasena'} className={styler.forgotPassword_link}>
                         ¿Has olvidado tu contraseña?
@@ -89,6 +97,7 @@ export default function LogIn() {
 
                 </div>
             </div>
+            <DevTool control={control}></DevTool>
         </Responsiver>
         
     );
