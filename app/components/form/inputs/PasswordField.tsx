@@ -1,32 +1,15 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import { TextInputInterface } from "../types"
-import useInput from "./useInput"
 import styler from '../Form.module.sass'
-import { Props } from "@/app/types"
-import MixStyles from "@/app/lib/functions/MixStyles"
+import close_lock from '@/public/svg/close_lock.svg'
+import open_lock from '@/public/svg/open_lock.svg'
+import { Frame } from "../../ela-components"
+import { TextInputT } from "../types"
 
 
 
-const PasswordField: React.FC<TextInputInterface> = ({name,label,placeholder,use,pattern,required,fatherStyler,className,initValue,previous,previousInputs,hiders,hidersInputs,requireWarn,patternWarn,triggers}) => {
-    const input= useInput({
-        toAccept:{
-            pattern:pattern,
-            required:required,
-        },
-        toAble:{
-            previous:previousInputs
-        },
-        toVisible:{
-            hiders:hidersInputs
-        },
-        initValue:initValue,
-        use:use,
-        previous:previous,
-        hiders:hiders
-    })
-
+const PasswordField: React.FC<TextInputT> = ({name,label,placeholder,useInput}) => {
     const [visible,setVisible] = useState<boolean>()
 
     const changeVisibility = (value:boolean) =>{
@@ -36,41 +19,25 @@ const PasswordField: React.FC<TextInputInterface> = ({name,label,placeholder,use
             setVisible(!visible)
     }
 
-
-    useEffect(()=>{
-        if(triggers!=undefined){
-            triggers.map((trigger)=>{
-                trigger()
-            })
-        }
-    },[input])
-
-    const props = new Props() 
-
-    props.addProps({...input.props})
-
-
     return <>
-        {/*@ts-ignore*/}
-        <div className={MixStyles(MixStyles('passwordfield',styler,fatherStyler),(input.patterError || input.requireError)&&MixStyles('textfield_error',styler,fatherStyler),MixStyles(className,fatherStyler))}>
+        <div className={styler.passwordField}>
             {label &&
-                <label htmlFor={name} className={(MixStyles('label',styler,fatherStyler))}>{label}{required&&<span>*</span>}</label>
+                <label htmlFor={name} className={styler.label} >{label}</label>
             }
-            <input type="password" name={name} placeholder={placeholder} {...props} className={(MixStyles('input',styler,fatherStyler))}/>
+            <input type="password" name={name} id={name} placeholder={placeholder} className={styler.input} {...useInput}/>
             
-            <img src={"/svg/"+(visible?'open':'close')+"_lock.svg"} className={styler.image_button} onMouseDown={()=>changeVisibility(true)} onMouseUp={()=>changeVisibility(false)} onDrag={()=>changeVisibility(false)}/>
-
-            <p className={styler.visiblePassword_text}>{visible && input.value}</p>
+            <Frame
+                src={visible?open_lock:close_lock} 
+                className={styler.image_button} 
+                alt={visible?'unlock':'lock'}
+                onMouseDown={()=>changeVisibility(true)} 
+                onMouseUp={()=>changeVisibility(false)} 
+                onDrag={()=>changeVisibility(false)}
+            />
             
+            <p className={styler.visiblePassword_text}>{visible && ':v'}</p>
+        
             
-            <p className={(MixStyles('error',styler,fatherStyler))}>
-            {(input.requireError)&&
-                "Este campo es requerido"
-            }
-            {(!input.requireError && patternWarn && input.patterError)&&
-                patternWarn
-            }
-            </p>
         </div>
     </>
 }

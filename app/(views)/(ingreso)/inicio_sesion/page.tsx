@@ -4,18 +4,20 @@ import Frame from "@/app/components/frame/Frame";
 import styler from "./page.module.sass"
 import ela_minilogo from "@/public/svg/logo_ela.svg"
 import ela_logo from "@/public/svg/logotipo_ela.svg"
-import { Form,TextField,Submit, PasswordField } from "@/ela-form"
 import {Responsiver,Button} from "@/ela-components";
 import MixStyles from "@/app/lib/functions/MixStyles";
 import { useProps } from "@/ela-hooks";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePageContext } from "@/app/context/PageContex";
 import log_in from "@/ela-api/AUTH/log_in";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools"
+import { Form,PasswordField,Submit,TextField } from "@/ela-form"
 
-
+type LogInFormData = {
+    email:string
+    password:string
+}
 
 export default function LogIn() {
     const [Regret,setRegret] = useState<Boolean|undefined>()
@@ -23,34 +25,24 @@ export default function LogIn() {
         props.addProps({className:styler.front_container})
         return props
     })
+    const LogInForm = useForm<LogInFormData>()
+    const {register,control} = LogInForm
 
-    const form = useForm()
-
-    const {register,control} = form
-
-    //@ts-ignore
-    const {setUser,user} = usePageContext()
-
-    const ScrollToSignIn = async () => {
+    const ScrollToSignIn = () => {
         setFrontProps({
             type:'Add',
             prop:{className:MixStyles(styler.front_container,styler.to_logIn)}
         })
     }
 
-    const LogInHandler = async(formData:object) =>{
+    const LogInHandler = async(formData:LogInFormData) =>{
         const response:APIResponse<string> = (await log_in(formData))
         if(response!=undefined){
             if(response.status=='error'){
                 setRegret(true)
             }
         }
-        return response
     }
-
-    useEffect(()=>{
-        console.log(user)
-    },[user])
 
     return (
         <Responsiver className={styler.verticalRelation} 
@@ -80,15 +72,10 @@ export default function LogIn() {
                     contain
                     />
                     <h2>Iniciar Sesión</h2>
-                    <form>
-                        <input type="text" {...register('name')}/>
-                    </form>
-                    <Form className={styler.logIn_form} onSubmit={LogInHandler} styler={styler} >
-                        <div></div>
-                        <TextField name={"email"} required label="Correo"/>
-                        <PasswordField name={"password"} required label="Contraseña"/>
-                        <Submit>Ingresar</Submit>
-                        {/* <Link href={'/usuarios'} className={styler.asGuest_link}>Entrar como invitado</Link>*/}
+                    <Form useForm={LogInForm} submit={LogInHandler} className={styler.logIn_form}>
+                        <TextField name='email' label="Correo" useInput={register('email')}/>
+                        <PasswordField name='password' label="Contraseña" useInput={register('password')}/>
+                        <Submit>Enviar</Submit>
                     </Form>
                     {Regret &&
                     <Link href={'/recuperacion_contrasena'} className={styler.forgotPassword_link}>

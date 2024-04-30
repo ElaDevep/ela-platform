@@ -6,7 +6,7 @@ import { useProps } from "@/app/hooks/ela-hooks";
 import { useEffect } from "react";
 import FrameT from "./types";
 
-const Frame: React.FC<FrameT> = ({className,contain,cover,fill,src,alt}) => {
+const Frame: React.FC<FrameT> = ({className,contain,cover,fill,src,alt,onClick,onDrag,onMouseDown,onMouseUp}) => {
     
 
     let imageProps = new Props()
@@ -25,7 +25,13 @@ const Frame: React.FC<FrameT> = ({className,contain,cover,fill,src,alt}) => {
     ])
 
     return(
-        <div className={MixStyles(styles.container,className)}>
+        <div 
+            className={MixStyles(styles.container,className)}
+            {...onClick && {onClick:onClick}}    
+            {...onDrag && {onDrag:onDrag}}    
+            {...onMouseDown && {onMouseDown:onMouseDown}}    
+            {...onMouseUp && {onMouseUp:onMouseUp}}    
+        >
             <div className={styles.filter}></div>
             <Image
             src = {src}

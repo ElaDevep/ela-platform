@@ -9,4 +9,8 @@ export default interface FrameT{
   cover?:boolean
   fill?:boolean
   placeholder?:'blur'|'none'|'loading'  
+  onMouseDown?:()=>any
+  onMouseUp?:()=>any
+  onDrag?:()=>any
+  onClick?:()=>any
 }

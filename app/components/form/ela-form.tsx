@@ -1,6 +1,6 @@
 import Form from "./Form";
+import PasswordField from "./inputs/PasswordField";
 import TextField from "./inputs/TextField";
 import Submit from "./inputs/Submit";
-import PasswordField from "./inputs/PasswordField";
 
-export {Form,TextField,Submit,PasswordField}
+export {Form,PasswordField,TextField,Submit}

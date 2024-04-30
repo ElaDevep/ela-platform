@@ -33,10 +33,6 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
         const childrenArray:React.ReactNode[] = Children.toArray(children)
 
         const childrenResult = childrenArray.map((child,index)=>{
-            //@ts-ignore
-            if(child.type.name!='Column'){
-                throw Error()
-            }
             return(
                 //@ts-ignore
                 <div className={styler.headers_columns} key={index} {...child.props}/>
@@ -51,10 +47,6 @@ const Table: React.FC<TableT> = ({children,className,endpoint,getCurrent}) => {
         const childrenArray:React.ReactNode[] = Children.toArray(children)
 
         const fields= childrenArray.map((child,index)=>{
-            //@ts-ignore
-            if(child.type.name!='Column'){
-                throw Error()
-            }
             //@ts-ignore
             return child.props.field
         })

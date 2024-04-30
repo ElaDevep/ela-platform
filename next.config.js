@@ -2,7 +2,7 @@
 const path = require('path')
 
 const nextConfig = {
-    //basePath: "/ela-platform.vercel.app",
+    //basePath: "/",
     //output: "export",
     // reactStrictMode: true,
     sassOptions: {
