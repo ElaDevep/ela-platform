@@ -6,25 +6,25 @@ import close_lock from '@/public/svg/close_lock.svg'
 import open_lock from '@/public/svg/open_lock.svg'
 import { Frame } from "../../ela-components"
 import { TextInputT } from "../types"
+import { Props } from "@/app/types"
+import MixStyles from "@/app/lib/functions/MixStyles"
 
 
 
-const PasswordField: React.FC<TextInputT> = ({name,label,placeholder,useInput}) => {
+const PasswordField: React.FC<TextInputT> = ({label,placeholder,useInput,errors,className}) => {
     const [visible,setVisible] = useState<boolean>()
+    const name = useInput.name
 
     const changeVisibility = (value:boolean) =>{
-        if(visible)
-            setTimeout(()=>setVisible(value),1000)
-        else
-            setVisible(!visible)
+        setVisible(!visible)
     }
 
     return <>
-        <div className={styler.passwordField}>
+        <div className={MixStyles(styler.passwordField,errors[name] && styler.errorInput,className)}>
             {label &&
-                <label htmlFor={name} className={styler.label} >{label}</label>
+                <label htmlFor={useInput.name} className={styler.label} >{label}</label>
             }
-            <input type="password" name={name} id={name} placeholder={placeholder} className={styler.input} {...useInput}/>
+            <input type={visible ? "text" :"password"} name={useInput.name} placeholder={placeholder} className={styler.input} {...useInput}/>
             
             <Frame
                 src={visible?open_lock:close_lock} 
@@ -34,10 +34,12 @@ const PasswordField: React.FC<TextInputT> = ({name,label,placeholder,useInput}) 
                 onMouseUp={()=>changeVisibility(false)} 
                 onDrag={()=>changeVisibility(false)}
             />
-            
-            <p className={styler.visiblePassword_text}>{visible && ':v'}</p>
-        
-            
+            {errors[useInput.name]&&
+                <>
+                {/*@ts-ignore*/}
+                <p>{errors[useInput.name]?.message}</p>
+                </>
+            }
         </div>
     </>
 }

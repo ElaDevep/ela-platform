@@ -1,4 +1,4 @@
-import { UseFormReturn } from "react-hook-form"
+import { FieldErrors, UseFormReturn } from "react-hook-form"
 
 //Form Interface
 export interface FormT{
@@ -10,12 +10,14 @@ export interface FormT{
 
 //Inputs Interfaces
 export interface TextInputT{
-    name:string
     label?:string
     placeholder?:string
     useInput:any
+    errors:FieldErrors<any>
+    className?:string
 }
 
 export interface SubmitT{
     children:React.ReactNode
+    className?:string
 }

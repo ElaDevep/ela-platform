@@ -26,7 +26,8 @@ export default function LogIn() {
         return props
     })
     const LogInForm = useForm<LogInFormData>()
-    const {register,control} = LogInForm
+    const {register,control,formState} = LogInForm
+    const {errors} = formState
 
     const ScrollToSignIn = () => {
         setFrontProps({
@@ -72,9 +73,32 @@ export default function LogIn() {
                     contain
                     />
                     <h2>Iniciar Sesión</h2>
-                    <Form useForm={LogInForm} submit={LogInHandler} className={styler.logIn_form}>
-                        <TextField name='email' label="Correo" useInput={register('email')}/>
-                        <PasswordField name='password' label="Contraseña" useInput={register('password')}/>
+                    <Form 
+                        useForm={LogInForm} 
+                        submit={LogInHandler} 
+                        className={MixStyles(styler.logIn_form)}
+                    >
+                        <TextField 
+                            label="Correo *" 
+                            useInput={register('email',{
+                                required:{
+                                    value:true,
+                                    message:'Este campo es requerido'
+                                }
+                            })} 
+                            errors={errors}
+                        />
+                        <PasswordField 
+                            label="Contraseña *" 
+                            useInput={register('password',{
+                                required:{
+                                    value:true,
+                                    message:'Este campo es requerido'
+                                }
+                            })} 
+                            errors={errors}
+                        />
+                        {Regret && <p className={styler.logError}>Correo o contraseña incorrectos</p>}
                         <Submit>Enviar</Submit>
                     </Form>
                     {Regret &&
