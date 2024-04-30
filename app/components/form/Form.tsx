@@ -50,7 +50,7 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
             console.log(':v')
             console.log(child)
             console.log(childObj)
-            if(childObj.typeName!=undefined){
+            if(childObj.type==''){
                 // if(child.type.name=='FormError'){
                 //     if(form.apiError){
                 //         return <child.type  key={key} {...props}>
