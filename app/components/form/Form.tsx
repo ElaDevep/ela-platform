@@ -38,7 +38,7 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
             //@ts-ignore
             type:child.type,
             //@ts-ignore
-            typeName:child.type.name
+            typeName:child.type && child.type.name
         }
 
         props.addProps({...childObj.props})

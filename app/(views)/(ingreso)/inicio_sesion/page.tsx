@@ -83,13 +83,13 @@ export default function LogIn() {
                     <form>
                         <input type="text" {...register('name')}/>
                     </form>
-                    {/* <Form className={styler.logIn_form} onSubmit={LogInHandler} styler={styler} >
+                    <Form className={styler.logIn_form} onSubmit={LogInHandler} styler={styler} >
                         <div></div>
                         <TextField name={"email"} required label="Correo"/>
                         <PasswordField name={"password"} required label="Contraseña"/>
                         <Submit>Ingresar</Submit>
-                        {/* <Link href={'/usuarios'} className={styler.asGuest_link}>Entrar como invitado</Link>}
-                    </Form> */}
+                        {/* <Link href={'/usuarios'} className={styler.asGuest_link}>Entrar como invitado</Link>*/}
+                    </Form>
                     {Regret &&
                     <Link href={'/recuperacion_contrasena'} className={styler.forgotPassword_link}>
                         ¿Has olvidado tu contraseña?
