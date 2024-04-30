@@ -1,6 +1,6 @@
 'use client'
 
-import { Children, FormEvent, ReactElement, useEffect, useState } from "react"
+import { Children, FormEvent, ReactElement, cloneElement, useEffect, useState } from "react"
 import { ChildOfForm, FormChildPropsInterface, FormInterface, useFormReturnInterface } from "./types"
 import useForm from "./useForm"
 import { Props } from "@/app/types"
@@ -94,9 +94,12 @@ const FormChildrenModifier = (children:React.ReactNode,styler:{readonly [key: st
                     if(initValues!=undefined && props.getProp('name')!=undefined){
                         props.addPropsIfExist({initValue:initValues[props.getProp('name')]},initValues[props.getProp('name')])
                     }
+
+                    props.addProps({key:key})
                     
                     //OJO
-                    return <childObj.type  key={key} {...props}/>
+                    //@ts-ignore
+                    return cloneElement(child,props)
                 }
             }
             else{
