@@ -38,6 +38,7 @@ export default function LogIn() {
 
     const LogInHandler = async(formData:LogInForm) =>{
         const response:APIResponse<string> = (await log_in(formData))
+        console.log(response)
         if(response!=undefined){
             if(response.status=='error'){
                 setRegret(true)
