@@ -13,6 +13,7 @@ export default async function log_in(
         status:undefined,
         data:undefined
     }
+    console.log(':v')
     await axiosAPI.post('/auth/login',userInfo)
     .then((res)=>{
         response = res.data
