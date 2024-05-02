@@ -49,11 +49,11 @@ export const PageProvider: React.FC<PageContextT> = (props,children) => {
     useEffect(()=>{
         if(user!=undefined){
             const roleAccessImport:RoleAccessInterface = roleAccess
-            if(user.role)
-            setAccess((roleAccessImport.roles[user.role]).map((access:string)=>{
-                //@ts-ignore
-                return roleAccess.views[access]
-            }))
+            // if(user.role)
+            // setAccess((roleAccessImport.roles[user.role]).map((access:string)=>{
+            //     //@ts-ignore
+            //     return roleAccess.views[access]
+            // }))
         }
     },[user])
     
