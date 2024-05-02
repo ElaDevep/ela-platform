@@ -11,7 +11,7 @@ export default async function log_in(
         status:undefined,
         data:undefined
     }
-    await axiosAPI.post('/auth/login',userInfo)
+    await axiosAPI.post('/auth/logi',userInfo)
     .then((res)=>{
         response = res.data
         if(response.data)

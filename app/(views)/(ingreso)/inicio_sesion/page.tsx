@@ -100,7 +100,7 @@ export default function LogIn() {
                             errors={errors}
                         />
                         {Regret && <p className={styler.logError}>Correo o contraseña incorrectos</p>}
-                        <Submit>Enviar</Submit>
+                        <Submit>Ingresar</Submit>
                     </Form>
                     {Regret &&
                     <Link href={'/recuperacion_contrasena'} className={styler.forgotPassword_link}>

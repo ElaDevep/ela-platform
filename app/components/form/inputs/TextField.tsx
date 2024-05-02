@@ -10,7 +10,7 @@ import MixStyles from "@/app/lib/functions/MixStyles"
 const TextField: React.FC<TextInputT> = ({label,placeholder,useInput,errors,className}) => {
     const name:string = useInput.name
 
-    console.log(useInput)
+    //console.log(useInput)
 
     return <>
         <div className={MixStyles(styler.textField,errors[name] && styler.errorInput,className)}>
