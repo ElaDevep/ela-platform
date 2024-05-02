@@ -53,13 +53,13 @@ export default function PasswordRestore({ params }: { params: { token: string } 
         }}>
             <div className={styler.front_container}>
                 <div className={styler.emailSubmit_container}>
-                    {/* <Frame
-                    src={ela_minilogo}
-                    alt={"ela_logo"}
-                    className={styler.minilogo_image}
+                    <Frame
+                        src={ela_minilogo}
+                        alt={"ela_logo"}
+                        className={styler.minilogo_image}
                     />
                     <h3>Recuperación de contraseña</h3>
-                    {userId == 'none' &&
+                    {/*{userId == 'none' &&
                         <div className={styler.tokenError_container}>
                             <h4>
                                 El link no es valido, solicita lo nuevamente <Link href={'/recuperacion_contrasena'}>aquí</Link>

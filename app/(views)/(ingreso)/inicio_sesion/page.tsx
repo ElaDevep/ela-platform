@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools"
 import { Form,PasswordField,Submit,TextField } from "@/ela-form"
 
-type LogInFormData = {
+type LogInForm = {
     email:string
     password:string
 }
@@ -25,8 +25,8 @@ export default function LogIn() {
         props.addProps({className:styler.front_container})
         return props
     })
-    const LogInForm = useForm<LogInFormData>()
-    const {register,control,formState} = LogInForm
+    const LogInForm = useForm<LogInForm>()
+    const {register,formState} = LogInForm
     const {errors} = formState
 
     const ScrollToSignIn = () => {
@@ -36,7 +36,7 @@ export default function LogIn() {
         })
     }
 
-    const LogInHandler = async(formData:LogInFormData) =>{
+    const LogInHandler = async(formData:LogInForm) =>{
         const response:APIResponse<string> = (await log_in(formData))
         if(response!=undefined){
             if(response.status=='error'){
@@ -108,7 +108,6 @@ export default function LogIn() {
 
                 </div>
             </div>
-            <DevTool control={control}></DevTool>
         </Responsiver>
         
     );

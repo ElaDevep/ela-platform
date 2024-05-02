@@ -22,7 +22,8 @@ export async function middleware(request: NextRequest) {
     const token = cookies().get('userToken')
     console.log(token)
     console.log(request.nextUrl.pathname)
-    if(request.nextUrl.pathname=='/inicio_sesion' || request.nextUrl.pathname=='/recuperacion_contrasena'){
+    if(request.nextUrl.pathname)
+    if(request.nextUrl.pathname=='/inicio_sesion' || request.nextUrl.pathname.startsWith('/recuperacion_contrasena')){
         if(token!=undefined){
             if(token.value!=''){
                 return NextResponse.redirect(new URL('/usuarios/clientes', request.url))
@@ -31,7 +32,6 @@ export async function middleware(request: NextRequest) {
     } 
     else{
         if(token==undefined){
-            console.log('/:1')
             return NextResponse.redirect(new URL('/inicio_sesion', request.url))
         }
     }

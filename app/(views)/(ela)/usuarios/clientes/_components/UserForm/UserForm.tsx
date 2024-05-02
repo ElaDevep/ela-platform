@@ -6,7 +6,7 @@ import styler from "./UserForm.module.sass"
 const UserForm: React.FC<UserFormT> = ({action,values}) => {
 
     return <>
-        <Form onSubmit={action} initValues={values} className={styler.userForm_form} styler={styler}>
+        {/* <Form onSubmit={action} initValues={values} className={styler.userForm_form} styler={styler}>
             <div className={styler.fields_container}>
                 <TextField name='name' label='Nombre'/>
                 <TextField name='lastname' label='Apellido'/>
@@ -18,7 +18,7 @@ const UserForm: React.FC<UserFormT> = ({action,values}) => {
             <div className={styler.submit_container}>
                 <Submit>{values? 'Actualizar': 'Crear'}</Submit>
             </div>
-        </Form>
+        </Form> */}
     </>
 }
 

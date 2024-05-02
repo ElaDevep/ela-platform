@@ -9,16 +9,33 @@ import { Form,TextField,Submit } from "@/ela-form"
 import {Responsiver} from "@/ela-components";
 import {  useState } from "react";
 import send_restore_email from "@/app/api/AUTH/send_restore_email";
+import { useForm } from "react-hook-form";
+
+
+
+export interface RestoreEmailForm{
+    email:string
+}
+
+
 
 export default function PasswordRestoreRequest() {
-    const [emailSended,setEmailSended] = useState<boolean>(false)
-    
-    const SubmitHandler = async(formData:object) =>{
+    const [emailSended,setEmailSended] = useState<boolean>()
+    const restoreForm = useForm()
+    const {register,formState} = restoreForm
+    const {errors} = formState
+
+
+
+    const SubmitEmailHandler = async(formData:object) =>{
         const response = await send_restore_email(formData)
+        console.log(response)
         if(response.status=='ok'){
             setEmailSended(true)
         }
-        return response
+        else{
+            setEmailSended(false)
+        }
     }
 
     return (
@@ -51,9 +68,22 @@ export default function PasswordRestoreRequest() {
                     <div className={styler.formSubmit_container}>
                         <h3>Recuperación de contraseña</h3>
                         <p>Ingresa tu correo, verificaremos tu estado en el sistema y de inmediato te enviaremos un código de recuperación.</p>
-                        <Form className={styler.emailSubmit_form} onSubmit={SubmitHandler} >
-                            <TextField name="email" placeholder="Correo electronico" required/>
+                        <Form className={styler.emailSubmit_form} submit={SubmitEmailHandler} useForm={restoreForm}>
+                            <TextField 
+                                placeholder="Correo electronico" 
+                                useInput={register('email',{
+                                    pattern:{
+                                        value:/^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                        message:'El formato del correo no es valido'
+                                    }
+                                })} 
+                                errors={errors}
+                            />
                             <Submit>Enviar</Submit>
+                            {emailSended!=undefined &&
+                            emailSended==false &&
+                                <p className={styler.sendError}>No se ha encontrado el correo</p>
+                            }
                         </Form>
                     </div>
                 </div>
